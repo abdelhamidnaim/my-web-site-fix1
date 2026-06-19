@@ -487,7 +487,7 @@ footer{background:var(--navy);color:white;padding:40px 28px 20px;margin-top:auto
 #authPane .pane-body,#profilePane .pane-body{padding:24px;}
 
 .product-detail-pane{width:min(520px,100vw);}
-.pd-slider{position:relative;width:100%;height:300px;overflow:hidden;background:#f8f9fa;border-radius:12px;}
+.pd-slider{position:relative;width:100%;height:300px;overflow:hidden;background:#f8f9fa;border-radius:12px;direction:ltr;}
 .pd-slides{display:flex;height:100%;transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);will-change:transform;}
 .pd-slide{min-width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:16px;flex-shrink:0;}
 .pd-slide img{max-width:90%;max-height:90%;object-fit:contain;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.06);}
@@ -532,18 +532,25 @@ footer{background:var(--navy);color:white;padding:40px 28px 20px;margin-top:auto
 .pd-rel-price s{color:#b0b8c4;font-weight:600;font-size:11px;margin-right:5px;}
 
 @media (min-width: 901px){
-  #productPane.product-detail-pane{top:50% !important;right:auto !important;left:50% !important;width:min(1000px,92vw) !important;height:auto !important;max-height:90vh !important;border:none !important;border-radius:20px !important;box-shadow:0 30px 90px rgba(15,23,42,.45) !important;transform:translate(-50%,-46%) scale(.96) !important;opacity:0;visibility:hidden;transition:opacity .35s ease,transform .4s cubic-bezier(.34,1.25,.5,1),visibility .35s !important;}
-  #productPane.product-detail-pane.active{transform:translate(-50%,-50%) scale(1) !important;opacity:1;visibility:visible;}
-  #productPane .pane-body{display:grid !important;grid-template-columns:1fr 1.1fr;grid-template-rows:auto auto auto;column-gap:24px;row-gap:6px;padding:20px 24px 8px !important;align-content:start;}
-  #productPane .pd-slider{grid-column:1;grid-row:1;height:340px !important;border-radius:16px;}
-  #productPane .pd-thumbs{grid-column:1;grid-row:2;margin-top:4px;padding:8px 6px;min-height:60px;background:transparent;border-bottom:none;}
-  #productPane .pd-info{grid-column:2;grid-row:1 / span 2;padding:0 4px 0 0 !important;}
-  #productPane .pd-name{font-size:20px !important;line-height:1.4;}
-  #productPane .pd-price .pd-now{font-size:28px !important;}
-  #productPane .pd-related{grid-column:1 / -1;grid-row:3;margin-top:12px;padding-top:12px;border-top:1px solid #e2e8f0;background:transparent;}
-  #productPane .pd-rel-card{min-width:150px;}
-  #productPane .pane-head{border-radius:20px 20px 0 0;}
-  .pd-slide img{max-width:85% !important;max-height:85% !important;}
+  #productPane.product-detail-pane{top:2.5vh !important;bottom:2.5vh !important;left:2vw !important;right:2vw !important;width:auto !important;height:auto !important;max-height:none !important;border:none !important;border-radius:18px !important;box-shadow:0 30px 90px rgba(15,23,42,.45) !important;transform:scale(.97) !important;opacity:0;visibility:hidden;transition:opacity .3s ease,transform .38s cubic-bezier(.34,1.2,.5,1),visibility .3s !important;}
+  #productPane.product-detail-pane.active{transform:scale(1) !important;opacity:1;visibility:visible;}
+  #productPane .pane-body{display:flex !important;flex-wrap:wrap;align-items:flex-start;gap:8px 40px;padding:28px 38px 16px !important;}
+  #productPane .pd-gallery{flex:1 1 52%;min-width:0;}
+  #productPane .pd-slider{height:min(54vh,560px) !important;border-radius:18px;}
+  #productPane .pd-thumbs{margin-top:12px;padding:4px 2px;min-height:auto;background:transparent;border-bottom:none;justify-content:flex-start;gap:12px;}
+  #productPane .pd-thumb{width:84px;height:84px;}
+  #productPane .pd-info{flex:1 1 40%;min-width:0;padding:8px 2px 0 0 !important;}
+  #productPane .pd-cat{font-size:13px !important;}
+  #productPane .pd-name{font-size:25px !important;line-height:1.35;margin-bottom:14px;}
+  #productPane .pd-price .pd-now{font-size:36px !important;}
+  #productPane .pd-related{flex:1 1 100%;margin-top:22px;padding-top:18px;border-top:1px solid #e2e8f0;background:transparent;}
+  #productPane .pd-related-title{font-size:18px !important;margin-bottom:16px;}
+  #productPane .pd-rel-card{min-width:200px;}
+  #productPane .pd-rel-img{height:130px;}
+  #productPane .pd-rel-name{font-size:13px;}
+  #productPane .pd-rel-price{font-size:15px;}
+  #productPane .pane-head{border-radius:18px 18px 0 0;}
+  #productPane .pd-slide img{max-width:97% !important;max-height:97% !important;}
 }
 @media (max-width: 480px){
   .pd-slider{height:220px !important;}
@@ -604,11 +611,33 @@ footer{background:linear-gradient(160deg,#0f172a 0%,#1e3a8a 60%,#0f172a 100%) !i
   .trust-inner{grid-template-columns:1fr 1fr !important;width:100% !important;}
   .trust-item{padding:12px 8px !important;gap:8px !important;}
   .sub-grid{grid-template-columns:repeat(2,1fr) !important;gap:10px !important;width:100% !important;}
-  .sub-list{grid-template-columns:1fr !important;gap:12px !important;width:100% !important;}
   .product-card{width:100% !important;max-width:100% !important;}
-  
-  /* ── المنتجات الأفقية في الهاتف تصبح عمودية ── */
-  .card-list-style{flex-direction:column !important;min-height:auto !important;}
+
+  /* ── الصف السفلي: تمرير أفقي (نمط أمازون) — في الهاتف فقط ── */
+  .sub-list{
+    display:flex !important;
+    grid-template-columns:none !important;
+    flex-wrap:nowrap !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    gap:12px !important;
+    width:100% !important;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    padding:2px 2px 12px !important;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+  }
+  .sub-list::-webkit-scrollbar{display:none;}
+  .sub-list .card-list-style{
+    flex:0 0 76% !important;
+    width:76% !important;
+    min-width:76% !important;
+    max-width:300px !important;
+    scroll-snap-align:start;
+    flex-direction:column !important;
+    min-height:auto !important;
+  }
   .card-list-img{width:100% !important;min-width:100% !important;max-width:100% !important;height:200px !important;min-height:200px !important;border-left:none !important;border-bottom:1px solid var(--border);padding:16px !important;}
   .card-list-body{padding:14px 16px !important;}
   .card-list-body .card-name{font-size:15px !important;}
@@ -628,11 +657,58 @@ footer{background:linear-gradient(160deg,#0f172a 0%,#1e3a8a 60%,#0f172a 100%) !i
   .sec-sub{font-size:12px !important;}
   .sec-pill{font-size:11px !important;padding:4px 12px !important;}
 }
+
+/* ── مبدّل اللغة (Language switcher) ── */
+.lang-switch{position:relative;flex-shrink:0;}
+.lang-btn{display:flex;align-items:center;gap:6px;height:40px;padding:0 12px;border:2px solid var(--orange-mid);background:var(--orange-soft);border-radius:50px;cursor:pointer;font-family:'Cairo',Arial,sans-serif;font-weight:800;font-size:13px;color:var(--navy);transition:all .2s;}
+.lang-btn:hover{border-color:var(--orange);background:#fff;}
+.lang-btn .lang-flag{font-size:18px;line-height:1;display:inline-flex;}
+.flag-svg{width:21px;height:14px;border-radius:3px;display:inline-block;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.10);}
+.lang-btn .lang-code{letter-spacing:.5px;}
+.lang-btn .lang-caret{font-size:10px;color:var(--text-light);transition:transform .25s;}
+.lang-switch.open .lang-btn .lang-caret{transform:rotate(180deg);}
+.lang-menu{position:absolute;top:48px;min-width:175px;background:#fff;border:1.5px solid var(--border);border-radius:12px;box-shadow:var(--shadow-lg);padding:6px;opacity:0;visibility:hidden;transform:translateY(-8px);transition:all .2s ease;z-index:1200;}
+html[dir="rtl"] .lang-menu{left:0;}
+html[dir="ltr"] .lang-menu{right:0;}
+.lang-switch.open .lang-menu{opacity:1;visibility:visible;transform:translateY(0);}
+.lang-opt{display:flex;align-items:center;gap:10px;width:100%;padding:9px 12px;border:none;background:none;border-radius:8px;cursor:pointer;font-family:'Cairo',Arial,sans-serif;font-weight:700;font-size:13.5px;color:var(--navy);text-align:start;transition:background .15s;}
+.lang-opt:hover{background:var(--orange-soft);}
+.lang-opt.active{background:var(--orange);color:#fff;}
+.lang-opt .lang-flag{font-size:19px;line-height:1;display:inline-flex;}
+.lang-opt .flag-svg{width:24px;height:16px;}
+.lang-opt .opt-check{margin-inline-start:auto;font-size:12px;opacity:0;}
+.lang-opt.active .opt-check{opacity:1;}
+@media (max-width:480px){
+  .lang-btn{padding:0 9px;height:38px;gap:4px;}
+  .lang-btn .lang-code{display:none;}
+  .lang-menu{min-width:160px;}
+}
+
+/* ── شريط إشهاري بين صفّي المنتجات (Promo banner) ── */
+.promo-banner{position:relative;overflow:hidden;margin:34px 0;padding:26px 30px;border-radius:18px;display:flex;align-items:center;justify-content:space-between;gap:22px;background:linear-gradient(115deg,#0f172a 0%,#1e293b 55%,#243456 100%);box-shadow:0 14px 34px rgba(15,23,42,.3);}
+.promo-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 88% 18%,rgba(59,130,246,.40),transparent 44%);pointer-events:none;}
+.promo-deco{position:absolute;inset-inline-end:20px;top:50%;transform:translateY(-50%);font-size:118px;color:rgba(255,255,255,.05);z-index:1;pointer-events:none;}
+.promo-left{position:relative;z-index:2;display:flex;align-items:center;gap:18px;min-width:0;}
+.promo-ic{flex-shrink:0;width:62px;height:62px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:27px;color:#fff;background:linear-gradient(135deg,#1a56db,#3b82f6);box-shadow:0 8px 20px rgba(26,86,219,.55);}
+.promo-text{min-width:0;}
+.promo-tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.4px;color:#bfdbfe;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);padding:3px 11px;border-radius:50px;margin-bottom:8px;}
+.promo-text h3{margin:0 0 5px;color:#fff;font-size:21px;font-weight:800;line-height:1.3;}
+.promo-text p{margin:0;color:rgba(255,255,255,.78);font-size:13.5px;line-height:1.5;}
+.promo-cta{position:relative;z-index:2;flex-shrink:0;display:flex;align-items:center;gap:8px;background:#fff;color:var(--navy);border:none;border-radius:50px;padding:13px 26px;font-family:'Cairo',Arial,sans-serif;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 7px 18px rgba(0,0,0,.22);transition:transform .2s,box-shadow .2s;}
+.promo-cta:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(0,0,0,.3);}
+.promo-cta i{color:#1a56db;}
+@media (max-width:480px){
+  .promo-banner{flex-direction:column;text-align:center;align-items:center;padding:24px 18px;gap:16px;margin:24px 0;border-radius:16px;}
+  .promo-left{flex-direction:column;gap:13px;}
+  .promo-deco{font-size:92px;inset-inline-end:50%;transform:translate(50%,-50%);}
+  .promo-text h3{font-size:18px;}
+  .promo-cta{width:100%;justify-content:center;}
+}
 </style>
 </head>
 <body>
 
-<div class="top-bar">🚚 <b>توصيل مجاني</b> لجميع الطلبات في كل أرجاء المغرب &nbsp;|&nbsp; الدفع عند الاستلام ✓</div>
+<div class="top-bar" data-i18n="topbar">🚚 <b>توصيل مجاني</b> لجميع الطلبات في كل أرجاء المغرب &nbsp;|&nbsp; الدفع عند الاستلام ✓</div>
 
 <header>
   <nav class="navbar">
@@ -640,14 +716,22 @@ footer{background:linear-gradient(160deg,#0f172a 0%,#1e3a8a 60%,#0f172a 100%) !i
       <div class="logo-box">N</div>
       <div>
         <div class="logo-name">NAIM <span>MARKET</span></div>
-        <div class="logo-sub">تقنية بلا حدود</div>
+        <div class="logo-sub" data-i18n="logo.sub">تقنية بلا حدود</div>
       </div>
     </a>
     <div class="search-bar">
-      <input type="text" placeholder="ابحث عن منتج، ماركة أو فئة...">
+      <input type="text" data-i18n-ph="search.ph" placeholder="ابحث عن منتج، ماركة أو فئة...">
       <button class="search-btn"><i class="fas fa-search"></i></button>
     </div>
     <div class="nav-actions">
+      <div class="lang-switch" id="langSwitch">
+        <button class="lang-btn" id="langBtn" onclick="toggleLangMenu(event)" aria-label="Language">
+          <span class="lang-flag" id="langFlag"></span>
+          <span class="lang-code" id="langCode">AR</span>
+          <i class="fas fa-chevron-down lang-caret"></i>
+        </button>
+        <div class="lang-menu" id="langMenu"></div>
+      </div>
       <button class="nav-icon-btn user-ic" id="accountBtn" onclick="openAuth()" title="تسجيل الدخول">
         <i class="fas fa-user" id="accountIcon"></i>
         <span class="btn-label" id="accountBtnText"></span>
@@ -669,10 +753,10 @@ footer{background:linear-gradient(160deg,#0f172a 0%,#1e3a8a 60%,#0f172a 100%) !i
 
 <div class="trust-strip">
   <div class="trust-inner">
-    <div class="trust-item"><div class="trust-icon"><i class="fas fa-shield-alt"></i></div><div><div class="trust-title">ضمان الجودة</div><div class="trust-desc">منتجات أصلية 100%</div></div></div>
-    <div class="trust-item"><div class="trust-icon"><i class="fas fa-truck"></i></div><div><div class="trust-title">توصيل مجاني</div><div class="trust-desc">لجميع الطلبات في المغرب</div></div></div>
-    <div class="trust-item"><div class="trust-icon"><i class="fas fa-money-bill-wave"></i></div><div><div class="trust-title">كاش عند الاستلام</div><div class="trust-desc">ادفع عند استلام طلبك</div></div></div>
-    <div class="trust-item"><div class="trust-icon"><i class="fas fa-headset"></i></div><div><div class="trust-title">دعم 7/7</div><div class="trust-desc">نحن هنا دائماً لمساعدتك</div></div></div>
+    <div class="trust-item"><div class="trust-icon"><i class="fas fa-shield-alt"></i></div><div><div class="trust-title" data-i18n="trust.1t">ضمان الجودة</div><div class="trust-desc" data-i18n="trust.1d">منتجات أصلية 100%</div></div></div>
+    <div class="trust-item"><div class="trust-icon"><i class="fas fa-truck"></i></div><div><div class="trust-title" data-i18n="trust.2t">توصيل مجاني</div><div class="trust-desc" data-i18n="trust.2d">لجميع الطلبات في المغرب</div></div></div>
+    <div class="trust-item"><div class="trust-icon"><i class="fas fa-money-bill-wave"></i></div><div><div class="trust-title" data-i18n="trust.3t">كاش عند الاستلام</div><div class="trust-desc" data-i18n="trust.3d">ادفع عند استلام طلبك</div></div></div>
+    <div class="trust-item"><div class="trust-icon"><i class="fas fa-headset"></i></div><div><div class="trust-title" data-i18n="trust.4t">دعم 7/7</div><div class="trust-desc" data-i18n="trust.4d">نحن هنا دائماً لمساعدتك</div></div></div>
   </div>
 </div>
 
@@ -681,11 +765,11 @@ footer{background:linear-gradient(160deg,#0f172a 0%,#1e3a8a 60%,#0f172a 100%) !i
     <div class="sec-left">
       <div class="sec-bar"></div>
       <div>
-        <div class="sec-title">🛒 منتجاتنا المميزة</div>
-        <div class="sec-sub">أحدث التقنيات بأفضل الأسعار في المغرب</div>
+        <div class="sec-title" data-i18n="sec.title">🛒 منتجاتنا المميزة</div>
+        <div class="sec-sub" data-i18n="sec.sub">أحدث التقنيات بأفضل الأسعار في المغرب</div>
       </div>
     </div>
-    <span class="sec-pill">🔥 عروض حصرية</span>
+    <span class="sec-pill" data-i18n="sec.pill">🔥 عروض حصرية</span>
   </div>
   <div class="products-grid" id="productsGrid"></div>
 </section>
@@ -695,7 +779,7 @@ footer{background:linear-gradient(160deg,#0f172a 0%,#1e3a8a 60%,#0f172a 100%) !i
     <div class="footer-top">
       <div class="footer-brand">
         <span class="logo-name">NAIM <span>MARKET</span></span>
-        <p>متجرك الإلكتروني الأول للأجهزة والإكسسوارات التقنية في المغرب. منتجات أصلية بأسعار لا تُنافَس، توصيل سريع لكل أرجاء المملكة.</p>
+        <p data-i18n="foot.about">متجرك الإلكتروني الأول للأجهزة والإكسسوارات التقنية في المغرب. منتجات أصلية بأسعار لا تُنافَس، توصيل سريع لكل أرجاء المملكة.</p>
         <div class="footer-social">
           <a class="social-btn" href="#"><i class="fab fa-facebook-f"></i></a>
           <a class="social-btn" href="https://www.instagram.com/ab.delhamid18?igsh=MXJwOXlhYnFrZ3ozbA==" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -704,23 +788,23 @@ footer{background:linear-gradient(160deg,#0f172a 0%,#1e3a8a 60%,#0f172a 100%) !i
         </div>
       </div>
       <div class="footer-col">
-        <h4>الرئيسية</h4>
-        <ul><li><a href="#">الصفحة الرئيسية</a></li><li><a href="#">المنتجات</a></li><li><a href="#">العروض</a></li><li><a href="#">المدونة</a></li></ul>
+        <h4 data-i18n="foot.col1">الرئيسية</h4>
+        <ul><li><a href="#" data-i18n="foot.home">الصفحة الرئيسية</a></li><li><a href="#" data-i18n="foot.products">المنتجات</a></li><li><a href="#" data-i18n="foot.offers">العروض</a></li><li><a href="#" data-i18n="foot.blog">المدونة</a></li></ul>
       </div>
       <div class="footer-col">
-        <h4>سياسات المتجر</h4>
-        <ul><li><a href="#">سياسة الإرجاع</a></li><li><a href="#">شروط الاستخدام</a></li><li><a href="#">سياسة الخصوصية</a></li><li><a href="#">الضمان</a></li></ul>
+        <h4 data-i18n="foot.col2">سياسات المتجر</h4>
+        <ul><li><a href="#" data-i18n="foot.return">سياسة الإرجاع</a></li><li><a href="#" data-i18n="foot.terms">شروط الاستخدام</a></li><li><a href="#" data-i18n="foot.privacy">سياسة الخصوصية</a></li><li><a href="#" data-i18n="foot.warranty">الضمان</a></li></ul>
       </div>
       <div class="footer-col">
-        <h4>تواصل معنا</h4>
-        <ul><li><a href="https://wa.me/212687155245" target="_blank"><i class="fab fa-whatsapp"></i> واتساب</a></li><li><a href="#"><i class="fas fa-envelope"></i> البريد الإلكتروني</a></li><li><a href="#"><i class="fas fa-map-marker-alt"></i> الموقع</a></li><li><a href="#"><i class="fas fa-phone"></i> الهاتف</a></li></ul>
+        <h4 data-i18n="foot.col3">تواصل معنا</h4>
+        <ul><li><a href="https://wa.me/212687155245" target="_blank" data-i18n="foot.wa"><i class="fab fa-whatsapp"></i> واتساب</a></li><li><a href="#" data-i18n="foot.email"><i class="fas fa-envelope"></i> البريد الإلكتروني</a></li><li><a href="#" data-i18n="foot.location"><i class="fas fa-map-marker-alt"></i> الموقع</a></li><li><a href="#" data-i18n="foot.phone"><i class="fas fa-phone"></i> الهاتف</a></li></ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© NAIM MARKET 2025 · جميع الحقوق محفوظة · تقنية بلا حدود - المغرب</p>
+      <p data-i18n="foot.copy">© NAIM MARKET 2025 · جميع الحقوق محفوظة · تقنية بلا حدود - المغرب</p>
       <div class="footer-badges">
-        <div class="foot-badge"><i class="fas fa-truck"></i> توصيل لكل المغرب</div>
-        <div class="foot-badge"><i class="fas fa-money-bill-wave"></i> كاش عند الاستلام</div>
+        <div class="foot-badge" data-i18n="foot.b1"><i class="fas fa-truck"></i> توصيل لكل المغرب</div>
+        <div class="foot-badge" data-i18n="foot.b2"><i class="fas fa-money-bill-wave"></i> كاش عند الاستلام</div>
       </div>
     </div>
   </div>
@@ -730,76 +814,77 @@ footer{background:linear-gradient(160deg,#0f172a 0%,#1e3a8a 60%,#0f172a 100%) !i
 <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
 <div class="side-pane" id="cartPane">
-  <div class="pane-head"><h2><i class="fas fa-shopping-cart" style="color:var(--orange);margin-left:8px"></i> سلة التسوق</h2><button class="pane-close" onclick="closeAll()"><i class="fas fa-times"></i></button></div>
+  <div class="pane-head"><h2 data-i18n="cart.title"><i class="fas fa-shopping-cart" style="color:var(--orange);margin-inline-end:8px"></i> سلة التسوق</h2><button class="pane-close" onclick="closeAll()"><i class="fas fa-times"></i></button></div>
   <div class="pane-body" id="cartBody"></div>
   <div class="pane-footer" id="cartFooter" style="display:none">
-    <div class="total-row"><span>المجموع الكلي</span><strong><em>MAD</em><span id="cartTotal">0</span></strong></div>
-    <button class="btn-checkout" onclick="openCheckout()"><i class="fas fa-lock"></i> إتمام الطلب</button>
-    <button class="btn-back" onclick="closeAll()">متابعة التسوق</button>
+    <div class="total-row"><span data-i18n="cart.total">المجموع الكلي</span><strong><em>MAD</em><span id="cartTotal">0</span></strong></div>
+    <button class="btn-checkout" onclick="openCheckout()" data-i18n="cart.checkout"><i class="fas fa-lock"></i> إتمام الطلب</button>
+    <button class="btn-back" onclick="closeAll()" data-i18n="cart.continue">متابعة التسوق</button>
   </div>
 </div>
 
 <div class="side-pane checkout-pane" id="checkoutPane">
-  <div class="pane-head"><h2><i class="fas fa-clipboard-list" style="color:var(--orange);margin-left:8px"></i> إتمام الطلب</h2><button class="pane-close" onclick="closeAll()"><i class="fas fa-times"></i></button></div>
+  <div class="pane-head"><h2 data-i18n="co.title"><i class="fas fa-clipboard-list" style="color:var(--orange);margin-inline-end:8px"></i> إتمام الطلب</h2><button class="pane-close" onclick="closeAll()"><i class="fas fa-times"></i></button></div>
   <div class="pane-body">
-    <div class="form-block-title"><i class="fas fa-user"></i> معلومات التوصيل</div>
-    <div class="form-row"><div class="form-group"><label>الاسم الكامل</label><input type="text" placeholder="محمد علي"></div><div class="form-group"><label>رقم الهاتف</label><input type="tel" placeholder="06 XX XX XX XX"></div></div>
-    <div class="form-group"><label>المدينة</label><select><option>اختر مدينتك</option><option>الدار البيضاء</option><option>الرباط</option><option>مراكش</option><option>فاس</option><option>طنجة</option><option>أكادير</option><option>مكناس</option><option>وجدة</option><option>المحمدية</option><option>أخرى</option></select></div>
-    <div class="form-group"><label>العنوان التفصيلي</label><input type="text" placeholder="الحي، الشارع، رقم المنزل..."></div>
-    <div class="form-block-title"><i class="fas fa-credit-card"></i> طريقة الدفع</div>
-    <div class="radio-group"><div class="radio-opt selected" onclick="selectPay(this)"><i class="fas fa-money-bill-wave"></i> كاش عند الاستلام</div><div class="radio-opt" onclick="selectPay(this)"><i class="fas fa-credit-card"></i> بطاقة بنكية</div></div>
-    <div style="margin-top:20px"><div class="total-row"><span>المجموع</span><strong><em>MAD</em><span id="checkTotal">0</span></strong></div></div>
+    <div class="form-block-title" data-i18n="co.delivery"><i class="fas fa-user"></i> معلومات التوصيل</div>
+    <div class="form-row"><div class="form-group"><label data-i18n="co.name">الاسم الكامل</label><input type="text" data-i18n-ph="co.namePh" placeholder="محمد علي"></div><div class="form-group"><label data-i18n="co.phone">رقم الهاتف</label><input type="tel" placeholder="06 XX XX XX XX"></div></div>
+    <div class="form-group"><label data-i18n="co.city">المدينة</label><select><option data-i18n="city.choose">اختر مدينتك</option><option data-i18n="city.casa">الدار البيضاء</option><option data-i18n="city.rabat">الرباط</option><option data-i18n="city.marrakech">مراكش</option><option data-i18n="city.fes">فاس</option><option data-i18n="city.tanger">طنجة</option><option data-i18n="city.agadir">أكادير</option><option data-i18n="city.meknes">مكناس</option><option data-i18n="city.oujda">وجدة</option><option data-i18n="city.mohammedia">المحمدية</option><option data-i18n="city.other">أخرى</option></select></div>
+    <div class="form-group"><label data-i18n="co.address">العنوان التفصيلي</label><input type="text" data-i18n-ph="co.addressPh" placeholder="الحي، الشارع، رقم المنزل..."></div>
+    <div class="form-block-title" data-i18n="co.payment"><i class="fas fa-credit-card"></i> طريقة الدفع</div>
+    <div class="radio-group"><div class="radio-opt selected" onclick="selectPay(this)" data-i18n="co.cod"><i class="fas fa-money-bill-wave"></i> كاش عند الاستلام</div><div class="radio-opt" onclick="selectPay(this)" data-i18n="co.card"><i class="fas fa-credit-card"></i> بطاقة بنكية</div></div>
+    <div style="margin-top:20px"><div class="total-row"><span data-i18n="co.total">المجموع</span><strong><em>MAD</em><span id="checkTotal">0</span></strong></div></div>
   </div>
   <div class="pane-footer">
-    <button class="btn-checkout" onclick="confirmOrder()"><i class="fas fa-check-circle"></i> تأكيد الطلب</button>
-    <button class="btn-back" onclick="openCart()"><i class="fas fa-arrow-right"></i> العودة للسلة</button>
+    <button class="btn-checkout" onclick="confirmOrder()" data-i18n="co.confirm"><i class="fas fa-check-circle"></i> تأكيد الطلب</button>
+    <button class="btn-back" onclick="openCart()" data-i18n="co.back"><i class="fas fa-arrow-right"></i> العودة للسلة</button>
   </div>
 </div>
 
 <div class="side-pane" id="authPane">
-  <div class="pane-head"><h2 id="authPaneTitle"><i class="fas fa-user-circle" style="color:#1a56db;margin-left:8px"></i> تسجيل الدخول</h2><button class="pane-close" onclick="closeAll()"><i class="fas fa-times"></i></button></div>
+  <div class="pane-head"><h2 id="authPaneTitle" data-i18n="auth.title"><i class="fas fa-user-circle" style="color:#1a56db;margin-inline-end:8px"></i> تسجيل الدخول</h2><button class="pane-close" onclick="closeAll()"><i class="fas fa-times"></i></button></div>
   <div class="pane-body">
-    <div class="auth-tabs"><div class="auth-tab active" onclick="switchTab('login')">دخول</div><div class="auth-tab" onclick="switchTab('register')">حساب جديد</div></div>
+    <div class="auth-tabs"><div class="auth-tab active" onclick="switchTab('login')" data-i18n="auth.tabLogin">دخول</div><div class="auth-tab" onclick="switchTab('register')" data-i18n="auth.tabReg">حساب جديد</div></div>
     <div class="auth-panel active" id="loginPanel">
-      <div class="form-group"><label>البريد الإلكتروني</label><div class="input-icon-wrap"><i class="fas fa-envelope input-icon"></i><input type="email" id="loginEmail" placeholder="example@email.com"></div></div>
-      <div class="form-group"><label>كلمة المرور</label><div class="input-icon-wrap"><i class="fas fa-lock input-icon"></i><input type="password" id="loginPass" placeholder="••••••••"><button class="toggle-pass" onclick="togglePass('loginPass',this)"><i class="fas fa-eye"></i></button></div><div class="err-msg" id="loginErr">البريد أو كلمة المرور غير صحيحة</div></div>
-      <button class="btn-checkout" style="margin-top:8px" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> دخول</button>
-      <div class="auth-divider">أو</div>
-      <a href="https://www.instagram.com/ab.delhamid18?igsh=MXJwOXlhYnFrZ3ozbA==" target="_blank" class="social-login ig"><i class="fab fa-instagram"></i> تابعنا على Instagram @ab.delhamid18</a>
+      <div class="form-group"><label data-i18n="auth.email">البريد الإلكتروني</label><div class="input-icon-wrap"><i class="fas fa-envelope input-icon"></i><input type="email" id="loginEmail" placeholder="example@email.com"></div></div>
+      <div class="form-group"><label data-i18n="auth.pass">كلمة المرور</label><div class="input-icon-wrap"><i class="fas fa-lock input-icon"></i><input type="password" id="loginPass" placeholder="••••••••"><button class="toggle-pass" onclick="togglePass('loginPass',this)"><i class="fas fa-eye"></i></button></div><div class="err-msg" id="loginErr" data-i18n="auth.loginErr">البريد أو كلمة المرور غير صحيحة</div></div>
+      <button class="btn-checkout" style="margin-top:8px" onclick="doLogin()" data-i18n="auth.loginBtn"><i class="fas fa-sign-in-alt"></i> دخول</button>
+      <div class="auth-divider" data-i18n="auth.or">أو</div>
+      <a href="https://www.instagram.com/ab.delhamid18?igsh=MXJwOXlhYnFrZ3ozbA==" target="_blank" class="social-login ig" data-i18n="auth.ig"><i class="fab fa-instagram"></i> تابعنا على Instagram @ab.delhamid18</a>
     </div>
     <div class="auth-panel" id="registerPanel">
-      <div class="form-group"><label>الاسم الكامل</label><div class="input-icon-wrap"><i class="fas fa-user input-icon"></i><input type="text" id="regName" placeholder="محمد علي"></div></div>
-      <div class="form-group"><label>البريد الإلكتروني</label><div class="input-icon-wrap"><i class="fas fa-envelope input-icon"></i><input type="email" id="regEmail" placeholder="example@email.com"></div><div class="err-msg" id="regEmailErr">هذا البريد مسجل مسبقاً</div></div>
-      <div class="form-group"><label>رقم الهاتف</label><div class="input-icon-wrap"><i class="fas fa-phone input-icon"></i><input type="tel" id="regPhone" placeholder="06 XX XX XX XX"></div></div>
-      <div class="form-group"><label>كلمة المرور</label><div class="input-icon-wrap"><i class="fas fa-lock input-icon"></i><input type="password" id="regPass" placeholder="8 أحرف على الأقل"><button class="toggle-pass" onclick="togglePass('regPass',this)"><i class="fas fa-eye"></i></button></div></div>
-      <div class="form-group"><label>تأكيد كلمة المرور</label><div class="input-icon-wrap"><i class="fas fa-lock input-icon"></i><input type="password" id="regPass2" placeholder="••••••••"></div><div class="err-msg" id="regErr">كلمتا المرور غير متطابقتين</div><div class="success-msg" id="regSuccess">✓ تم إنشاء حسابك بنجاح!</div></div>
-      <button class="btn-checkout" style="margin-top:8px" onclick="doRegister()"><i class="fas fa-user-plus"></i> إنشاء الحساب</button>
+      <div class="form-group"><label data-i18n="auth.name">الاسم الكامل</label><div class="input-icon-wrap"><i class="fas fa-user input-icon"></i><input type="text" id="regName" data-i18n-ph="auth.namePh" placeholder="محمد علي"></div></div>
+      <div class="form-group"><label data-i18n="auth.email">البريد الإلكتروني</label><div class="input-icon-wrap"><i class="fas fa-envelope input-icon"></i><input type="email" id="regEmail" placeholder="example@email.com"></div><div class="err-msg" id="regEmailErr" data-i18n="auth.regEmailErr">هذا البريد مسجل مسبقاً</div></div>
+      <div class="form-group"><label data-i18n="auth.phone">رقم الهاتف</label><div class="input-icon-wrap"><i class="fas fa-phone input-icon"></i><input type="tel" id="regPhone" placeholder="06 XX XX XX XX"></div></div>
+      <div class="form-group"><label data-i18n="auth.pass">كلمة المرور</label><div class="input-icon-wrap"><i class="fas fa-lock input-icon"></i><input type="password" id="regPass" data-i18n-ph="auth.passPh" placeholder="8 أحرف على الأقل"><button class="toggle-pass" onclick="togglePass('regPass',this)"><i class="fas fa-eye"></i></button></div></div>
+      <div class="form-group"><label data-i18n="auth.confirmPass">تأكيد كلمة المرور</label><div class="input-icon-wrap"><i class="fas fa-lock input-icon"></i><input type="password" id="regPass2" placeholder="••••••••"></div><div class="err-msg" id="regErr" data-i18n="auth.regErr">كلمتا المرور غير متطابقتين</div><div class="success-msg" id="regSuccess" data-i18n="auth.regSuccess">✓ تم إنشاء حسابك بنجاح!</div></div>
+      <button class="btn-checkout" style="margin-top:8px" onclick="doRegister()" data-i18n="auth.createBtn"><i class="fas fa-user-plus"></i> إنشاء الحساب</button>
     </div>
   </div>
 </div>
 
 <div class="side-pane" id="profilePane">
-  <div class="pane-head"><h2><i class="fas fa-id-card" style="color:#1a56db;margin-left:8px"></i> حسابي</h2><button class="pane-close" onclick="closeAll()"><i class="fas fa-times"></i></button></div>
+  <div class="pane-head"><h2 data-i18n="prof.title"><i class="fas fa-id-card" style="color:#1a56db;margin-inline-end:8px"></i> حسابي</h2><button class="pane-close" onclick="closeAll()"><i class="fas fa-times"></i></button></div>
   <div class="pane-body">
     <div class="profile-avatar" id="profileAvatar">N</div>
     <div class="profile-name" id="profileName">—</div>
     <div class="profile-email" id="profileEmail">—</div>
-    <div class="profile-stat"><div class="pstat"><div class="pstat-num" id="profileOrders">0</div><div class="pstat-label">طلباتي</div></div><div class="pstat"><div class="pstat-num" id="profileCart">0</div><div class="pstat-label">في السلة</div></div></div>
-    <div class="form-block-title"><i class="fas fa-info-circle"></i> معلومات الحساب</div>
-    <div class="form-group"><label>الاسم الكامل</label><input type="text" id="editName" placeholder="الاسم"></div>
-    <div class="form-group"><label>رقم الهاتف</label><input type="tel" id="editPhone" placeholder="06 XX XX XX XX"></div>
-    <div class="form-group"><label>المدينة</label><select id="editCity"><option>اختر مدينتك</option><option>الدار البيضاء</option><option>الرباط</option><option>مراكش</option><option>فاس</option><option>طنجة</option><option>أكادير</option><option>مكناس</option><option>وجدة</option><option>المحمدية</option><option>أخرى</option></select></div>
-    <button class="btn-checkout" onclick="saveProfile()" style="margin-bottom:10px"><i class="fas fa-save"></i> حفظ التغييرات</button>
-    <button class="btn-logout" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
+    <div class="profile-stat"><div class="pstat"><div class="pstat-num" id="profileOrders">0</div><div class="pstat-label" data-i18n="prof.orders">طلباتي</div></div><div class="pstat"><div class="pstat-num" id="profileCart">0</div><div class="pstat-label" data-i18n="prof.cart">في السلة</div></div></div>
+    <div class="form-block-title" data-i18n="prof.info"><i class="fas fa-info-circle"></i> معلومات الحساب</div>
+    <div class="form-group"><label data-i18n="prof.name">الاسم الكامل</label><input type="text" id="editName" data-i18n-ph="prof.namePh" placeholder="الاسم"></div>
+    <div class="form-group"><label data-i18n="prof.phone">رقم الهاتف</label><input type="tel" id="editPhone" placeholder="06 XX XX XX XX"></div>
+    <div class="form-group"><label data-i18n="prof.city">المدينة</label><select id="editCity"><option data-i18n="city.choose">اختر مدينتك</option><option data-i18n="city.casa">الدار البيضاء</option><option data-i18n="city.rabat">الرباط</option><option data-i18n="city.marrakech">مراكش</option><option data-i18n="city.fes">فاس</option><option data-i18n="city.tanger">طنجة</option><option data-i18n="city.agadir">أكادير</option><option data-i18n="city.meknes">مكناس</option><option data-i18n="city.oujda">وجدة</option><option data-i18n="city.mohammedia">المحمدية</option><option data-i18n="city.other">أخرى</option></select></div>
+    <button class="btn-checkout" onclick="saveProfile()" style="margin-bottom:10px" data-i18n="prof.save"><i class="fas fa-save"></i> حفظ التغييرات</button>
+    <button class="btn-logout" onclick="doLogout()" data-i18n="prof.logout"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
   </div>
 </div>
 
 <div class="side-pane product-detail-pane" id="productPane">
   <div class="pane-head">
-    <h2 id="pdTitle">تفاصيل المنتج</h2>
+    <h2 id="pdTitle" data-i18n="pd.title">تفاصيل المنتج</h2>
     <button class="pane-close" onclick="closeProductPane()"><i class="fas fa-times"></i></button>
   </div>
   <div class="pane-body" style="padding:0;">
+    <div class="pd-gallery">
     <div class="pd-slider">
       <div class="pd-slides" id="pdSlides"></div>
       <button class="pd-arrow pd-arrow-r" onclick="pdSlide(-1)"><i class="fas fa-chevron-right"></i></button>
@@ -807,6 +892,7 @@ footer{background:linear-gradient(160deg,#0f172a 0%,#1e3a8a 60%,#0f172a 100%) !i
       <div class="pd-dots" id="pdDots"></div>
     </div>
     <div class="pd-thumbs" id="pdThumbs"></div>
+    </div>
     <div class="pd-info">
       <div class="pd-cat" id="pdCat"></div>
       <div class="pd-name" id="pdName"></div>
@@ -814,16 +900,16 @@ footer{background:linear-gradient(160deg,#0f172a 0%,#1e3a8a 60%,#0f172a 100%) !i
       <div class="pd-specs" id="pdSpecs"></div>
       <div class="pd-price-row">
         <div class="pd-price" id="pdPrice"></div>
-        <div class="pd-delivery"><i class="fas fa-truck"></i> توصيل سريع · كاش عند الاستلام</div>
+        <div class="pd-delivery" data-i18n="pd.delivery"><i class="fas fa-truck"></i> توصيل سريع · كاش عند الاستلام</div>
       </div>
     </div>
     <div class="pd-related">
-      <div class="pd-related-title">منتجات مشابهة</div>
+      <div class="pd-related-title" data-i18n="pd.related">منتجات مشابهة</div>
       <div class="pd-related-scroll" id="pdRelated"></div>
     </div>
   </div>
   <div class="pane-footer">
-    <button class="btn-checkout" id="pdAddBtn" onclick="pdAddToCart()">
+    <button class="btn-checkout" id="pdAddBtn" onclick="pdAddToCart()" data-i18n="pd.add">
       <i class="fas fa-cart-plus"></i> أضف إلى السلة
     </button>
   </div>
@@ -831,19 +917,19 @@ footer{background:linear-gradient(160deg,#0f172a 0%,#1e3a8a 60%,#0f172a 100%) !i
 
 <script>
 const heroSlides = [
-  { id:1, img:'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=1400&q=80', badge:'🎓 الأكثر مبيعاً', title:'لابتوب HP FHD', sub:'أداء قوي للعمل والدراسة مع بطارية تدوم طويلاً' },
-  { id:2, img:'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=1400&q=80', badge:'⚡ أداء خارق', title:'ASUS RTX 5080', sub:'أفضل كارت شاشة للألعاب وتطبيقات الذكاء الاصطناعي' },
-  { id:3, img:'https://images.unsplash.com/photo-1593640408182-31c228d1cf3d?w=1400&q=80', badge:'🔥 حصري', title:'AMD Ryzen 5', sub:'كمبيوتر جيمنج بقوة لا مثيل لها بأسعار تنافسية' },
-  { id:4, img:'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=1400&q=80', badge:'🎵 صوت محيطي', title:'Tronsmart Bluetooth', sub:'مكبر صوت محمول بجودة استوديو مع بطارية تدوم 24 ساعة' },
-  { id:5, img:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1400&q=80', badge:'🎧 عزل الضوضاء', title:'Sony WH-1000XM5', sub:'سماعات لاسلكية مع تقنية إلغاء الضوضاء Hi-Res Audio' },
-  { id:6, img:'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=1400&q=80', badge:'🖥️ دقة 4K', title:'LG 27" 4K IPS', sub:'شاشة احترافية للتصميم والمونتاج بألوان دقيقة' },
-  { id:7, img:'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=1400&q=80', badge:'⌨️ لاسلكي', title:'Logitech MX Keys', sub:'لوحة مفاتيح مريحة تدعم الاتصال بـ 3 أجهزة' },
-  { id:8, img:'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=1400&q=80', badge:'🎮 جيمنج', title:'Razer DeathAdder V3', sub:'ماوس جيمنج بدقة 30K DPI بإضاءة RGB' }
+  { id:1, img:'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=1400&q=80', badge:`🎓 الأكثر مبيعاً`, title:`لابتوب HP FHD`, sub:`أداء قوي للعمل والدراسة مع بطارية تدوم طويلاً`, i18n:{ar:{badge:`🎓 الأكثر مبيعاً`,title:`لابتوب HP FHD`,sub:`أداء قوي للعمل والدراسة مع بطارية تدوم طويلاً`},fr:{badge:`🎓 Best-seller`,title:`Ordinateur HP FHD`,sub:`Performances puissantes pour le travail et les études, batterie longue durée`},en:{badge:`🎓 Best Seller`,title:`HP FHD Laptop`,sub:`Powerful performance for work and study with long-lasting battery`}} },
+  { id:2, img:'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=1400&q=80', badge:`⚡ أداء خارق`, title:`ASUS RTX 5080`, sub:`أفضل كارت شاشة للألعاب وتطبيقات الذكاء الاصطناعي`, i18n:{ar:{badge:`⚡ أداء خارق`,title:`ASUS RTX 5080`,sub:`أفضل كارت شاشة للألعاب وتطبيقات الذكاء الاصطناعي`},fr:{badge:`⚡ Performance extrême`,title:`ASUS RTX 5080`,sub:`La meilleure carte graphique pour le gaming et l'IA`},en:{badge:`⚡ Extreme performance`,title:`ASUS RTX 5080`,sub:`The best graphics card for gaming and AI applications`}} },
+  { id:3, img:'https://images.unsplash.com/photo-1593640408182-31c228d1cf3d?w=1400&q=80', badge:`🔥 حصري`, title:`AMD Ryzen 5`, sub:`كمبيوتر جيمنج بقوة لا مثيل لها بأسعار تنافسية`, i18n:{ar:{badge:`🔥 حصري`,title:`AMD Ryzen 5`,sub:`كمبيوتر جيمنج بقوة لا مثيل لها بأسعار تنافسية`},fr:{badge:`🔥 Exclusif`,title:`AMD Ryzen 5`,sub:`PC gaming d'une puissance inégalée à prix compétitif`},en:{badge:`🔥 Exclusive`,title:`AMD Ryzen 5`,sub:`Gaming PC with unmatched power at competitive prices`}} },
+  { id:4, img:'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=1400&q=80', badge:`🎵 صوت محيطي`, title:`Tronsmart Bluetooth`, sub:`مكبر صوت محمول بجودة استوديو مع بطارية تدوم 24 ساعة`, i18n:{ar:{badge:`🎵 صوت محيطي`,title:`Tronsmart Bluetooth`,sub:`مكبر صوت محمول بجودة استوديو مع بطارية تدوم 24 ساعة`},fr:{badge:`🎵 Son surround`,title:`Tronsmart Bluetooth`,sub:`Haut-parleur portable qualité studio, batterie 24 h`},en:{badge:`🎵 Surround sound`,title:`Tronsmart Bluetooth`,sub:`Portable studio-quality speaker with 24-hour battery`}} },
+  { id:5, img:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1400&q=80', badge:`🎧 عزل الضوضاء`, title:`Sony WH-1000XM5`, sub:`سماعات لاسلكية مع تقنية إلغاء الضوضاء Hi-Res Audio`, i18n:{ar:{badge:`🎧 عزل الضوضاء`,title:`Sony WH-1000XM5`,sub:`سماعات لاسلكية مع تقنية إلغاء الضوضاء Hi-Res Audio`},fr:{badge:`🎧 Réduction de bruit`,title:`Sony WH-1000XM5`,sub:`Casque sans fil avec réduction de bruit et Hi-Res Audio`},en:{badge:`🎧 Noise cancelling`,title:`Sony WH-1000XM5`,sub:`Wireless headphones with noise cancelling and Hi-Res Audio`}} },
+  { id:6, img:'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=1400&q=80', badge:`🖥️ دقة 4K`, title:`LG 27" 4K IPS`, sub:`شاشة احترافية للتصميم والمونتاج بألوان دقيقة`, i18n:{ar:{badge:`🖥️ دقة 4K`,title:`LG 27" 4K IPS`,sub:`شاشة احترافية للتصميم والمونتاج بألوان دقيقة`},fr:{badge:`🖥️ Résolution 4K`,title:`LG 27" 4K IPS`,sub:`Écran pro pour design et montage, couleurs précises`},en:{badge:`🖥️ 4K resolution`,title:`LG 27" 4K IPS`,sub:`Professional monitor for design and editing with accurate colors`}} },
+  { id:7, img:'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=1400&q=80', badge:`⌨️ لاسلكي`, title:`Logitech MX Keys`, sub:`لوحة مفاتيح مريحة تدعم الاتصال بـ 3 أجهزة`, i18n:{ar:{badge:`⌨️ لاسلكي`,title:`Logitech MX Keys`,sub:`لوحة مفاتيح مريحة تدعم الاتصال بـ 3 أجهزة`},fr:{badge:`⌨️ Sans fil`,title:`Logitech MX Keys`,sub:`Clavier confortable connectable à 3 appareils`},en:{badge:`⌨️ Wireless`,title:`Logitech MX Keys`,sub:`Comfortable keyboard supporting 3-device connection`}} },
+  { id:8, img:'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=1400&q=80', badge:`🎮 جيمنج`, title:`Razer DeathAdder V3`, sub:`ماوس جيمنج بدقة 30K DPI بإضاءة RGB`, i18n:{ar:{badge:`🎮 جيمنج`,title:`Razer DeathAdder V3`,sub:`ماوس جيمنج بدقة 30K DPI بإضاءة RGB`},fr:{badge:`🎮 Gaming`,title:`Razer DeathAdder V3`,sub:`Souris gaming 30K DPI avec éclairage RGB`},en:{badge:`🎮 Gaming`,title:`Razer DeathAdder V3`,sub:`Gaming mouse with 30K DPI and RGB lighting`}} }
 ];
 
 const products = [
   {
-    id:1, cat:'حاسوب محمول', name:'لابتوب HP FHD — عمل ودراسة',
+    id:1, cat:`حاسوب محمول`, name:`لابتوب HP FHD — عمل ودراسة`, i18n:{ar:{cat:`حاسوب محمول`,name:`لابتوب HP FHD — عمل ودراسة`,badge:`🎓 دراسة`},fr:{cat:`Ordinateur portable`,name:`Ordinateur portable HP FHD — travail & études`,badge:`🎓 Études`},en:{cat:`Laptop`,name:`HP FHD Laptop — Work & Study`,badge:`🎓 Study`}},
     specs:['Full HD','بطارية طويلة','أداء قوي'],
     stars:4.3, reviews:203, price:4500, oldPrice:5990,
     badge:{cls:'badge-blue',txt:'🎓 دراسة'},
@@ -856,7 +942,7 @@ const products = [
     img:'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=80'
   },
   {
-    id:2, cat:'كارت شاشة', name:'ASUS TUF RTX 5080 OC 16GB GDDR7',
+    id:2, cat:`كارت شاشة`, name:`ASUS TUF RTX 5080 OC 16GB GDDR7`, i18n:{ar:{cat:`كارت شاشة`,name:`ASUS TUF RTX 5080 OC 16GB GDDR7`,badge:`⭐ الأفضل`},fr:{cat:`Carte graphique`,name:`ASUS TUF RTX 5080 OC 16 Go GDDR7`,badge:`⭐ Le meilleur`},en:{cat:`Graphics card`,name:`ASUS TUF RTX 5080 OC 16GB GDDR7`,badge:`⭐ Best`}},
     specs:['OC Edition','4K Gaming','16GB GDDR7'],
     stars:5.0, reviews:75, price:14742, oldPrice:17900,
     badge:{cls:'badge-star',txt:'⭐ الأفضل'},
@@ -869,7 +955,7 @@ const products = [
     img:'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=600&q=80'
   },
   {
-    id:3, cat:'كمبيوتر مكتبي', name:'AMD Ryzen 5 + RTX 3050 جيمنج',
+    id:3, cat:`كمبيوتر مكتبي`, name:`AMD Ryzen 5 + RTX 3050 جيمنج`, i18n:{ar:{cat:`كمبيوتر مكتبي`,name:`AMD Ryzen 5 + RTX 3050 جيمنج`,badge:`🔥 حصري`},fr:{cat:`Ordinateur de bureau`,name:`AMD Ryzen 5 + RTX 3050 Gaming`,badge:`🔥 Exclusif`},en:{cat:`Desktop PC`,name:`AMD Ryzen 5 + RTX 3050 Gaming`,badge:`🔥 Exclusive`}},
     specs:['RTX 3050','1TB NVMe','32GB RAM'],
     stars:4.4, reviews:128, price:8313, oldPrice:9990,
     badge:{cls:'badge-fire',txt:'🔥 حصري'},
@@ -882,7 +968,7 @@ const products = [
     img:'https://images.unsplash.com/photo-1593640408182-31c228d1cf3d?w=600&q=80'
   },
   {
-    id:4, cat:'مكبر صوت', name:'Tronsmart Bluetooth — صوت محيطي',
+    id:4, cat:`مكبر صوت`, name:`Tronsmart Bluetooth — صوت محيطي`, i18n:{ar:{cat:`مكبر صوت`,name:`Tronsmart Bluetooth — صوت محيطي`,badge:`✅ جديد`},fr:{cat:`Haut-parleur`,name:`Tronsmart Bluetooth — son surround`,badge:`✅ Nouveau`},en:{cat:`Speaker`,name:`Tronsmart Bluetooth — Surround sound`,badge:`✅ New`}},
     specs:['IPX7','24h Battery','Sound 360°'],
     stars:4.4, reviews:316, price:415, oldPrice:599,
     badge:{cls:'badge-new',txt:'✅ جديد'},
@@ -895,7 +981,7 @@ const products = [
     img:'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&q=80'
   },
   {
-    id:5, cat:'سماعات', name:'Sony WH-1000XM5 إلغاء الضوضاء',
+    id:5, cat:`سماعات`, name:`Sony WH-1000XM5 إلغاء الضوضاء`, i18n:{ar:{cat:`سماعات`,name:`Sony WH-1000XM5 إلغاء الضوضاء`,badge:`⭐ مميز`},fr:{cat:`Casque audio`,name:`Sony WH-1000XM5 Réduction de bruit`,badge:`⭐ Premium`},en:{cat:`Headphones`,name:`Sony WH-1000XM5 Noise Cancelling`,badge:`⭐ Premium`}},
     specs:['ANC','30h Battery','Hi-Res Audio'],
     stars:4.8, reviews:512, price:2890, oldPrice:3690,
     badge:{cls:'badge-star',txt:'⭐ مميز'},
@@ -908,7 +994,7 @@ const products = [
     img:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80'
   },
   {
-    id:6, cat:'شاشة', name:'LG 27" 4K IPS Monitor للتصميم',
+    id:6, cat:`شاشة`, name:`LG 27" 4K IPS Monitor للتصميم`, i18n:{ar:{cat:`شاشة`,name:`LG 27" 4K IPS Monitor للتصميم`,badge:`🖥️ احترافي`},fr:{cat:`Écran`,name:`LG 27" 4K IPS pour le design`,badge:`🖥️ Professionnel`},en:{cat:`Monitor`,name:`LG 27" 4K IPS Monitor for Design`,badge:`🖥️ Professional`}},
     specs:['4K UHD','IPS Panel','USB-C'],
     stars:4.6, reviews:89, price:3200, oldPrice:3990,
     badge:{cls:'badge-blue',txt:'🖥️ احترافي'},
@@ -921,7 +1007,7 @@ const products = [
     img:'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&q=80'
   },
   {
-    id:7, cat:'لوحة مفاتيح', name:'Logitech MX Keys Wireless Keyboard',
+    id:7, cat:`لوحة مفاتيح`, name:`Logitech MX Keys Wireless Keyboard`, i18n:{ar:{cat:`لوحة مفاتيح`,name:`Logitech MX Keys Wireless Keyboard`,badge:`✅ جديد`},fr:{cat:`Clavier`,name:`Logitech MX Keys Clavier sans fil`,badge:`✅ Nouveau`},en:{cat:`Keyboard`,name:`Logitech MX Keys Wireless Keyboard`,badge:`✅ New`}},
     specs:['Wireless','Backlit','Multi-Device'],
     stars:4.7, reviews:234, price:780, oldPrice:999,
     badge:{cls:'badge-new',txt:'✅ جديد'},
@@ -934,7 +1020,7 @@ const products = [
     img:'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80'
   },
   {
-    id:8, cat:'ماوس', name:'Razer DeathAdder V3 Gaming Mouse',
+    id:8, cat:`ماوس`, name:`Razer DeathAdder V3 Gaming Mouse`, i18n:{ar:{cat:`ماوس`,name:`Razer DeathAdder V3 Gaming Mouse`,badge:`🔥 الأكثر مبيعاً`},fr:{cat:`Souris`,name:`Razer DeathAdder V3 Souris Gaming`,badge:`🔥 Best-seller`},en:{cat:`Mouse`,name:`Razer DeathAdder V3 Gaming Mouse`,badge:`🔥 Best seller`}},
     specs:['30K DPI','Ultra Light','RGB'],
     stars:4.9, reviews:445, price:650, oldPrice:890,
     badge:{cls:'badge-fire',txt:'🔥 الأكثر مبيعاً'},
@@ -1076,7 +1162,7 @@ function cardGrid(p) {
           </div>
           <button class="add-btn" id="btn${p.id}" onclick="addToCart(${p.id}, event)">
             <i class="fas fa-cart-plus btn-cart-icon"></i>
-            <span class="btn-text">أضف للسلة</span>
+            <span class="btn-text">${t('card.add')}</span>
           </button>
         </div>
       </div>
@@ -1109,11 +1195,11 @@ function cardList(p) {
               <div class="price-old">${p.oldPrice.toLocaleString()}</div>
             </div>
             <span class="price-off">-${discount}%</span>
-            <div class="price-note">✓ كاش عند الاستلام</div>
+            <div class="price-note">${t('card.cod')}</div>
           </div>
           <button class="add-btn" id="btn${p.id}" onclick="addToCart(${p.id}, event)">
             <i class="fas fa-cart-plus btn-cart-icon"></i>
-            <span class="btn-text">أضف إلى السلة</span>
+            <span class="btn-text">${t('card.addLong')}</span>
           </button>
         </div>
       </div>
@@ -1126,7 +1212,21 @@ function renderProducts() {
   const listItems = products.slice(4).map(cardList).join('');
   grid.innerHTML = `
     <div class="sub-grid">${gridItems}</div>
-    <div class="sub-list">${listItems}</div>
+    <div class="promo-banner">
+      <div class="promo-deco"><i class="fas fa-bolt"></i></div>
+      <div class="promo-left">
+        <div class="promo-ic"><i class="fas fa-bolt"></i></div>
+        <div class="promo-text">
+          <span class="promo-tag">${t('promo.tag')}</span>
+          <h3>${t('promo.title')}</h3>
+          <p>${t('promo.sub')}</p>
+        </div>
+      </div>
+      <button class="promo-cta" onclick="document.getElementById('subList').scrollIntoView({behavior:'smooth',block:'center'})">
+        <i class="fas fa-tags"></i> ${t('promo.cta')}
+      </button>
+    </div>
+    <div class="sub-list" id="subList">${listItems}</div>
   `;
   setTimeout(() => {
     products.forEach(p => {
@@ -1156,7 +1256,7 @@ function openProductPane(id) {
   `;
   document.getElementById('pdStars').innerHTML =
     `<span class="stars">${'★'.repeat(Math.floor(p.stars))}${'☆'.repeat(5-Math.floor(p.stars))}</span>
-     <span class="rating-count">${p.stars} · (${p.reviews} تقييم)</span>`;
+     <span class="rating-count">${p.stars} · (${p.reviews} ${t('pd.reviews')})</span>`;
   document.getElementById('pdSpecs').innerHTML = p.specs.map(s=>`<span class="spec-tag">${s}</span>`).join('');
   const imgs = p.images || [p.img, p.img, p.img, p.img];
   document.getElementById('pdSlides').innerHTML = imgs.map(src => `
@@ -1184,7 +1284,7 @@ function openProductPane(id) {
     </div>
   `).join('');
   const btn = document.getElementById('pdAddBtn');
-  btn.innerHTML = '<i class="fas fa-cart-plus"></i> أضف إلى السلة';
+  btn.innerHTML = t('pd.add');
   btn.style.background = '';
   document.getElementById('productPane').classList.add('active');
   document.getElementById('overlay').classList.add('active');
@@ -1216,9 +1316,9 @@ function pdAddToCart() {
   if(!pdCurrentId) return;
   addToCart(pdCurrentId, null);
   const btn = document.getElementById('pdAddBtn');
-  btn.innerHTML = '<i class="fas fa-check"></i> تمت الإضافة ✓';
+  btn.innerHTML = t('pd.added');
   btn.style.background = 'linear-gradient(135deg,#16a34a,#22c55e)';
-  setTimeout(()=>{ btn.innerHTML = '<i class="fas fa-cart-plus"></i> أضف إلى السلة'; btn.style.background = ''; }, 1800);
+  setTimeout(()=>{ btn.innerHTML = t('pd.add'); btn.style.background = ''; }, 1800);
 }
 
 function closeProductPane() {
@@ -1292,10 +1392,10 @@ function addToCart(id, event) {
   }
   if(btn) {
     btn.classList.add('added');
-    btn.innerHTML = '<i class="fas fa-check btn-cart-icon"></i><span class="btn-text">تمت الإضافة ✓</span>';
-    setTimeout(()=>{ btn.classList.remove('added'); btn.innerHTML = '<i class="fas fa-cart-plus btn-cart-icon"></i><span class="btn-text">أضف إلى السلة</span>'; }, 1800);
+    btn.innerHTML = '<i class="fas fa-check btn-cart-icon"></i><span class="btn-text">'+t('card.added')+'</span>';
+    setTimeout(()=>{ btn.classList.remove('added'); btn.innerHTML = '<i class="fas fa-cart-plus btn-cart-icon"></i><span class="btn-text">'+t('card.addLong')+'</span>'; }, 1800);
   }
-  showToast(`🛒 ${p.name.substring(0,28)}... أُضيف للسلة`);
+  showToast(`🛒 ${p.name.substring(0,28)}... ${t('toast.added')}`);
 }
 
 function updateCartCount() {
@@ -1321,7 +1421,7 @@ function renderCart() {
   const body = document.getElementById('cartBody');
   const footer = document.getElementById('cartFooter');
   if(cart.length === 0) {
-    body.innerHTML=`<div class="empty-state"><div class="empty-icon"><i class="fas fa-shopping-cart"></i></div><h3>السلة فارغة</h3><p>أضف منتجات لتظهر هنا</p></div>`;
+    body.innerHTML=`<div class="empty-state"><div class="empty-icon"><i class="fas fa-shopping-cart"></i></div><h3>${t('cart.empty')}</h3><p>${t('cart.emptySub')}</p></div>`;
     footer.style.display='none';
   } else {
     const total = cart.reduce((s,x)=>s+x.price*x.qty,0);
@@ -1331,7 +1431,7 @@ function renderCart() {
         <div style="flex:1">
           <div class="ci-name">${x.name}</div>
           <div class="ci-price">MAD ${(x.price*x.qty).toLocaleString()} × ${x.qty}</div>
-          <button class="ci-remove" onclick="removeFromCart(${x.id})"><i class="fas fa-trash-alt"></i> حذف</button>
+          <button class="ci-remove" onclick="removeFromCart(${x.id})"><i class="fas fa-trash-alt"></i> ${t('cart.removeTxt')}</button>
         </div>
       </div>
     `).join('');
@@ -1364,7 +1464,7 @@ function confirmOrder() {
   const custCity = cityEl ? cityEl.value : '';
   const custAddr = addrEl ? addrEl.value.trim() : '';
   const payMethod = payEl ? payEl.textContent.trim() : 'كاش عند الاستلام';
-  if(!custName || !custPhone) { showToast('⚠️ يرجى ملء الاسم ورقم الهاتف'); return; }
+  if(!custName || !custPhone) { showToast(t('msg.fillNamePhone')); return; }
   const total = cart.reduce((s,x)=>s+x.price*x.qty, 0);
   let msg = `🛒 *طلب جديد — NAIM MARKET*\n━━━━━━━━━━━━━━━━━━━━━━━\n👤 *الاسم:* ${custName}\n📞 *الهاتف:* ${custPhone}\n🏙️ *المدينة:* ${custCity}\n`;
   if(custAddr) msg += `📍 *العنوان:* ${custAddr}\n`;
@@ -1372,7 +1472,7 @@ function confirmOrder() {
   cart.forEach((x, i) => { const num = i + 1; const totalFormatted = (x.price * x.qty).toLocaleString(); msg += `${num}. ${x.name} × ${x.qty} — MAD ${totalFormatted}\n`; });
   msg += `━━━━━━━━━━━━━━━━━━━━━━━\n💰 *المجموع الكلي: MAD ${total.toLocaleString()}*\n━━━━━━━━━━━━━━━━━━━━━━━\n✅ *شكراً لتسوقك مع NAIM MARKET*\n📱 *تابعنا على Instagram:* @ab.delhamid18`;
   const waUrl = `https://wa.me/212687155245?text=${encodeURIComponent(msg)}`;
-  cart = []; updateCartCount(); closeAll(); showToast('🎉 يتم تحويلك لواتساب لإتمام الطلب...');
+  cart = []; updateCartCount(); closeAll(); showToast(t('msg.redirect'));
   setTimeout(()=>{ window.open(waUrl, '_blank'); }, 900);
 }
 
@@ -1407,23 +1507,442 @@ function updateAccountBtn() {
   } else {
     btn.className = 'nav-icon-btn user-ic';
     btn.onclick = openAuth;
-    btn.title = 'تسجيل الدخول';
+    btn.title = t('nav.login');
     btn.innerHTML = `<i class="fas fa-user" id="accountIcon"></i>`;
   }
 }
 
 function openAuth() { closeAll(); switchTab('login'); document.getElementById('authPane').classList.add('active'); document.getElementById('overlay').classList.add('active'); }
 function openProfile() { closeAll(); const s = getSession(); if(!s) { openAuth(); return; } document.getElementById('profileAvatar').textContent = s.name ? s.name.charAt(0).toUpperCase() : 'N'; document.getElementById('profileName').textContent = s.name || '—'; document.getElementById('profileEmail').textContent = s.email || '—'; document.getElementById('profileOrders').textContent = s.orders || 0; document.getElementById('profileCart').textContent = cart.length; document.getElementById('editName').value = s.name || ''; document.getElementById('editPhone').value = s.phone || ''; const cityEl = document.getElementById('editCity'); if(s.city) cityEl.value = s.city; document.getElementById('profilePane').classList.add('active'); document.getElementById('overlay').classList.add('active'); }
-function saveProfile() { const s = getSession(); if(!s) return; s.name = document.getElementById('editName').value.trim() || s.name; s.phone = document.getElementById('editPhone').value.trim(); s.city = document.getElementById('editCity').value; saveSession(s); const users = getUsers(); const idx = users.findIndex(u=>u.email===s.email); if(idx>-1) { users[idx] = {...users[idx], ...s}; saveUsers(users); } updateAccountBtn(); showToast('✓ تم حفظ معلوماتك بنجاح'); document.getElementById('profileName').textContent = s.name; }
+function saveProfile() { const s = getSession(); if(!s) return; s.name = document.getElementById('editName').value.trim() || s.name; s.phone = document.getElementById('editPhone').value.trim(); s.city = document.getElementById('editCity').value; saveSession(s); const users = getUsers(); const idx = users.findIndex(u=>u.email===s.email); if(idx>-1) { users[idx] = {...users[idx], ...s}; saveUsers(users); } updateAccountBtn(); showToast(t('msg.saved')); document.getElementById('profileName').textContent = s.name; }
 function switchTab(tab) { document.querySelectorAll('.auth-tab').forEach((t,i)=>t.classList.toggle('active', (tab==='login'&&i===0)||(tab==='register'&&i===1))); document.getElementById('loginPanel').classList.toggle('active', tab==='login'); document.getElementById('registerPanel').classList.toggle('active', tab==='register'); ['loginErr','regEmailErr','regErr','regSuccess'].forEach(id=>document.getElementById(id).classList.remove('show')); }
 function togglePass(id, btn) { const inp = document.getElementById(id); const isPass = inp.type === 'password'; inp.type = isPass ? 'text' : 'password'; btn.innerHTML = isPass ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>'; }
-function doLogin() { const email = document.getElementById('loginEmail').value.trim().toLowerCase(); const pass = document.getElementById('loginPass').value; const users = getUsers(); const user = users.find(u => u.email === email && u.password === pass); const errEl = document.getElementById('loginErr'); if(!user) { errEl.classList.add('show'); return; } errEl.classList.remove('show'); saveSession(user); updateAccountBtn(); closeAll(); showToast(`🎉 مرحباً ${user.name}! تم تسجيل دخولك`); }
-function doRegister() { const name = document.getElementById('regName').value.trim(); const email = document.getElementById('regEmail').value.trim().toLowerCase(); const phone = document.getElementById('regPhone').value.trim(); const pass = document.getElementById('regPass').value; const pass2 = document.getElementById('regPass2').value; const emailErrEl = document.getElementById('regEmailErr'); const errEl = document.getElementById('regErr'); const sucEl = document.getElementById('regSuccess'); [emailErrEl,errEl,sucEl].forEach(e=>e.classList.remove('show')); if(!name||!email||!pass) { errEl.textContent='يرجى ملء جميع الحقول'; errEl.classList.add('show'); return; } if(pass !== pass2) { errEl.textContent='كلمتا المرور غير متطابقتين'; errEl.classList.add('show'); return; } if(pass.length < 6) { errEl.textContent='كلمة المرور قصيرة جداً (6 أحرف على الأقل)'; errEl.classList.add('show'); return; } const users = getUsers(); if(users.find(u=>u.email===email)) { emailErrEl.classList.add('show'); return; } const newUser = {name, email, phone, password: pass, orders:0, city:'', joined: new Date().toLocaleDateString('ar-MA')}; users.push(newUser); saveUsers(users); saveSession(newUser); sucEl.classList.add('show'); setTimeout(()=>{ updateAccountBtn(); closeAll(); showToast(`🎉 مرحباً ${name}! تم إنشاء حسابك`); }, 1000); }
-function doLogout() { const s = getSession(); const name = s ? s.name : ''; clearSession(); updateAccountBtn(); closeAll(); showToast(`👋 إلى اللقاء ${name}!`); }
+function doLogin() { const email = document.getElementById('loginEmail').value.trim().toLowerCase(); const pass = document.getElementById('loginPass').value; const users = getUsers(); const user = users.find(u => u.email === email && u.password === pass); const errEl = document.getElementById('loginErr'); if(!user) { errEl.classList.add('show'); return; } errEl.classList.remove('show'); saveSession(user); updateAccountBtn(); closeAll(); showToast(`🎉 ${t('msg.welcome')} ${user.name}! ${t('msg.loginOk')}`); }
+function doRegister() { const name = document.getElementById('regName').value.trim(); const email = document.getElementById('regEmail').value.trim().toLowerCase(); const phone = document.getElementById('regPhone').value.trim(); const pass = document.getElementById('regPass').value; const pass2 = document.getElementById('regPass2').value; const emailErrEl = document.getElementById('regEmailErr'); const errEl = document.getElementById('regErr'); const sucEl = document.getElementById('regSuccess'); [emailErrEl,errEl,sucEl].forEach(e=>e.classList.remove('show')); if(!name||!email||!pass) { errEl.textContent='يرجى ملء جميع الحقول'; errEl.classList.add('show'); return; } if(pass !== pass2) { errEl.textContent='كلمتا المرور غير متطابقتين'; errEl.classList.add('show'); return; } if(pass.length < 6) { errEl.textContent='كلمة المرور قصيرة جداً (6 أحرف على الأقل)'; errEl.classList.add('show'); return; } const users = getUsers(); if(users.find(u=>u.email===email)) { emailErrEl.classList.add('show'); return; } const newUser = {name, email, phone, password: pass, orders:0, city:'', joined: new Date().toLocaleDateString('ar-MA')}; users.push(newUser); saveUsers(users); saveSession(newUser); sucEl.classList.add('show'); setTimeout(()=>{ updateAccountBtn(); closeAll(); showToast(`🎉 ${t('msg.welcome')} ${name}! ${t('msg.accountCreated')}`); }, 1000); }
+function doLogout() { const s = getSession(); const name = s ? s.name : ''; clearSession(); updateAccountBtn(); closeAll(); showToast(`👋 ${t('msg.bye')} ${name}!`); }
 
-buildHeroCarousel();
-renderProducts();
-updateAccountBtn();
+const I18N = {
+  ar:{
+    'topbar':`🚚 <b>توصيل مجاني</b> لجميع الطلبات في كل أرجاء المغرب &nbsp;|&nbsp; الدفع عند الاستلام ✓`,
+    'logo.sub':`تقنية بلا حدود`,
+    'search.ph':`ابحث عن منتج، ماركة أو فئة...`,
+    'nav.login':`تسجيل الدخول`,
+    'nav.cart':`السلة`,
+    'hero.cta':`تسوق الآن`,
+    'trust.1t':`ضمان الجودة`,
+    'trust.1d':`منتجات أصلية 100%`,
+    'trust.2t':`توصيل مجاني`,
+    'trust.2d':`لجميع الطلبات في المغرب`,
+    'trust.3t':`كاش عند الاستلام`,
+    'trust.3d':`ادفع عند استلام طلبك`,
+    'trust.4t':`دعم 7/7`,
+    'trust.4d':`نحن هنا دائماً لمساعدتك`,
+    'sec.title':`🛒 منتجاتنا المميزة`,
+    'sec.sub':`أحدث التقنيات بأفضل الأسعار في المغرب`,
+    'sec.pill':`🔥 عروض حصرية`,
+    'foot.about':`متجرك الإلكتروني الأول للأجهزة والإكسسوارات التقنية في المغرب. منتجات أصلية بأسعار لا تُنافَس، توصيل سريع لكل أرجاء المملكة.`,
+    'foot.col1':`الرئيسية`,
+    'foot.home':`الصفحة الرئيسية`,
+    'foot.products':`المنتجات`,
+    'foot.offers':`العروض`,
+    'foot.blog':`المدونة`,
+    'foot.col2':`سياسات المتجر`,
+    'foot.return':`سياسة الإرجاع`,
+    'foot.terms':`شروط الاستخدام`,
+    'foot.privacy':`سياسة الخصوصية`,
+    'foot.warranty':`الضمان`,
+    'foot.col3':`تواصل معنا`,
+    'foot.wa':`<i class="fab fa-whatsapp"></i> واتساب`,
+    'foot.email':`<i class="fas fa-envelope"></i> البريد الإلكتروني`,
+    'foot.location':`<i class="fas fa-map-marker-alt"></i> الموقع`,
+    'foot.phone':`<i class="fas fa-phone"></i> الهاتف`,
+    'foot.copy':`© NAIM MARKET 2025 · جميع الحقوق محفوظة · تقنية بلا حدود - المغرب`,
+    'foot.b1':`<i class="fas fa-truck"></i> توصيل لكل المغرب`,
+    'foot.b2':`<i class="fas fa-money-bill-wave"></i> كاش عند الاستلام`,
+    'cart.title':`<i class="fas fa-shopping-cart" style="color:var(--orange);margin-inline-end:8px"></i> سلة التسوق`,
+    'cart.total':`المجموع الكلي`,
+    'cart.checkout':`<i class="fas fa-lock"></i> إتمام الطلب`,
+    'cart.continue':`متابعة التسوق`,
+    'cart.empty':`السلة فارغة`,
+    'cart.emptySub':`أضف منتجات لتظهر هنا`,
+    'cart.removeTxt':`حذف`,
+    'co.title':`<i class="fas fa-clipboard-list" style="color:var(--orange);margin-inline-end:8px"></i> إتمام الطلب`,
+    'co.delivery':`<i class="fas fa-user"></i> معلومات التوصيل`,
+    'co.name':`الاسم الكامل`,
+    'co.namePh':`محمد علي`,
+    'co.phone':`رقم الهاتف`,
+    'co.city':`المدينة`,
+    'co.address':`العنوان التفصيلي`,
+    'co.addressPh':`الحي، الشارع، رقم المنزل...`,
+    'co.payment':`<i class="fas fa-credit-card"></i> طريقة الدفع`,
+    'co.cod':`<i class="fas fa-money-bill-wave"></i> كاش عند الاستلام`,
+    'co.card':`<i class="fas fa-credit-card"></i> بطاقة بنكية`,
+    'co.total':`المجموع`,
+    'co.confirm':`<i class="fas fa-check-circle"></i> تأكيد الطلب`,
+    'co.back':`<i class="fas fa-arrow-right"></i> العودة للسلة`,
+    'city.choose':`اختر مدينتك`,
+    'city.casa':`الدار البيضاء`,
+    'city.rabat':`الرباط`,
+    'city.marrakech':`مراكش`,
+    'city.fes':`فاس`,
+    'city.tanger':`طنجة`,
+    'city.agadir':`أكادير`,
+    'city.meknes':`مكناس`,
+    'city.oujda':`وجدة`,
+    'city.mohammedia':`المحمدية`,
+    'city.other':`أخرى`,
+    'auth.title':`<i class="fas fa-user-circle" style="color:#1a56db;margin-inline-end:8px"></i> تسجيل الدخول`,
+    'auth.tabLogin':`دخول`,
+    'auth.tabReg':`حساب جديد`,
+    'auth.email':`البريد الإلكتروني`,
+    'auth.pass':`كلمة المرور`,
+    'auth.loginErr':`البريد أو كلمة المرور غير صحيحة`,
+    'auth.loginBtn':`<i class="fas fa-sign-in-alt"></i> دخول`,
+    'auth.or':`أو`,
+    'auth.ig':`<i class="fab fa-instagram"></i> تابعنا على Instagram @ab.delhamid18`,
+    'auth.name':`الاسم الكامل`,
+    'auth.namePh':`محمد علي`,
+    'auth.regEmailErr':`هذا البريد مسجل مسبقاً`,
+    'auth.phone':`رقم الهاتف`,
+    'auth.passPh':`8 أحرف على الأقل`,
+    'auth.confirmPass':`تأكيد كلمة المرور`,
+    'auth.regErr':`كلمتا المرور غير متطابقتين`,
+    'auth.regSuccess':`✓ تم إنشاء حسابك بنجاح!`,
+    'auth.createBtn':`<i class="fas fa-user-plus"></i> إنشاء الحساب`,
+    'prof.title':`<i class="fas fa-id-card" style="color:#1a56db;margin-inline-end:8px"></i> حسابي`,
+    'prof.orders':`طلباتي`,
+    'prof.cart':`في السلة`,
+    'prof.info':`<i class="fas fa-info-circle"></i> معلومات الحساب`,
+    'prof.name':`الاسم الكامل`,
+    'prof.namePh':`الاسم`,
+    'prof.phone':`رقم الهاتف`,
+    'prof.city':`المدينة`,
+    'prof.save':`<i class="fas fa-save"></i> حفظ التغييرات`,
+    'prof.logout':`<i class="fas fa-sign-out-alt"></i> تسجيل الخروج`,
+    'pd.title':`تفاصيل المنتج`,
+    'pd.delivery':`<i class="fas fa-truck"></i> توصيل سريع · كاش عند الاستلام`,
+    'pd.related':`منتجات مشابهة`,
+    'pd.add':`<i class="fas fa-cart-plus"></i> أضف إلى السلة`,
+    'pd.added':`<i class="fas fa-check"></i> تمت الإضافة ✓`,
+    'pd.reviews':`تقييم`,
+    'card.add':`أضف للسلة`,
+    'card.addLong':`أضف إلى السلة`,
+    'card.added':`تمت الإضافة ✓`,
+    'card.cod':`✓ كاش عند الاستلام`,
+    'toast.added':`أُضيف للسلة`,
+    'msg.fillNamePhone':`⚠️ يرجى ملء الاسم ورقم الهاتف`,
+    'msg.redirect':`🎉 يتم تحويلك لواتساب لإتمام الطلب...`,
+    'msg.welcome':`مرحباً`,
+    'msg.loginOk':`تم تسجيل دخولك`,
+    'msg.accountCreated':`تم إنشاء حسابك`,
+    'msg.bye':`إلى اللقاء`,
+    'msg.saved':`✓ تم حفظ معلوماتك بنجاح`,
+    'promo.tag':`⚡ عرض لفترة محدودة`,
+    'promo.title':`خصومات حصرية على منتجات مختارة`,
+    'promo.sub':`توصيل مجاني وكاش عند الاستلام في كل أنحاء المغرب`,
+    'promo.cta':`اكتشف العروض`,
+  },
+  fr:{
+    'topbar':`🚚 <b>Livraison gratuite</b> pour toutes les commandes au Maroc &nbsp;|&nbsp; Paiement à la livraison ✓`,
+    'logo.sub':`La technologie sans limites`,
+    'search.ph':`Rechercher un produit, une marque...`,
+    'nav.login':`Se connecter`,
+    'nav.cart':`Panier`,
+    'hero.cta':`Acheter maintenant`,
+    'trust.1t':`Garantie qualité`,
+    'trust.1d':`Produits 100% authentiques`,
+    'trust.2t':`Livraison gratuite`,
+    'trust.2d':`Pour toutes les commandes au Maroc`,
+    'trust.3t':`Paiement à la livraison`,
+    'trust.3d':`Payez à la réception`,
+    'trust.4t':`Support 7j/7`,
+    'trust.4d':`Toujours là pour vous aider`,
+    'sec.title':`🛒 Nos produits vedettes`,
+    'sec.sub':`Les dernières technologies aux meilleurs prix au Maroc`,
+    'sec.pill':`🔥 Offres exclusives`,
+    'foot.about':`Votre première boutique en ligne d'appareils et d'accessoires technologiques au Maroc. Produits authentiques à des prix imbattables, livraison rapide partout dans le Royaume.`,
+    'foot.col1':`Accueil`,
+    'foot.home':`Page d'accueil`,
+    'foot.products':`Produits`,
+    'foot.offers':`Offres`,
+    'foot.blog':`Blog`,
+    'foot.col2':`Politiques du magasin`,
+    'foot.return':`Politique de retour`,
+    'foot.terms':`Conditions d'utilisation`,
+    'foot.privacy':`Politique de confidentialité`,
+    'foot.warranty':`Garantie`,
+    'foot.col3':`Contactez-nous`,
+    'foot.wa':`<i class="fab fa-whatsapp"></i> WhatsApp`,
+    'foot.email':`<i class="fas fa-envelope"></i> E-mail`,
+    'foot.location':`<i class="fas fa-map-marker-alt"></i> Localisation`,
+    'foot.phone':`<i class="fas fa-phone"></i> Téléphone`,
+    'foot.copy':`© NAIM MARKET 2025 · Tous droits réservés · La technologie sans limites - Maroc`,
+    'foot.b1':`<i class="fas fa-truck"></i> Livraison partout au Maroc`,
+    'foot.b2':`<i class="fas fa-money-bill-wave"></i> Paiement à la livraison`,
+    'cart.title':`<i class="fas fa-shopping-cart" style="color:var(--orange);margin-inline-end:8px"></i> Panier`,
+    'cart.total':`Total`,
+    'cart.checkout':`<i class="fas fa-lock"></i> Passer la commande`,
+    'cart.continue':`Continuer mes achats`,
+    'cart.empty':`Votre panier est vide`,
+    'cart.emptySub':`Ajoutez des produits ici`,
+    'cart.removeTxt':`Supprimer`,
+    'co.title':`<i class="fas fa-clipboard-list" style="color:var(--orange);margin-inline-end:8px"></i> Finaliser la commande`,
+    'co.delivery':`<i class="fas fa-user"></i> Informations de livraison`,
+    'co.name':`Nom complet`,
+    'co.namePh':`Mohamed Ali`,
+    'co.phone':`Numéro de téléphone`,
+    'co.city':`Ville`,
+    'co.address':`Adresse détaillée`,
+    'co.addressPh':`Quartier, rue, numéro de maison...`,
+    'co.payment':`<i class="fas fa-credit-card"></i> Mode de paiement`,
+    'co.cod':`<i class="fas fa-money-bill-wave"></i> Paiement à la livraison`,
+    'co.card':`<i class="fas fa-credit-card"></i> Carte bancaire`,
+    'co.total':`Total`,
+    'co.confirm':`<i class="fas fa-check-circle"></i> Confirmer la commande`,
+    'co.back':`<i class="fas fa-arrow-left"></i> Retour au panier`,
+    'city.choose':`Choisissez votre ville`,
+    'city.casa':`Casablanca`,
+    'city.rabat':`Rabat`,
+    'city.marrakech':`Marrakech`,
+    'city.fes':`Fès`,
+    'city.tanger':`Tanger`,
+    'city.agadir':`Agadir`,
+    'city.meknes':`Meknès`,
+    'city.oujda':`Oujda`,
+    'city.mohammedia':`Mohammedia`,
+    'city.other':`Autre`,
+    'auth.title':`<i class="fas fa-user-circle" style="color:#1a56db;margin-inline-end:8px"></i> Se connecter`,
+    'auth.tabLogin':`Connexion`,
+    'auth.tabReg':`Nouveau compte`,
+    'auth.email':`E-mail`,
+    'auth.pass':`Mot de passe`,
+    'auth.loginErr':`E-mail ou mot de passe incorrect`,
+    'auth.loginBtn':`<i class="fas fa-sign-in-alt"></i> Connexion`,
+    'auth.or':`ou`,
+    'auth.ig':`<i class="fab fa-instagram"></i> Suivez-nous sur Instagram @ab.delhamid18`,
+    'auth.name':`Nom complet`,
+    'auth.namePh':`Mohamed Ali`,
+    'auth.regEmailErr':`Cet e-mail est déjà enregistré`,
+    'auth.phone':`Numéro de téléphone`,
+    'auth.passPh':`8 caractères minimum`,
+    'auth.confirmPass':`Confirmer le mot de passe`,
+    'auth.regErr':`Les mots de passe ne correspondent pas`,
+    'auth.regSuccess':`✓ Compte créé avec succès !`,
+    'auth.createBtn':`<i class="fas fa-user-plus"></i> Créer le compte`,
+    'prof.title':`<i class="fas fa-id-card" style="color:#1a56db;margin-inline-end:8px"></i> Mon compte`,
+    'prof.orders':`Mes commandes`,
+    'prof.cart':`Dans le panier`,
+    'prof.info':`<i class="fas fa-info-circle"></i> Informations du compte`,
+    'prof.name':`Nom complet`,
+    'prof.namePh':`Nom`,
+    'prof.phone':`Numéro de téléphone`,
+    'prof.city':`Ville`,
+    'prof.save':`<i class="fas fa-save"></i> Enregistrer les modifications`,
+    'prof.logout':`<i class="fas fa-sign-out-alt"></i> Se déconnecter`,
+    'pd.title':`Détails du produit`,
+    'pd.delivery':`<i class="fas fa-truck"></i> Livraison rapide · Paiement à la livraison`,
+    'pd.related':`Produits similaires`,
+    'pd.add':`<i class="fas fa-cart-plus"></i> Ajouter au panier`,
+    'pd.added':`<i class="fas fa-check"></i> Ajouté ✓`,
+    'pd.reviews':`avis`,
+    'card.add':`Ajouter`,
+    'card.addLong':`Ajouter au panier`,
+    'card.added':`Ajouté ✓`,
+    'card.cod':`✓ Paiement à la livraison`,
+    'toast.added':`ajouté au panier`,
+    'msg.fillNamePhone':`⚠️ Veuillez remplir le nom et le téléphone`,
+    'msg.redirect':`🎉 Redirection vers WhatsApp pour finaliser la commande...`,
+    'msg.welcome':`Bienvenue`,
+    'msg.loginOk':`vous êtes connecté`,
+    'msg.accountCreated':`votre compte a été créé`,
+    'msg.bye':`À bientôt`,
+    'msg.saved':`✓ Vos informations ont été enregistrées`,
+    'promo.tag':`⚡ Offre à durée limitée`,
+    'promo.title':`Réductions exclusives sur une sélection`,
+    'promo.sub':`Livraison gratuite et paiement à la livraison partout au Maroc`,
+    'promo.cta':`Voir les offres`,
+  },
+  en:{
+    'topbar':`🚚 <b>Free delivery</b> on all orders across Morocco &nbsp;|&nbsp; Cash on delivery ✓`,
+    'logo.sub':`Technology without limits`,
+    'search.ph':`Search for a product, brand or category...`,
+    'nav.login':`Sign in`,
+    'nav.cart':`Cart`,
+    'hero.cta':`Shop now`,
+    'trust.1t':`Quality guarantee`,
+    'trust.1d':`100% authentic products`,
+    'trust.2t':`Free delivery`,
+    'trust.2d':`On all orders in Morocco`,
+    'trust.3t':`Cash on delivery`,
+    'trust.3d':`Pay when you receive`,
+    'trust.4t':`24/7 support`,
+    'trust.4d':`Always here to help you`,
+    'sec.title':`🛒 Our featured products`,
+    'sec.sub':`The latest tech at the best prices in Morocco`,
+    'sec.pill':`🔥 Exclusive deals`,
+    'foot.about':`Your number one online store for tech devices and accessories in Morocco. Authentic products at unbeatable prices, fast delivery across the Kingdom.`,
+    'foot.col1':`Home`,
+    'foot.home':`Home page`,
+    'foot.products':`Products`,
+    'foot.offers':`Offers`,
+    'foot.blog':`Blog`,
+    'foot.col2':`Store policies`,
+    'foot.return':`Return policy`,
+    'foot.terms':`Terms of use`,
+    'foot.privacy':`Privacy policy`,
+    'foot.warranty':`Warranty`,
+    'foot.col3':`Contact us`,
+    'foot.wa':`<i class="fab fa-whatsapp"></i> WhatsApp`,
+    'foot.email':`<i class="fas fa-envelope"></i> Email`,
+    'foot.location':`<i class="fas fa-map-marker-alt"></i> Location`,
+    'foot.phone':`<i class="fas fa-phone"></i> Phone`,
+    'foot.copy':`© NAIM MARKET 2025 · All rights reserved · Technology without limits - Morocco`,
+    'foot.b1':`<i class="fas fa-truck"></i> Delivery across Morocco`,
+    'foot.b2':`<i class="fas fa-money-bill-wave"></i> Cash on delivery`,
+    'cart.title':`<i class="fas fa-shopping-cart" style="color:var(--orange);margin-inline-end:8px"></i> Shopping cart`,
+    'cart.total':`Total`,
+    'cart.checkout':`<i class="fas fa-lock"></i> Checkout`,
+    'cart.continue':`Continue shopping`,
+    'cart.empty':`Your cart is empty`,
+    'cart.emptySub':`Add products to see them here`,
+    'cart.removeTxt':`Remove`,
+    'co.title':`<i class="fas fa-clipboard-list" style="color:var(--orange);margin-inline-end:8px"></i> Checkout`,
+    'co.delivery':`<i class="fas fa-user"></i> Delivery information`,
+    'co.name':`Full name`,
+    'co.namePh':`Mohamed Ali`,
+    'co.phone':`Phone number`,
+    'co.city':`City`,
+    'co.address':`Detailed address`,
+    'co.addressPh':`Neighborhood, street, house no...`,
+    'co.payment':`<i class="fas fa-credit-card"></i> Payment method`,
+    'co.cod':`<i class="fas fa-money-bill-wave"></i> Cash on delivery`,
+    'co.card':`<i class="fas fa-credit-card"></i> Bank card`,
+    'co.total':`Total`,
+    'co.confirm':`<i class="fas fa-check-circle"></i> Confirm order`,
+    'co.back':`<i class="fas fa-arrow-left"></i> Back to cart`,
+    'city.choose':`Choose your city`,
+    'city.casa':`Casablanca`,
+    'city.rabat':`Rabat`,
+    'city.marrakech':`Marrakech`,
+    'city.fes':`Fez`,
+    'city.tanger':`Tangier`,
+    'city.agadir':`Agadir`,
+    'city.meknes':`Meknes`,
+    'city.oujda':`Oujda`,
+    'city.mohammedia':`Mohammedia`,
+    'city.other':`Other`,
+    'auth.title':`<i class="fas fa-user-circle" style="color:#1a56db;margin-inline-end:8px"></i> Sign in`,
+    'auth.tabLogin':`Login`,
+    'auth.tabReg':`New account`,
+    'auth.email':`Email`,
+    'auth.pass':`Password`,
+    'auth.loginErr':`Incorrect email or password`,
+    'auth.loginBtn':`<i class="fas fa-sign-in-alt"></i> Login`,
+    'auth.or':`or`,
+    'auth.ig':`<i class="fab fa-instagram"></i> Follow us on Instagram @ab.delhamid18`,
+    'auth.name':`Full name`,
+    'auth.namePh':`Mohamed Ali`,
+    'auth.regEmailErr':`This email is already registered`,
+    'auth.phone':`Phone number`,
+    'auth.passPh':`At least 8 characters`,
+    'auth.confirmPass':`Confirm password`,
+    'auth.regErr':`Passwords do not match`,
+    'auth.regSuccess':`✓ Account created successfully!`,
+    'auth.createBtn':`<i class="fas fa-user-plus"></i> Create account`,
+    'prof.title':`<i class="fas fa-id-card" style="color:#1a56db;margin-inline-end:8px"></i> My account`,
+    'prof.orders':`My orders`,
+    'prof.cart':`In cart`,
+    'prof.info':`<i class="fas fa-info-circle"></i> Account information`,
+    'prof.name':`Full name`,
+    'prof.namePh':`Name`,
+    'prof.phone':`Phone number`,
+    'prof.city':`City`,
+    'prof.save':`<i class="fas fa-save"></i> Save changes`,
+    'prof.logout':`<i class="fas fa-sign-out-alt"></i> Log out`,
+    'pd.title':`Product details`,
+    'pd.delivery':`<i class="fas fa-truck"></i> Fast delivery · Cash on delivery`,
+    'pd.related':`Similar products`,
+    'pd.add':`<i class="fas fa-cart-plus"></i> Add to cart`,
+    'pd.added':`<i class="fas fa-check"></i> Added ✓`,
+    'pd.reviews':`reviews`,
+    'card.add':`Add`,
+    'card.addLong':`Add to cart`,
+    'card.added':`Added ✓`,
+    'card.cod':`✓ Cash on delivery`,
+    'toast.added':`added to cart`,
+    'msg.fillNamePhone':`⚠️ Please fill in name and phone`,
+    'msg.redirect':`🎉 Redirecting you to WhatsApp to complete your order...`,
+    'msg.welcome':`Welcome`,
+    'msg.loginOk':`you are logged in`,
+    'msg.accountCreated':`your account has been created`,
+    'msg.bye':`See you`,
+    'msg.saved':`✓ Your information has been saved`,
+    'promo.tag':`⚡ Limited-time offer`,
+    'promo.title':`Exclusive discounts on selected products`,
+    'promo.sub':`Free delivery and cash on delivery across Morocco`,
+    'promo.cta':`Shop the deals`,
+  }
+};
+
+const FLAGS = {
+  ma:`<svg class="flag-svg" viewBox="0 0 900 600"><rect width="900" height="600" fill="#c1272d"/><path d="M450,130 L549.9,437.5 L288.4,247.5 L611.6,247.5 L350.1,437.5 Z" fill="none" stroke="#006233" stroke-width="38"/></svg>`,
+  fr:`<svg class="flag-svg" viewBox="0 0 3 2"><rect width="3" height="2" fill="#fff"/><rect width="1" height="2" fill="#0055A4"/><rect x="2" width="1" height="2" fill="#EF4135"/></svg>`,
+  gb:`<svg class="flag-svg" viewBox="0 0 60 30"><rect width="60" height="30" fill="#012169"/><g stroke="#fff" stroke-width="6"><path d="M0,0 L60,30"/><path d="M60,0 L0,30"/></g><g stroke="#C8102E" stroke-width="2.5"><path d="M0,0 L60,30"/><path d="M60,0 L0,30"/></g><rect x="25" width="10" height="30" fill="#fff"/><rect y="10" width="60" height="10" fill="#fff"/><rect x="27" width="6" height="30" fill="#C8102E"/><rect y="12" width="60" height="6" fill="#C8102E"/></svg>`
+};
+const LANGS = [
+  { code:'ar', label:'العربية',  flag:FLAGS.ma, short:'AR', dir:'rtl' },
+  { code:'fr', label:'Français', flag:FLAGS.fr, short:'FR', dir:'ltr' },
+  { code:'en', label:'English',  flag:FLAGS.gb, short:'EN', dir:'ltr' }
+];
+let currentLang = localStorage.getItem('naim_lang') || 'ar';
+
+function t(k){ return (I18N[currentLang] && I18N[currentLang][k]) || I18N.ar[k] || k; }
+
+function buildLangMenu(){
+  const menu = document.getElementById('langMenu');
+  if(!menu) return;
+  menu.innerHTML = LANGS.map(l =>
+    `<button class="lang-opt ${l.code===currentLang?'active':''}" onclick="setLang('${l.code}')">
+       <span class="lang-flag">${l.flag}</span><span>${l.label}</span>
+       <i class="fas fa-check opt-check"></i>
+     </button>`).join('');
+}
+
+function toggleLangMenu(e){ e.stopPropagation(); document.getElementById('langSwitch').classList.toggle('open'); }
+document.addEventListener('click', () => { const s=document.getElementById('langSwitch'); if(s) s.classList.remove('open'); });
+
+function setLang(code){
+  currentLang = code;
+  localStorage.setItem('naim_lang', code);
+  document.getElementById('langSwitch').classList.remove('open');
+  applyLang(code);
+}
+
+function applyLang(code){
+  const l = LANGS.find(x => x.code === code) || LANGS[0];
+  document.documentElement.lang = code;
+  document.documentElement.dir = l.dir;
+  document.getElementById('langFlag').innerHTML = l.flag;
+  document.getElementById('langCode').textContent = l.short;
+  // static text + placeholders
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+  const cartIc = document.querySelector('.nav-icon-btn.cart-ic'); if(cartIc) cartIc.title = t('nav.cart');
+  // dynamic data
+  products.forEach(p => { const d = p.i18n && p.i18n[code]; if(d){ p.cat=d.cat; p.name=d.name; p.badge.txt=d.badge; } });
+  heroSlides.forEach(s => { const d = s.i18n && s.i18n[code]; if(d){ s.badge=d.badge; s.title=d.title; s.sub=d.sub; } });
+  cart.forEach(c => { const p = products.find(x => x.id === c.id); if(p){ c.name=p.name; c.cat=p.cat; } });
+  // re-render dynamic UI
+  buildHeroCarousel();
+  renderProducts();
+  if(document.getElementById('cartPane').classList.contains('active')) renderCart();
+  buildLangMenu();
+  updateAccountBtn();
+}
+
+buildLangMenu();
+applyLang(currentLang);
+
 </script>
 </body>
 </html>
