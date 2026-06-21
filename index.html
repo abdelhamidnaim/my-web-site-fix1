@@ -128,7 +128,9 @@ header{background:var(--white);position:sticky;top:0;z-index:900;border-bottom:2
 .sec-sub{font-size:13px;color:var(--text-light);margin-top:2px;}
 .sec-pill{background:var(--orange-soft);color:var(--orange);border:1.5px solid var(--orange-mid);border-radius:50px;padding:5px 16px;font-size:13px;font-weight:700;}
 .products-grid{display:flex;flex-direction:column;gap:28px;width:100%;}
-.sub-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;width:100%;}
+.sub-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;width:100%;max-width:1010px;}
+.sub-grid-gutter{display:none;}
+.sub-grid-wide{margin-top:8px;}
 .sub-list{display:grid;grid-template-columns:1fr 1fr;gap:18px;width:100%;}
 
 /* Grid card */
@@ -378,6 +380,19 @@ header{background:var(--white);position:sticky;top:0;z-index:900;border-bottom:2
   box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);
 }
 
+.side-ad{position:fixed;top:50%;transform:translateY(-50%);width:230px;height:74vh;max-height:760px;min-height:520px;z-index:60;border-radius:18px;overflow:hidden;box-shadow:0 12px 36px rgba(15,23,42,0.18);display:none;}
+.side-ad-left{left:18px;}
+.side-ad-right{right:18px;}
+.side-ad-inner{position:relative;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;text-align:center;padding:26px 20px 22px;background:linear-gradient(165deg,#1a56db 0%,#1344b8 45%,#0f172a 100%);color:#fff;}
+.side-ad-inner.alt{background:linear-gradient(165deg,#0f172a 0%,#1e293b 45%,#1a56db 100%);}
+.side-ad-tag{font-size:10.5px;font-weight:700;letter-spacing:.5px;background:rgba(255,255,255,0.16);border:1px solid rgba(255,255,255,0.3);border-radius:50px;padding:4px 12px;margin-bottom:18px;}
+.side-ad-icon{width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;}
+.side-ad-title{font-size:20px;font-weight:900;line-height:1.35;margin-bottom:8px;}
+.side-ad-sub{font-size:12.5px;font-weight:500;color:rgba(255,255,255,0.78);margin-bottom:auto;}
+.side-ad-visual{flex:1;display:flex;align-items:center;justify-content:center;font-size:64px;color:rgba(255,255,255,0.16);min-height:0;}
+.side-ad-cta{background:#fff;color:#0f172a;border:none;border-radius:50px;padding:11px 20px;font-size:13px;font-weight:800;font-family:'Cairo',Arial,sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:transform .2s;}
+.side-ad-cta:hover{transform:translateY(-2px);}
+@media (min-width:1680px){ .side-ad{display:block;} }
 .product-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;position:relative;transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;box-shadow:var(--shadow-sm);}
 .product-card:hover{transform:translateY(-7px);box-shadow:var(--shadow-lg);border-color:var(--orange);}
 .card-accent{height:4px;background:linear-gradient(90deg,#1a56db,#3b82f6,#f59e0b);}
@@ -408,6 +423,21 @@ header{background:var(--white);position:sticky;top:0;z-index:900;border-bottom:2
 .add-btn .btn-cart-icon{font-size:15px;transition:transform 0.3s;}
 .add-btn:hover .btn-cart-icon{transform:scale(1.15) rotate(-8deg);}
 @keyframes popIn{0%{transform:scale(1);}40%{transform:scale(1.06);}100%{transform:scale(1);}}
+
+.qty-stepper{display:flex;align-items:center;background:var(--orange-soft);border:1.5px solid var(--orange-mid);border-radius:10px;overflow:hidden;height:36px;flex-shrink:0;}
+.qty-btn{width:30px;height:34px;border:none;background:transparent;color:var(--orange);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;}
+.qty-btn:hover{background:var(--orange);color:#fff;}
+.qty-btn:active{transform:scale(.9);}
+.qty-val{min-width:34px;text-align:center;font-size:13px;font-weight:800;color:var(--navy);font-family:'Cairo',Arial,sans-serif;border-inline:1.5px solid var(--orange-mid);height:100%;display:flex;align-items:center;justify-content:center;}
+.qty-stepper-row{display:flex;justify-content:flex-start;margin-top:8px;}
+.card-list-bottom .qty-stepper{height:40px;}
+.card-list-bottom .qty-btn{height:38px;}
+.list-action-group{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+@media (max-width:480px){
+  .qty-stepper{height:32px;}
+  .qty-btn{width:26px;height:30px;font-size:10px;}
+  .qty-val{min-width:28px;font-size:12px;}
+}
 
 .fly-item{position:fixed;z-index:9998;pointer-events:none;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#1a56db,#2563eb);display:flex;align-items:center;justify-content:center;font-size:26px;color:white;box-shadow:0 8px 28px rgba(26,86,219,0.55),0 0 0 6px rgba(26,86,219,0.15);}
 .fly-trail{position:fixed;z-index:9997;pointer-events:none;border-radius:50%;background:rgba(26,86,219,0.5);animation:trailFade 0.6s ease forwards;}
@@ -541,6 +571,18 @@ footer{background:var(--navy);color:white;padding:40px 28px 20px;margin-top:auto
 .pd-stars-row .rating-count{font-size:13px;color:var(--text-light);}
 .pd-specs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px;}
 .pd-price-row{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.pd-qty-row{margin-top:16px;}
+.pd-qty-select-wrap{position:relative;display:inline-flex;align-items:center;width:auto;max-width:160px;height:36px;padding:0 12px;border:1.5px solid var(--border);border-radius:50px;background:#fff;cursor:pointer;transition:border-color .2s,box-shadow .2s;user-select:none;}
+.pd-qty-select-wrap:hover{border-color:var(--orange-mid);}
+.pd-qty-select-wrap.open{border-color:#1a56db;box-shadow:0 0 0 3px rgba(26,86,219,0.12);}
+.pd-qty-display{font-family:'Cairo',Arial,sans-serif;font-size:13px;font-weight:700;color:var(--navy);}
+.pd-qty-chev{font-size:10px;color:var(--text-light);margin-inline-start:8px;transition:transform .2s;}
+.pd-qty-select-wrap.open .pd-qty-chev{transform:rotate(180deg);}
+.pd-qty-list{position:absolute;top:calc(100% + 5px);left:0;right:0;background:#fff;border:1.5px solid var(--border);border-radius:10px;box-shadow:var(--shadow-md);z-index:20;display:none;overflow:hidden;}
+.pd-qty-select-wrap.open .pd-qty-list{display:block;}
+.pd-qty-opt{padding:8px 14px;font-family:'Cairo',Arial,sans-serif;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;transition:background .15s,color .15s;}
+.pd-qty-opt:hover{background:var(--orange-soft);}
+.pd-qty-opt.selected{background:#1a56db;color:#fff;font-weight:800;}
 .pd-price{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
 .pd-price .pd-now{font-size:28px;font-weight:900;color:#0f172a;line-height:1;}
 .pd-price .pd-now .cur{font-size:14px;font-weight:700;color:#1a56db;margin-left:3px;}
@@ -549,9 +591,8 @@ footer{background:var(--navy);color:white;padding:40px 28px 20px;margin-top:auto
 .pd-delivery{font-size:12px;color:var(--green);font-weight:600;display:flex;align-items:center;gap:5px;}
 .pd-related{padding:16px 16px 20px;border-top:1px solid var(--border);background:var(--bg);}
 .pd-related-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:12px;}
-.pd-related-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
-.pd-related-scroll::-webkit-scrollbar{display:none;}
-.pd-rel-card{flex-shrink:0;width:130px;background:white;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all 0.2s;}
+.pd-related-scroll{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;padding-bottom:6px;}
+.pd-rel-card{background:white;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all 0.2s;}
 .pd-rel-card:hover{border-color:var(--orange);transform:translateY(-3px);box-shadow:var(--shadow-md);}
 .pd-rel-img{width:100%;height:90px;background:#f8f9fa;display:flex;align-items:center;justify-content:center;padding:8px;overflow:hidden;}
 .pd-rel-img img{max-width:100%;max-height:100%;object-fit:contain;}
@@ -574,7 +615,7 @@ footer{background:var(--navy);color:white;padding:40px 28px 20px;margin-top:auto
   #productPane .pd-price .pd-now{font-size:36px !important;}
   #productPane .pd-related{flex:1 1 100%;margin-top:22px;padding-top:18px;border-top:1px solid #e2e8f0;background:transparent;}
   #productPane .pd-related-title{font-size:18px !important;margin-bottom:16px;}
-  #productPane .pd-rel-card{min-width:200px;}
+  #productPane .pd-rel-card{min-width:0;}
   #productPane .pd-rel-img{height:130px;}
   #productPane .pd-rel-name{font-size:13px;}
   #productPane .pd-rel-price{font-size:15px;}
@@ -582,6 +623,7 @@ footer{background:var(--navy);color:white;padding:40px 28px 20px;margin-top:auto
   #productPane .pd-slide img{max-width:97% !important;max-height:97% !important;}
 }
 @media (max-width: 480px){
+  .pd-related-scroll{grid-template-columns:repeat(3,1fr) !important;}
   .pd-slider{height:220px !important;}
   .pd-slide img{max-width:90% !important;max-height:90% !important;}
   .pd-thumb{width:50px;height:50px;}
@@ -640,6 +682,7 @@ footer{background:linear-gradient(160deg,#0f172a 0%,#1e3a8a 60%,#0f172a 100%) !i
   .trust-inner{grid-template-columns:1fr 1fr !important;width:100% !important;}
   .trust-item{padding:12px 8px !important;gap:8px !important;}
   .sub-grid{grid-template-columns:repeat(2,1fr) !important;gap:10px !important;width:100% !important;}
+  .sub-grid-gutter{display:none !important;}
   .product-card{width:100% !important;max-width:100% !important;}
 
   /* ── الصف السفلي: تمرير أفقي (نمط أمازون) — في الهاتف فقط ── */
@@ -673,6 +716,8 @@ footer{background:linear-gradient(160deg,#0f172a 0%,#1e3a8a 60%,#0f172a 100%) !i
   .card-list-body .card-specs{display:flex !important;flex-wrap:wrap;gap:4px;}
   .card-list-body .card-specs .spec-tag{font-size:10px;padding:2px 8px;}
   .card-list-bottom{flex-direction:column !important;align-items:stretch !important;gap:10px !important;}
+  .list-action-group{width:100% !important;}
+  .list-action-group .add-btn{flex:1 !important;}
   .card-list-bottom .price-section{justify-content:space-between !important;}
   .card-list-bottom .add-btn{width:100% !important;padding:12px !important;}
   
@@ -725,6 +770,34 @@ html[dir="ltr"] .lang-menu{right:0;}
 .promo-cta{position:relative;z-index:2;flex-shrink:0;display:flex;align-items:center;gap:8px;background:#fff;color:var(--navy);border:none;border-radius:50px;padding:13px 26px;font-family:'Cairo',Arial,sans-serif;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 7px 18px rgba(0,0,0,.22);transition:transform .2s,box-shadow .2s;}
 .promo-cta:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(0,0,0,.3);}
 .promo-cta i{color:#1a56db;}
+
+/* ── بانر فاصل بخلفية متحركة ── */
+.split-banner{position:relative;overflow:hidden;margin:40px 0;border-radius:20px;height:220px;box-shadow:0 16px 40px rgba(15,23,42,.28);}
+.split-banner-bg{position:absolute;inset:-15px;background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80');background-size:cover;background-position:center;animation:bannerPan 18s ease-in-out infinite alternate;filter:saturate(1.05);}
+@keyframes bannerPan{
+  0%{transform:scale(1.08) translateX(-2%);}
+  100%{transform:scale(1.18) translateX(2%);}
+}
+.split-banner-overlay{position:absolute;inset:0;background:linear-gradient(115deg,rgba(15,23,42,.92) 0%,rgba(15,23,42,.65) 45%,rgba(26,86,219,.35) 100%);}
+.split-banner-shine{position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.16) 45%,transparent 60%);background-size:250% 100%;animation:bannerShine 6s ease-in-out infinite;pointer-events:none;}
+@keyframes bannerShine{
+  0%{background-position:160% 0;}
+  60%,100%{background-position:-60% 0;}
+}
+.split-banner-content{position:relative;z-index:3;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;padding:0 24px;}
+.split-banner-icon{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;font-size:24px;color:#fbbc05;backdrop-filter:blur(4px);animation:bannerFloat 3s ease-in-out infinite;}
+@keyframes bannerFloat{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-8px);}
+}
+.split-banner-title{color:#fff;font-size:22px;font-weight:900;text-shadow:0 2px 14px rgba(0,0,0,.4);}
+.split-banner-sub{color:rgba(255,255,255,.85);font-size:13.5px;font-weight:500;max-width:480px;line-height:1.6;}
+@media (max-width:480px){
+  .split-banner{height:170px;margin:28px 0;border-radius:16px;}
+  .split-banner-title{font-size:18px;}
+  .split-banner-sub{font-size:12.5px;}
+  .split-banner-icon{width:46px;height:46px;font-size:19px;}
+}
 @media (max-width:480px){
   .promo-banner{flex-direction:column;text-align:center;align-items:center;padding:24px 18px;gap:16px;margin:24px 0;border-radius:16px;}
   .promo-left{flex-direction:column;gap:13px;}
@@ -788,6 +861,27 @@ html[dir="ltr"] .lang-menu{right:0;}
     <div class="trust-item"><div class="trust-icon"><i class="fas fa-truck"></i></div><div><div class="trust-title" data-i18n="trust.2t">توصيل مجاني</div><div class="trust-desc" data-i18n="trust.2d">لجميع الطلبات في المغرب</div></div></div>
     <div class="trust-item"><div class="trust-icon"><i class="fas fa-money-bill-wave"></i></div><div><div class="trust-title" data-i18n="trust.3t">كاش عند الاستلام</div><div class="trust-desc" data-i18n="trust.3d">ادفع عند استلام طلبك</div></div></div>
     <div class="trust-item"><div class="trust-icon"><i class="fas fa-headset"></i></div><div><div class="trust-title" data-i18n="trust.4t">دعم 7/7</div><div class="trust-desc" data-i18n="trust.4d">نحن هنا دائماً لمساعدتك</div></div></div>
+  </div>
+</div>
+
+<div class="side-ad side-ad-left">
+  <div class="side-ad-inner">
+    <div class="side-ad-tag" data-i18n="ad.sponsored">إعلان ممول</div>
+    <div class="side-ad-icon"><i class="fas fa-bolt"></i></div>
+    <div class="side-ad-title" data-i18n="ad.title1">شحن سريع<br>لكل أجهزتك</div>
+    <div class="side-ad-sub" data-i18n="ad.sub1">جودة عالية بأفضل سعر</div>
+    <div class="side-ad-visual"><i class="fas fa-charging-station"></i></div>
+    <button class="side-ad-cta" data-i18n="ad.cta">تسوّق الآن <i class="fas fa-arrow-left"></i></button>
+  </div>
+</div>
+<div class="side-ad side-ad-right">
+  <div class="side-ad-inner alt">
+    <div class="side-ad-tag" data-i18n="ad.sponsored">إعلان ممول</div>
+    <div class="side-ad-icon"><i class="fas fa-headphones"></i></div>
+    <div class="side-ad-title" data-i18n="ad.title2">صوت نقي<br>بلا حدود</div>
+    <div class="side-ad-sub" data-i18n="ad.sub2">عروض حصرية اليوم فقط</div>
+    <div class="side-ad-visual"><i class="fas fa-laptop"></i></div>
+    <button class="side-ad-cta" data-i18n="ad.cta">تسوّق الآن <i class="fas fa-arrow-left"></i></button>
   </div>
 </div>
 
@@ -947,6 +1041,13 @@ html[dir="ltr"] .lang-menu{right:0;}
         <div class="pd-price" id="pdPrice"></div>
         <div class="pd-delivery" data-i18n="pd.delivery"><i class="fas fa-truck"></i> توصيل سريع · كاش عند الاستلام</div>
       </div>
+      <div class="pd-qty-row">
+        <div class="pd-qty-select-wrap" id="pdQtyWrap" onclick="togglePdQtyList(event)">
+          <span class="pd-qty-display" id="pdQtyDisplay"></span>
+          <i class="fas fa-chevron-down pd-qty-chev"></i>
+          <div class="pd-qty-list" id="pdQtyList"></div>
+        </div>
+      </div>
     </div>
     <div class="pd-related">
       <div class="pd-related-title" data-i18n="pd.related">منتجات مشابهة</div>
@@ -1076,10 +1177,437 @@ const products = [
       'https://images.unsplash.com/photo-1563297007-0686b7003af7?w=600&q=80'
     ],
     img:'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&q=80'
+  },
+  {
+    id:9, cat:`ساعة ذكية`, name:`Apple Watch Series 9 GPS 45mm`, i18n:{ar:{cat:`ساعة ذكية`,name:`Apple Watch Series 9 GPS 45mm`,badge:`⭐ مميز`},fr:{cat:`Montre connectée`,name:`Apple Watch Series 9 GPS 45 mm`,badge:`⭐ Premium`},en:{cat:`Smartwatch`,name:`Apple Watch Series 9 GPS 45mm`,badge:`⭐ Premium`}},
+    specs:['شاشة Retina','مقاومة للماء','تتبع صحي'],
+    stars:4.7, reviews:289, price:3990, oldPrice:4590,
+    badge:{cls:'badge-star',txt:'⭐ مميز'},
+    images:[
+      'https://images.unsplash.com/photo-1551816230-ef5deaed4a26?w=600&q=80',
+      'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=600&q=80',
+      'https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=600&q=80',
+      'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1551816230-ef5deaed4a26?w=600&q=80'
+  },
+  {
+    id:10, cat:`هاتف ذكي`, name:`Samsung Galaxy S24 Ultra 256GB`, i18n:{ar:{cat:`هاتف ذكي`,name:`Samsung Galaxy S24 Ultra 256GB`,badge:`🔥 الأكثر طلباً`},fr:{cat:`Smartphone`,name:`Samsung Galaxy S24 Ultra 256 Go`,badge:`🔥 Très demandé`},en:{cat:`Smartphone`,name:`Samsung Galaxy S24 Ultra 256GB`,badge:`🔥 Top demand`}},
+    specs:['200MP Camera','S Pen','5G'],
+    stars:4.8, reviews:612, price:11990, oldPrice:13990,
+    badge:{cls:'badge-fire',txt:'🔥 الأكثر طلباً'},
+    images:[
+      'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600&q=80',
+      'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&q=80',
+      'https://images.unsplash.com/photo-1592286927505-1def25115481?w=600&q=80',
+      'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600&q=80'
+  },
+  {
+    id:11, cat:`طابعة`, name:`HP LaserJet Pro M404 طابعة ليزر`, i18n:{ar:{cat:`طابعة`,name:`HP LaserJet Pro M404 طابعة ليزر`,badge:`✅ جديد`},fr:{cat:`Imprimante`,name:`HP LaserJet Pro M404 — Imprimante laser`,badge:`✅ Nouveau`},en:{cat:`Printer`,name:`HP LaserJet Pro M404 Laser Printer`,badge:`✅ New`}},
+    specs:['طباعة سريعة','Wi-Fi','أبيض وأسود'],
+    stars:4.5, reviews:97, price:2190, oldPrice:2690,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1612815154858-60aa4c59eabd?w=600&q=80',
+      'https://images.unsplash.com/photo-1563770660941-20978e870e26?w=600&q=80',
+      'https://images.unsplash.com/photo-1581235720704-06d3acc89b46?w=600&q=80',
+      'https://images.unsplash.com/photo-1612996470715-ada6b2b0c5d3?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1612815154858-60aa4c59eabd?w=600&q=80'
+  },
+  {
+    id:12, cat:`قرص صلب`, name:`SanDisk SSD 1TB NVMe سريع جداً`, i18n:{ar:{cat:`قرص صلب`,name:`SanDisk SSD 1TB NVMe سريع جداً`,badge:`⚡ سرعة فائقة`},fr:{cat:`Disque dur`,name:`SanDisk SSD 1 To NVMe ultra rapide`,badge:`⚡ Vitesse extrême`},en:{cat:`Storage`,name:`SanDisk SSD 1TB NVMe Ultra Fast`,badge:`⚡ Extreme speed`}},
+    specs:['1TB','NVMe Gen4','7000MB/s'],
+    stars:4.6, reviews:341, price:1290, oldPrice:1690,
+    badge:{cls:'badge-blue',txt:'⚡ سرعة فائقة'},
+    images:[
+      'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=600&q=80',
+      'https://images.unsplash.com/photo-1531492746076-161ca9bcad58?w=600&q=80',
+      'https://images.unsplash.com/photo-1591488320449-011701bb6704?w=600&q=80',
+      'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=600&q=80'
+  },
+  {
+    id:13, cat:`كاميرا`, name:`Canon EOS R50 كاميرا احترافية`, i18n:{ar:{cat:`كاميرا`,name:`Canon EOS R50 كاميرا احترافية`,badge:`📸 احترافي`},fr:{cat:`Appareil photo`,name:`Canon EOS R50 — Appareil pro`,badge:`📸 Pro`},en:{cat:`Camera`,name:`Canon EOS R50 Professional Camera`,badge:`📸 Pro`}},
+    specs:['24.2MP','4K Video','Mirrorless'],
+    stars:4.7, reviews:156, price:8990, oldPrice:10490,
+    badge:{cls:'badge-star',txt:'📸 احترافي'},
+    images:[
+      'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&q=80',
+      'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80',
+      'https://images.unsplash.com/photo-1606986628253-05620e9c2a90?w=600&q=80',
+      'https://images.unsplash.com/photo-1606980707330-3d9d36fb5d83?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&q=80'
+  },
+  {
+    id:14, cat:`طاولة جيمنج`, name:`RGB Mechanical Gaming Keyboard لوحة ميكانيكية`, i18n:{ar:{cat:`لوحة مفاتيح`,name:`RGB Mechanical Gaming Keyboard لوحة ميكانيكية`,badge:`🎮 جيمنج`},fr:{cat:`Clavier`,name:`Clavier mécanique gaming RGB`,badge:`🎮 Gaming`},en:{cat:`Keyboard`,name:`RGB Mechanical Gaming Keyboard`,badge:`🎮 Gaming`}},
+    specs:['Switches ميكانيكية','RGB كامل','Anti-Ghosting'],
+    stars:4.5, reviews:278, price:790, oldPrice:990,
+    badge:{cls:'badge-fire',txt:'🎮 جيمنج'},
+    images:[
+      'https://images.unsplash.com/photo-1595044426077-d36d9236d54a?w=600&q=80',
+      'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&q=80',
+      'https://images.unsplash.com/photo-1561112078-7d24e04c3407?w=600&q=80',
+      'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1595044426077-d36d9236d54a?w=600&q=80'
+  },
+  {
+    id:15, cat:`شاحن لاسلكي`, name:`Anker MagGo شاحن سريع 3 في 1`, i18n:{ar:{cat:`شاحن لاسلكي`,name:`Anker MagGo شاحن سريع 3 في 1`,badge:`✅ جديد`},fr:{cat:`Chargeur sans fil`,name:`Anker MagGo — Chargeur rapide 3-en-1`,badge:`✅ Nouveau`},en:{cat:`Wireless charger`,name:`Anker MagGo 3-in-1 Fast Charger`,badge:`✅ New`}},
+    specs:['MagSafe','شحن سريع','3 أجهزة'],
+    stars:4.4, reviews:203, price:540, oldPrice:720,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1591290619762-c6c50cf9c0f1?w=600&q=80',
+      'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80',
+      'https://images.unsplash.com/photo-1606229365485-93a3b8ee0385?w=600&q=80',
+      'https://images.unsplash.com/photo-1622957404458-4e3f03ce4e3a?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1591290619762-c6c50cf9c0f1?w=600&q=80'
+  },
+  {
+    id:16, cat:`حقيبة لابتوب`, name:`Targus حقيبة ظهر مقاومة للماء`, i18n:{ar:{cat:`حقيبة لابتوب`,name:`Targus حقيبة ظهر مقاومة للماء`,badge:`🎒 عملي`},fr:{cat:`Sac à dos`,name:`Targus — Sac à dos imperméable`,badge:`🎒 Pratique`},en:{cat:`Laptop bag`,name:`Targus Waterproof Backpack`,badge:`🎒 Practical`}},
+    specs:['مقاوم للماء','15.6 إنش','جيوب متعددة'],
+    stars:4.3, reviews:164, price:380, oldPrice:520,
+    badge:{cls:'badge-blue',txt:'🎒 عملي'},
+    images:[
+      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80',
+      'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=600&q=80',
+      'https://images.unsplash.com/photo-1581605405669-fcdf81165afa?w=600&q=80',
+      'https://images.unsplash.com/photo-1547949003-9792a18a2645?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80'
+  },
+  {
+    id:17, cat:`جهاز لوحي`, name:`iPad Air 11 إنش M2 256GB`, i18n:{ar:{cat:`جهاز لوحي`,name:`iPad Air 11 إنش M2 256GB`,badge:`⭐ مميز`},fr:{cat:`Tablette`,name:`iPad Air 11" M2 256 Go`,badge:`⭐ Premium`},en:{cat:`Tablet`,name:`iPad Air 11" M2 256GB`,badge:`⭐ Premium`}},
+    specs:['شريحة M2','شاشة Liquid Retina','يدعم Apple Pencil'],
+    stars:4.8, reviews:198, price:8490, oldPrice:9690,
+    badge:{cls:'badge-star',txt:'⭐ مميز'},
+    images:[
+      'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&q=80',
+      'https://images.unsplash.com/photo-1561154464-82e9adf32764?w=600&q=80',
+      'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&q=80',
+      'https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&q=80'
+  },
+  {
+    id:18, cat:`راوتر`, name:`TP-Link Archer AX55 راوتر WiFi 6`, i18n:{ar:{cat:`راوتر`,name:`TP-Link Archer AX55 راوتر WiFi 6`,badge:`✅ جديد`},fr:{cat:`Routeur`,name:`TP-Link Archer AX55 — Routeur WiFi 6`,badge:`✅ Nouveau`},en:{cat:`Router`,name:`TP-Link Archer AX55 WiFi 6 Router`,badge:`✅ New`}},
+    specs:['WiFi 6','سرعة عالية','تغطية واسعة'],
+    stars:4.5, reviews:227, price:690, oldPrice:890,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1606904825846-647eb07f5be2?w=600&q=80',
+      'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600&q=80',
+      'https://images.unsplash.com/photo-1593510987185-1ec2256148a3?w=600&q=80',
+      'https://images.unsplash.com/photo-1614624532983-4ce03382d63d?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1606904825846-647eb07f5be2?w=600&q=80'
+  },
+  {
+    id:19, cat:`بروجكتور`, name:`Epson Home Cinema بروجكتور Full HD`, i18n:{ar:{cat:`بروجكتور`,name:`Epson Home Cinema بروجكتور Full HD`,badge:`🎬 سينمائي`},fr:{cat:`Projecteur`,name:`Epson Home Cinema — Projecteur Full HD`,badge:`🎬 Cinéma`},en:{cat:`Projector`,name:`Epson Home Cinema Full HD Projector`,badge:`🎬 Cinema`}},
+    specs:['Full HD','3000 Lumens','HDMI'],
+    stars:4.6, reviews:112, price:4990, oldPrice:5990,
+    badge:{cls:'badge-blue',txt:'🎬 سينمائي'},
+    images:[
+      'https://images.unsplash.com/photo-1626814026160-2237a95fc5c0?w=600&q=80',
+      'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=600&q=80',
+      'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=600&q=80',
+      'https://images.unsplash.com/photo-1576267423048-15c0040fec78?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1626814026160-2237a95fc5c0?w=600&q=80'
+  },
+  {
+    id:20, cat:`كرسي جيمنج`, name:`DXRacer كرسي جيمنج مريح`, i18n:{ar:{cat:`كرسي جيمنج`,name:`DXRacer كرسي جيمنج مريح`,badge:`🎮 جيمنج`},fr:{cat:`Chaise gaming`,name:`DXRacer — Chaise gaming confortable`,badge:`🎮 Gaming`},en:{cat:`Gaming chair`,name:`DXRacer Comfortable Gaming Chair`,badge:`🎮 Gaming`}},
+    specs:['دعم قطني','قابل للتعديل','جلد PU'],
+    stars:4.4, reviews:139, price:2490, oldPrice:2990,
+    badge:{cls:'badge-fire',txt:'🎮 جيمنج'},
+    images:[
+      'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=600&q=80',
+      'https://images.unsplash.com/photo-1598550476439-6847785fcea6?w=600&q=80',
+      'https://images.unsplash.com/photo-1611117775350-ac3950990985?w=600&q=80',
+      'https://images.unsplash.com/photo-1505843513577-22bb7d21e455?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=600&q=80'
+  },
+  {
+    id:21, cat:`كاميرا مراقبة`, name:`Xiaomi Smart Camera 360 كاميرا منزلية`, i18n:{ar:{cat:`كاميرا مراقبة`,name:`Xiaomi Smart Camera 360 كاميرا منزلية`,badge:`🏠 ذكي`},fr:{cat:`Caméra de surveillance`,name:`Xiaomi Smart Camera 360 — Caméra domestique`,badge:`🏠 Intelligent`},en:{cat:`Security camera`,name:`Xiaomi Smart Camera 360 Home Camera`,badge:`🏠 Smart`}},
+    specs:['1080p','رؤية ليلية','تطبيق ذكي'],
+    stars:4.3, reviews:301, price:290, oldPrice:390,
+    badge:{cls:'badge-blue',txt:'🏠 ذكي'},
+    images:[
+      'https://images.unsplash.com/photo-1557324232-b8917d3c3dcb?w=600&q=80',
+      'https://images.unsplash.com/photo-1557324232-7d1b7a8d3e6f?w=600&q=80',
+      'https://images.unsplash.com/photo-1582139329536-e7284fece509?w=600&q=80',
+      'https://images.unsplash.com/photo-1558002038-1055907df827?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1557324232-b8917d3c3dcb?w=600&q=80'
+  },
+  {
+    id:22, cat:`سماعة بلوتوث`, name:`JBL Flip 6 مكبر صوت محمول`, i18n:{ar:{cat:`سماعة بلوتوث`,name:`JBL Flip 6 مكبر صوت محمول`,badge:`✅ جديد`},fr:{cat:`Enceinte Bluetooth`,name:`JBL Flip 6 — Enceinte portable`,badge:`✅ Nouveau`},en:{cat:`Bluetooth speaker`,name:`JBL Flip 6 Portable Speaker`,badge:`✅ New`}},
+    specs:['IP67','12 ساعة بطارية','صوت قوي'],
+    stars:4.6, reviews:418, price:790, oldPrice:990,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&q=80',
+      'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&q=80',
+      'https://images.unsplash.com/photo-1558537348-c0f8e733989d?w=600&q=80',
+      'https://images.unsplash.com/photo-1589003077984-894e133dabab?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&q=80'
+  },
+  {
+    id:23, cat:`طابعة 3D`, name:`Creality Ender 3 طابعة ثلاثية الأبعاد`, i18n:{ar:{cat:`طابعة 3D`,name:`Creality Ender 3 طابعة ثلاثية الأبعاد`,badge:`🔧 احترافي`},fr:{cat:`Imprimante 3D`,name:`Creality Ender 3 — Imprimante 3D`,badge:`🔧 Pro`},en:{cat:`3D printer`,name:`Creality Ender 3 3D Printer`,badge:`🔧 Pro`}},
+    specs:['دقة عالية','سهل التركيب','مفتوح المصدر'],
+    stars:4.5, reviews:87, price:2890, oldPrice:3490,
+    badge:{cls:'badge-blue',txt:'🔧 احترافي'},
+    images:[
+      'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80',
+      'https://images.unsplash.com/photo-1631556097152-7595a09f6b5d?w=600&q=80',
+      'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80',
+      'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80'
+  },
+  {
+    id:24, cat:`ميكروفون`, name:`Blue Yeti USB ميكروفون احترافي`, i18n:{ar:{cat:`ميكروفون`,name:`Blue Yeti USB ميكروفون احترافي`,badge:`🎙️ استوديو`},fr:{cat:`Microphone`,name:`Blue Yeti USB — Micro professionnel`,badge:`🎙️ Studio`},en:{cat:`Microphone`,name:`Blue Yeti USB Professional Microphone`,badge:`🎙️ Studio`}},
+    specs:['USB Plug & Play','4 أنماط تسجيل','جودة استوديو'],
+    stars:4.7, reviews:254, price:1490, oldPrice:1890,
+    badge:{cls:'badge-star',txt:'🎙️ استوديو'},
+    images:[
+      'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=600&q=80',
+      'https://images.unsplash.com/photo-1610348725531-843dff563e2c?w=600&q=80',
+      'https://images.unsplash.com/photo-1583946099390-d4e0ec2c0e3f?w=600&q=80',
+      'https://images.unsplash.com/photo-1598653222000-6b7b7a552625?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=600&q=80'
+  },
+  {
+    id:25, cat:`سماعة أذن`, name:`AirPods Pro 2 إلغاء ضوضاء نشط`, i18n:{ar:{cat:`سماعة أذن`,name:`AirPods Pro 2 إلغاء ضوضاء نشط`,badge:`⭐ مميز`},fr:{cat:`Écouteurs`,name:`AirPods Pro 2 — Réduction de bruit active`,badge:`⭐ Premium`},en:{cat:`Earbuds`,name:`AirPods Pro 2 Active Noise Cancelling`,badge:`⭐ Premium`}},
+    specs:['ANC نشط','مقاومة للماء','شحن لاسلكي'],
+    stars:4.8, reviews:534, price:2390, oldPrice:2790,
+    badge:{cls:'badge-star',txt:'⭐ مميز'},
+    images:[
+      'https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=600&q=80',
+      'https://images.unsplash.com/photo-1588423771073-b8903fbb85b5?w=600&q=80',
+      'https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=600&q=80',
+      'https://images.unsplash.com/photo-1572569511254-d8f925fe2cbd?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=600&q=80'
+  },
+  {
+    id:26, cat:`حامل لابتوب`, name:`حامل ألمنيوم قابل للطي للابتوب`, i18n:{ar:{cat:`حامل لابتوب`,name:`حامل ألمنيوم قابل للطي للابتوب`,badge:`🎒 عملي`},fr:{cat:`Support PC`,name:`Support pliable en aluminium pour PC portable`,badge:`🎒 Pratique`},en:{cat:`Laptop stand`,name:`Foldable Aluminum Laptop Stand`,badge:`🎒 Practical`}},
+    specs:['قابل للطي','ألمنيوم','يدعم 17 إنش'],
+    stars:4.4, reviews:176, price:220, oldPrice:320,
+    badge:{cls:'badge-blue',txt:'🎒 عملي'},
+    images:[
+      'https://images.unsplash.com/photo-1527443224154-3f4d3d3a9e6c?w=600&q=80',
+      'https://images.unsplash.com/photo-1611078489935-0cb964de46d6?w=600&q=80',
+      'https://images.unsplash.com/photo-1593642634524-b40b5baae6bb?w=600&q=80',
+      'https://images.unsplash.com/photo-1593062096033-9a26b09da705?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1527443224154-3f4d3d3a9e6c?w=600&q=80'
+  },
+  {
+    id:27, cat:`سماعة جيمنج`, name:`HyperX Cloud II سماعة جيمنج بصوت محيطي`, i18n:{ar:{cat:`سماعة جيمنج`,name:`HyperX Cloud II سماعة جيمنج بصوت محيطي`,badge:`🎮 جيمنج`},fr:{cat:`Casque gaming`,name:`HyperX Cloud II — Casque gaming surround`,badge:`🎮 Gaming`},en:{cat:`Gaming headset`,name:`HyperX Cloud II Surround Gaming Headset`,badge:`🎮 Gaming`}},
+    specs:['صوت 7.1','مايك قابل للفصل','وسادات مريحة'],
+    stars:4.6, reviews:392, price:690, oldPrice:890,
+    badge:{cls:'badge-fire',txt:'🎮 جيمنج'},
+    images:[
+      'https://images.unsplash.com/photo-1599669454699-248893623440?w=600&q=80',
+      'https://images.unsplash.com/photo-1599669454699-1c7d2a3f0e7e?w=600&q=80',
+      'https://images.unsplash.com/photo-1612444530582-fc66183b16f7?w=600&q=80',
+      'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1599669454699-248893623440?w=600&q=80'
+  },
+  {
+    id:28, cat:`بطارية محمولة`, name:`Anker PowerCore 20000mAh بور بانك`, i18n:{ar:{cat:`بطارية محمولة`,name:`Anker PowerCore 20000mAh بور بانك`,badge:`✅ جديد`},fr:{cat:`Batterie externe`,name:`Anker PowerCore 20000 mAh — Power bank`,badge:`✅ Nouveau`},en:{cat:`Power bank`,name:`Anker PowerCore 20000mAh Power Bank`,badge:`✅ New`}},
+    specs:['20000mAh','شحن سريع','منفذين USB'],
+    stars:4.5, reviews:467, price:390, oldPrice:520,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=600&q=80',
+      'https://images.unsplash.com/photo-1606293459339-aa5ddf8c5cbe?w=600&q=80',
+      'https://images.unsplash.com/photo-1591290619762-c6c50cf9c0f1?w=600&q=80',
+      'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=600&q=80'
+  },
+  {
+    id:29, cat:`عصا تحكم`, name:`PS5 DualSense Wireless Controller`, i18n:{ar:{cat:`عصا تحكم`,name:`PS5 DualSense Wireless Controller`,badge:`🎮 جيمنج`},fr:{cat:`Manette`,name:`PS5 DualSense — Manette sans fil`,badge:`🎮 Gaming`},en:{cat:`Controller`,name:`PS5 DualSense Wireless Controller`,badge:`🎮 Gaming`}},
+    specs:['اهتزاز تكيفي','بطارية طويلة','بلوتوث'],
+    stars:4.7, reviews:389, price:790, oldPrice:990,
+    badge:{cls:'badge-fire',txt:'🎮 جيمنج'},
+    images:[
+      'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=600&q=80',
+      'https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=600&q=80',
+      'https://images.unsplash.com/photo-1592840496694-26d035b52b48?w=600&q=80',
+      'https://images.unsplash.com/photo-1622297845775-5ff3fef71d13?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=600&q=80'
+  },
+  {
+    id:30, cat:`شاشة جيمنج`, name:`Samsung Odyssey G5 27 إنش 144Hz`, i18n:{ar:{cat:`شاشة جيمنج`,name:`Samsung Odyssey G5 27 إنش 144Hz`,badge:`🖥️ جيمنج`},fr:{cat:`Écran gaming`,name:`Samsung Odyssey G5 27" 144Hz`,badge:`🖥️ Gaming`},en:{cat:`Gaming monitor`,name:`Samsung Odyssey G5 27" 144Hz`,badge:`🖥️ Gaming`}},
+    specs:['144Hz','منحني','QHD'],
+    stars:4.6, reviews:213, price:2890, oldPrice:3490,
+    badge:{cls:'badge-blue',txt:'🖥️ جيمنج'},
+    images:[
+      'https://images.unsplash.com/photo-1616588589676-62b3bd4ff6d2?w=600&q=80',
+      'https://images.unsplash.com/photo-1547082299-de196ea013d6?w=600&q=80',
+      'https://images.unsplash.com/photo-1601944179066-29786cb9d32a?w=600&q=80',
+      'https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1616588589676-62b3bd4ff6d2?w=600&q=80'
+  },
+  {
+    id:31, cat:`ماسح ضوئي`, name:`Canon CanoScan ماسح ضوئي للمستندات`, i18n:{ar:{cat:`ماسح ضوئي`,name:`Canon CanoScan ماسح ضوئي للمستندات`,badge:`✅ جديد`},fr:{cat:`Scanner`,name:`Canon CanoScan — Scanner de documents`,badge:`✅ Nouveau`},en:{cat:`Scanner`,name:`Canon CanoScan Document Scanner`,badge:`✅ New`}},
+    specs:['دقة عالية','USB','سريع'],
+    stars:4.3, reviews:64, price:990, oldPrice:1290,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1563770660941-20978e870e26?w=600&q=80',
+      'https://images.unsplash.com/photo-1612815154858-60aa4c59eabd?w=600&q=80',
+      'https://images.unsplash.com/photo-1581235720704-06d3acc89b46?w=600&q=80',
+      'https://images.unsplash.com/photo-1612996470715-ada6b2b0c5d3?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1563770660941-20978e870e26?w=600&q=80'
+  },
+  {
+    id:32, cat:`عدسة كاميرا`, name:`Sony 50mm f/1.8 عدسة احترافية`, i18n:{ar:{cat:`عدسة كاميرا`,name:`Sony 50mm f/1.8 عدسة احترافية`,badge:`📸 احترافي`},fr:{cat:`Objectif`,name:`Sony 50mm f/1.8 — Objectif pro`,badge:`📸 Pro`},en:{cat:`Camera lens`,name:`Sony 50mm f/1.8 Professional Lens`,badge:`📸 Pro`}},
+    specs:['f/1.8','بوكيه ناعم','خفيف الوزن'],
+    stars:4.8, reviews:142, price:1890, oldPrice:2290,
+    badge:{cls:'badge-star',txt:'📸 احترافي'},
+    images:[
+      'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80',
+      'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&q=80',
+      'https://images.unsplash.com/photo-1606980707330-3d9d36fb5d83?w=600&q=80',
+      'https://images.unsplash.com/photo-1606986628253-05620e9c2a90?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80'
+  },
+  {
+    id:33, cat:`مصباح مكتب`, name:`مصباح LED ذكي قابل للتعديل`, i18n:{ar:{cat:`مصباح مكتب`,name:`مصباح LED ذكي قابل للتعديل`,badge:`🏠 ذكي`},fr:{cat:`Lampe de bureau`,name:`Lampe LED intelligente réglable`,badge:`🏠 Intelligent`},en:{cat:`Desk lamp`,name:`Smart Adjustable LED Desk Lamp`,badge:`🏠 Smart`}},
+    specs:['إضاءة قابلة للتعديل','شحن USB','توقيت تلقائي'],
+    stars:4.4, reviews:198, price:290, oldPrice:390,
+    badge:{cls:'badge-blue',txt:'🏠 ذكي'},
+    images:[
+      'https://images.unsplash.com/photo-1565636192335-2a584a73cd9c?w=600&q=80',
+      'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&q=80',
+      'https://images.unsplash.com/photo-1543198126-cc44ee8b4053?w=600&q=80',
+      'https://images.unsplash.com/photo-1517991104123-1d56a6e81ed9?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1565636192335-2a584a73cd9c?w=600&q=80'
+  },
+  {
+    id:34, cat:`كابل شحن`, name:`Anker PowerLine III كابل USB-C سريع`, i18n:{ar:{cat:`كابل شحن`,name:`Anker PowerLine III كابل USB-C سريع`,badge:`✅ جديد`},fr:{cat:`Câble`,name:`Anker PowerLine III — Câble USB-C rapide`,badge:`✅ Nouveau`},en:{cat:`Charging cable`,name:`Anker PowerLine III Fast USB-C Cable`,badge:`✅ New`}},
+    specs:['شحن سريع','متين','1.8 متر'],
+    stars:4.5, reviews:312, price:99, oldPrice:149,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80',
+      'https://images.unsplash.com/photo-1606229365485-93a3b8ee0385?w=600&q=80',
+      'https://images.unsplash.com/photo-1622957404458-4e3f03ce4e3a?w=600&q=80',
+      'https://images.unsplash.com/photo-1591290619762-c6c50cf9c0f1?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80'
+  },
+  {
+    id:35, cat:`جهاز عرض تقديمي`, name:`Logitech Spotlight جهاز تحكم للعروض`, i18n:{ar:{cat:`جهاز عرض تقديمي`,name:`Logitech Spotlight جهاز تحكم للعروض`,badge:`✅ جديد`},fr:{cat:`Pointeur de présentation`,name:`Logitech Spotlight — Présentateur`,badge:`✅ Nouveau`},en:{cat:`Presentation remote`,name:`Logitech Spotlight Presentation Remote`,badge:`✅ New`}},
+    specs:['بلوتوث','بطارية طويلة','مدى 30 متر'],
+    stars:4.4, reviews:78, price:690, oldPrice:890,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80',
+      'https://images.unsplash.com/photo-1595044426077-d36d9236d54a?w=600&q=80',
+      'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&q=80',
+      'https://images.unsplash.com/photo-1561112078-7d24e04c3407?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80'
+  },
+  {
+    id:36, cat:`حامل هاتف`, name:`حامل هاتف مغناطيسي للسيارة`, i18n:{ar:{cat:`حامل هاتف`,name:`حامل هاتف مغناطيسي للسيارة`,badge:`🎒 عملي`},fr:{cat:`Support téléphone`,name:`Support téléphone magnétique pour voiture`,badge:`🎒 Pratique`},en:{cat:`Phone mount`,name:`Magnetic Car Phone Mount`,badge:`🎒 Practical`}},
+    specs:['مغناطيسي قوي','تركيب سهل','دوران 360°'],
+    stars:4.3, reviews:256, price:120, oldPrice:180,
+    badge:{cls:'badge-blue',txt:'🎒 عملي'},
+    images:[
+      'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=600&q=80',
+      'https://images.unsplash.com/photo-1609692814859-08d0e98d4318?w=600&q=80',
+      'https://images.unsplash.com/photo-1592890288564-76628a30a657?w=600&q=80',
+      'https://images.unsplash.com/photo-1622957404458-4e3f03ce4e3a?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=600&q=80'
+  },
+  {
+    id:37, cat:`سماعة استوديو`, name:`Audio-Technica ATH-M50x سماعة استوديو`, i18n:{ar:{cat:`سماعة استوديو`,name:`Audio-Technica ATH-M50x سماعة استوديو`,badge:`🎙️ استوديو`},fr:{cat:`Casque studio`,name:`Audio-Technica ATH-M50x — Casque studio`,badge:`🎙️ Studio`},en:{cat:`Studio headphones`,name:`Audio-Technica ATH-M50x Studio Headphones`,badge:`🎙️ Studio`}},
+    specs:['صوت دقيق','وسادات دوارة','جودة احترافية'],
+    stars:4.8, reviews:421, price:1690, oldPrice:1990,
+    badge:{cls:'badge-star',txt:'🎙️ استوديو'},
+    images:[
+      'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=600&q=80',
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80',
+      'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&q=80',
+      'https://images.unsplash.com/photo-1524678606370-a47ad25cb82a?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=600&q=80'
+  },
+  {
+    id:38, cat:`لوحة رسم`, name:`Wacom Intuos لوحة رسم رقمية`, i18n:{ar:{cat:`لوحة رسم`,name:`Wacom Intuos لوحة رسم رقمية`,badge:`🎨 إبداعي`},fr:{cat:`Tablette graphique`,name:`Wacom Intuos — Tablette graphique`,badge:`🎨 Créatif`},en:{cat:`Drawing tablet`,name:`Wacom Intuos Digital Drawing Tablet`,badge:`🎨 Creative`}},
+    specs:['قلم حساس للضغط','بلوتوث','سطح كبير'],
+    stars:4.6, reviews:167, price:1290, oldPrice:1590,
+    badge:{cls:'badge-blue',txt:'🎨 إبداعي'},
+    images:[
+      'https://images.unsplash.com/photo-1561154464-82e9adf32764?w=600&q=80',
+      'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&q=80',
+      'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&q=80',
+      'https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1561154464-82e9adf32764?w=600&q=80'
+  },
+  {
+    id:39, cat:`مروحة تبريد`, name:`مروحة تبريد للابتوب بإضاءة RGB`, i18n:{ar:{cat:`مروحة تبريد`,name:`مروحة تبريد للابتوب بإضاءة RGB`,badge:`🎮 جيمنج`},fr:{cat:`Refroidisseur`,name:`Refroidisseur pour PC portable RGB`,badge:`🎮 Gaming`},en:{cat:`Cooling pad`,name:`RGB Laptop Cooling Pad`,badge:`🎮 Gaming`}},
+    specs:['إضاءة RGB','تبريد فعال','USB'],
+    stars:4.2, reviews:143, price:250, oldPrice:350,
+    badge:{cls:'badge-fire',txt:'🎮 جيمنج'},
+    images:[
+      'https://images.unsplash.com/photo-1587202372616-b43abea06133?w=600&q=80',
+      'https://images.unsplash.com/photo-1591405351990-4726e331f141?w=600&q=80',
+      'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=600&q=80',
+      'https://images.unsplash.com/photo-1593640408182-31c228d1cf3d?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1587202372616-b43abea06133?w=600&q=80'
+  },
+  {
+    id:40, cat:`خزانة شحن`, name:`محطة شحن لاسلكية ثلاثية لجميع الأجهزة`, i18n:{ar:{cat:`خزانة شحن`,name:`محطة شحن لاسلكية ثلاثية لجميع الأجهزة`,badge:`✅ جديد`},fr:{cat:`Station de charge`,name:`Station de charge sans fil 3-en-1`,badge:`✅ Nouveau`},en:{cat:`Charging station`,name:`3-in-1 Wireless Charging Station`,badge:`✅ New`}},
+    specs:['Qi شحن سريع','3 أجهزة','تصميم أنيق'],
+    stars:4.5, reviews:201, price:450, oldPrice:620,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1606229365485-93a3b8ee0385?w=600&q=80',
+      'https://images.unsplash.com/photo-1591290619762-c6c50cf9c0f1?w=600&q=80',
+      'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80',
+      'https://images.unsplash.com/photo-1622957404458-4e3f03ce4e3a?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1606229365485-93a3b8ee0385?w=600&q=80'
   }
 ];
 
 let cart = [];
+let cardQty = {};
+
+function changeCardQty(id, delta, event) {
+  if(event){ event.stopPropagation(); }
+  const cur = cardQty[id] || 1;
+  let next = cur + delta;
+  if(next < 1) next = 1;
+  if(next > 99) next = 99;
+  cardQty[id] = next;
+  document.querySelectorAll('.qty-val[data-pid="'+id+'"]').forEach(el => { el.textContent = '×' + next; });
+}
 let currentHero = 0;
 let heroTimer;
 
@@ -1190,12 +1718,12 @@ function cardGrid(p) {
     <div class="product-card card-grid-style" data-product-id="${p.id}">
       <div class="card-accent"></div>
       <span class="badge ${p.badge.cls}">${p.badge.txt}</span>
-      <div class="card-img-wrap" onclick="openProductPane(${p.id})" style="cursor:pointer">
+      <div class="card-img-wrap" onclick="openProductPaneFrom(${p.id}, this)" style="cursor:pointer">
         <div class="card-img-rotator" id="rotator-grid-${p.id}"></div>
       </div>
       <div class="card-body">
         <div class="card-cat">${p.cat}</div>
-        <div class="card-name" onclick="openProductPane(${p.id})" style="cursor:pointer">${p.name}</div>
+        <div class="card-name" onclick="openProductPaneFrom(${p.id}, this)" style="cursor:pointer">${p.name}</div>
         <div class="card-stars-row">
           <span class="stars">${'★'.repeat(Math.floor(p.stars))}${'☆'.repeat(5-Math.floor(p.stars))}</span>
           <span class="rating-count">(${p.reviews})</span>
@@ -1219,14 +1747,14 @@ function cardList(p) {
   return `
     <div class="product-card card-list-style" data-product-id="${p.id}">
       <div class="card-accent"></div>
-      <div class="card-list-img" onclick="openProductPane(${p.id})" style="cursor:pointer">
+      <div class="card-list-img" onclick="openProductPaneFrom(${p.id}, this)" style="cursor:pointer">
         <span class="badge ${p.badge.cls}">${p.badge.txt}</span>
         <div class="card-img-rotator" id="rotator-list-${p.id}"></div>
       </div>
       <div class="card-list-body">
         <div>
           <div class="card-cat">${p.cat}</div>
-          <div class="card-name" onclick="openProductPane(${p.id})">${p.name}</div>
+          <div class="card-name" onclick="openProductPaneFrom(${p.id}, this)">${p.name}</div>
           <div class="card-specs">${p.specs.map(s => `<span class="spec-tag">${s}</span>`).join('')}</div>
           <div class="card-stars-row">
             <span class="stars">${'★'.repeat(Math.floor(p.stars))}${'☆'.repeat(5 - Math.floor(p.stars))}</span>
@@ -1253,8 +1781,10 @@ function cardList(p) {
 
 function renderProducts() {
   const grid = document.getElementById('productsGrid');
-  const gridItems = products.slice(0,4).map(cardGrid).join('');
-  const listItems = products.slice(4).map(cardList).join('');
+  const gridItems = products.slice(0,9).map(cardGrid).join('');
+  const listItems = products.slice(9,19).map(cardList).join('');
+  const gridItems2 = products.slice(19,28).map(cardGrid).join('');
+  const gridItems3 = products.slice(28,40).map(cardGrid).join('');
   grid.innerHTML = `
     <div class="sub-grid">${gridItems}</div>
     <div class="promo-banner">
@@ -1272,6 +1802,18 @@ function renderProducts() {
       </button>
     </div>
     <div class="sub-list" id="subList">${listItems}</div>
+    <div class="split-banner">
+      <div class="split-banner-bg"></div>
+      <div class="split-banner-overlay"></div>
+      <div class="split-banner-shine"></div>
+      <div class="split-banner-content">
+        <div class="split-banner-icon"><i class="fas fa-star"></i></div>
+        <div class="split-banner-title">${t('split.title')}</div>
+        <div class="split-banner-sub">${t('split.sub')}</div>
+      </div>
+    </div>
+    <div class="sub-grid">${gridItems2}</div>
+    <div class="sub-grid sub-grid-wide">${gridItems3}</div>
   `;
   setTimeout(() => {
     products.forEach(p => {
@@ -1285,6 +1827,28 @@ function renderProducts() {
 
 let pdCurrentId = null;
 let pdSlideIdx = 0;
+
+function openProductPaneFrom(id, el) {
+  // على الهاتف فقط: sub-list يكون سلايدر أفقي — نمرره نحو البطاقة أولاً
+  const card = el ? el.closest('.product-card, .pd-rel-card') : null;
+  if (card) {
+    const slider = card.closest('.sub-list');
+    if (slider) {
+      const sliderStyle = getComputedStyle(slider);
+      if (sliderStyle.overflowX === 'auto' || sliderStyle.overflowX === 'scroll') {
+        const sliderRect = slider.getBoundingClientRect();
+        const cardRect = card.getBoundingClientRect();
+        const cardCenter = cardRect.left + cardRect.width / 2;
+        const sliderCenter = sliderRect.left + sliderRect.width / 2;
+        const offset = cardCenter - sliderCenter;
+        slider.scrollBy({ left: offset, behavior: 'smooth' });
+        setTimeout(() => openProductPane(id), 350);
+        return;
+      }
+    }
+  }
+  openProductPane(id);
+}
 
 function openProductPane(id) {
   const p = products.find(x => x.id === id);
@@ -1303,6 +1867,7 @@ function openProductPane(id) {
     `<span class="stars">${'★'.repeat(Math.floor(p.stars))}${'☆'.repeat(5-Math.floor(p.stars))}</span>
      <span class="rating-count">${p.stars} · (${p.reviews} ${t('pd.reviews')})</span>`;
   document.getElementById('pdSpecs').innerHTML = p.specs.map(s=>`<span class="spec-tag">${s}</span>`).join('');
+  buildPdQtyDropdown();
   const imgs = p.images || [p.img, p.img, p.img, p.img];
   document.getElementById('pdSlides').innerHTML = imgs.map(src => `
     <div class="pd-slide">
@@ -1318,7 +1883,7 @@ function openProductPane(id) {
   pdUpdateSlider();
   const related = products.filter(x => x.id !== id);
   document.getElementById('pdRelated').innerHTML = related.map(r => `
-    <div class="pd-rel-card" onclick="openProductPane(${r.id})">
+    <div class="pd-rel-card" onclick="openProductPaneFrom(${r.id}, this)">
       <div class="pd-rel-img">
         <img src="${r.images?.[0] || r.img}" alt="${r.name}" loading="lazy" onerror="this.parentElement.style.background='#f0f4ff';this.style.display='none'">
       </div>
@@ -1343,6 +1908,8 @@ function pdUpdateSlider() {
   slidesContainer.style.transform = `translateX(${-pdSlideIdx * 100}%)`;
   document.querySelectorAll('.pd-dot').forEach((d, i) => d.classList.toggle('active', i === pdSlideIdx));
   document.querySelectorAll('.pd-thumb').forEach((t, i) => t.classList.toggle('active', i === pdSlideIdx));
+  const thumbsStrip = document.getElementById('pdThumbs');
+  if (thumbsStrip) thumbsStrip.scrollTo({ left: 0, behavior: 'smooth' });
 }
 
 function pdSlide(dir) {
@@ -1357,9 +1924,47 @@ function pdGoTo(i) {
   pdUpdateSlider();
 }
 
+let pdQtyValue = 1;
+
+function buildPdQtyDropdown(reset) {
+  if(reset !== false) pdQtyValue = 1;
+  const display = document.getElementById('pdQtyDisplay');
+  const list = document.getElementById('pdQtyList');
+  const wrap = document.getElementById('pdQtyWrap');
+  if(!display || !list || !wrap) return;
+  wrap.classList.remove('open');
+  display.textContent = t('pd.qty') + ' : ' + pdQtyValue;
+  let opts = '';
+  for(let i=1;i<=3;i++){ opts += `<div class="pd-qty-opt${i===pdQtyValue?' selected':''}" data-val="${i}" onclick="selectPdQty(${i}, event)">${i}</div>`; }
+  list.innerHTML = opts;
+}
+
+function togglePdQtyList(event) {
+  event.stopPropagation();
+  const wrap = document.getElementById('pdQtyWrap');
+  if(wrap) wrap.classList.toggle('open');
+}
+
+function selectPdQty(val, event) {
+  if(event) event.stopPropagation();
+  pdQtyValue = val;
+  const display = document.getElementById('pdQtyDisplay');
+  if(display) display.textContent = t('pd.qty') + ' : ' + val;
+  document.querySelectorAll('.pd-qty-opt').forEach(el => el.classList.toggle('selected', parseInt(el.dataset.val,10) === val));
+  const wrap = document.getElementById('pdQtyWrap');
+  if(wrap) wrap.classList.remove('open');
+}
+
+document.addEventListener('click', () => {
+  const wrap = document.getElementById('pdQtyWrap');
+  if(wrap) wrap.classList.remove('open');
+});
+
 function pdAddToCart() {
   if(!pdCurrentId) return;
+  cardQty[pdCurrentId] = pdQtyValue || 1;
   addToCart(pdCurrentId, null);
+  buildPdQtyDropdown();
   const btn = document.getElementById('pdAddBtn');
   btn.innerHTML = t('pd.added');
   btn.style.background = 'linear-gradient(135deg,#16a34a,#22c55e)';
@@ -1374,9 +1979,12 @@ function closeProductPane() {
 
 function addToCart(id, event) {
   const p = products.find(x=>x.id===id);
+  const qtyToAdd = cardQty[id] || 1;
   const existing = cart.find(x=>x.id===id);
-  if(existing) existing.qty++;
-  else cart.push({...p, qty:1});
+  if(existing) existing.qty += qtyToAdd;
+  else cart.push({...p, qty:qtyToAdd});
+  cardQty[id] = 1;
+  document.querySelectorAll('.qty-val[data-pid="'+id+'"]').forEach(el => { el.textContent = '×1'; });
   updateCartCount();
   const btn = document.getElementById('btn'+id);
   if(event && btn) {
@@ -1717,6 +2325,13 @@ const I18N = {
     'prof.save':`<i class="fas fa-save"></i> حفظ التغييرات`,
     'prof.logout':`<i class="fas fa-sign-out-alt"></i> تسجيل الخروج`,
     'pd.title':`تفاصيل المنتج`,
+    'pd.qty':`الكمية`,
+    'ad.sponsored':`إعلان ممول`,
+    'ad.title1':`شحن سريع<br>لكل أجهزتك`,
+    'ad.sub1':`جودة عالية بأفضل سعر`,
+    'ad.title2':`صوت نقي<br>بلا حدود`,
+    'ad.sub2':`عروض حصرية اليوم فقط`,
+    'ad.cta':`تسوّق الآن <i class="fas fa-arrow-left"></i>`,
     'pd.delivery':`<i class="fas fa-truck"></i> توصيل سريع · كاش عند الاستلام`,
     'pd.related':`منتجات مشابهة`,
     'pd.add':`<i class="fas fa-cart-plus"></i> أضف إلى السلة`,
@@ -1738,6 +2353,8 @@ const I18N = {
     'promo.title':`خصومات حصرية على منتجات مختارة`,
     'promo.sub':`توصيل مجاني وكاش عند الاستلام في كل أنحاء المغرب`,
     'promo.cta':`اكتشف العروض`,
+    'split.title':`مجموعة مختارة بعناية لك`,
+    'split.sub':`أحدث المنتجات التقنية بأفضل الأسعار وجودة مضمونة`,
   },
   fr:{
     'topbar':`🚚 <b>Livraison gratuite</b> pour toutes les commandes au Maroc &nbsp;|&nbsp; Paiement à la livraison ✓`,
@@ -1839,6 +2456,13 @@ const I18N = {
     'prof.save':`<i class="fas fa-save"></i> Enregistrer les modifications`,
     'prof.logout':`<i class="fas fa-sign-out-alt"></i> Se déconnecter`,
     'pd.title':`Détails du produit`,
+    'pd.qty':`Quantité`,
+    'ad.sponsored':`Sponsorisé`,
+    'ad.title1':`Charge rapide<br>pour tous vos appareils`,
+    'ad.sub1':`Haute qualité au meilleur prix`,
+    'ad.title2':`Son pur<br>sans limites`,
+    'ad.sub2':`Offres exclusives aujourd'hui`,
+    'ad.cta':`Achetez maintenant <i class="fas fa-arrow-left"></i>`,
     'pd.delivery':`<i class="fas fa-truck"></i> Livraison rapide · Paiement à la livraison`,
     'pd.related':`Produits similaires`,
     'pd.add':`<i class="fas fa-cart-plus"></i> Ajouter au panier`,
@@ -1860,6 +2484,8 @@ const I18N = {
     'promo.title':`Réductions exclusives sur une sélection`,
     'promo.sub':`Livraison gratuite et paiement à la livraison partout au Maroc`,
     'promo.cta':`Voir les offres`,
+    'split.title':`Une sélection pensée pour vous`,
+    'split.sub':`Les derniers produits tech aux meilleurs prix, qualité garantie`,
   },
   en:{
     'topbar':`🚚 <b>Free delivery</b> on all orders across Morocco &nbsp;|&nbsp; Cash on delivery ✓`,
@@ -1961,6 +2587,13 @@ const I18N = {
     'prof.save':`<i class="fas fa-save"></i> Save changes`,
     'prof.logout':`<i class="fas fa-sign-out-alt"></i> Log out`,
     'pd.title':`Product details`,
+    'pd.qty':`Quantity`,
+    'ad.sponsored':`Sponsored`,
+    'ad.title1':`Fast charging<br>for all your devices`,
+    'ad.sub1':`Top quality at the best price`,
+    'ad.title2':`Pure sound<br>without limits`,
+    'ad.sub2':`Exclusive deals today only`,
+    'ad.cta':`Shop now <i class="fas fa-arrow-left"></i>`,
     'pd.delivery':`<i class="fas fa-truck"></i> Fast delivery · Cash on delivery`,
     'pd.related':`Similar products`,
     'pd.add':`<i class="fas fa-cart-plus"></i> Add to cart`,
@@ -1982,6 +2615,8 @@ const I18N = {
     'promo.title':`Exclusive discounts on selected products`,
     'promo.sub':`Free delivery and cash on delivery across Morocco`,
     'promo.cta':`Shop the deals`,
+    'split.title':`A selection curated for you`,
+    'split.sub':`The latest tech products at the best prices, guaranteed quality`,
   }
 };
 
@@ -2037,6 +2672,7 @@ function applyLang(code){
   buildHeroCarousel();
   renderProducts();
   if(document.getElementById('cartPane').classList.contains('active')) renderCart();
+  if(document.getElementById('productPane').classList.contains('active')) buildPdQtyDropdown(false);
   buildLangMenu();
   updateAccountBtn();
 }
