@@ -761,6 +761,114 @@ html[dir="ltr"] .lang-menu{right:0;}
   .promo-text h3{font-size:18px;}
   .promo-cta{width:100%;justify-content:center;}
 }
+
+/* ════════════════════════════════════════════════════════════
+   CATEGORY BAR — شريط التصنيفات (مستقل تماماً عن باقي الصفحة)
+   ════════════════════════════════════════════════════════════ */
+.cat-bar-wrap{
+  width:100%;
+  background:linear-gradient(135deg,#fbbf24,#f59e0b);
+  box-shadow:0 4px 14px rgba(245,158,11,0.25);
+  position:relative;
+  z-index:50;
+}
+.cat-bar{
+  max-width:1340px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 20px;
+  overflow-x:auto;
+  white-space:nowrap;
+  flex-wrap:nowrap;
+  scrollbar-width:none;        /* فايرفوكس: إخفاء الشريط */
+  -ms-overflow-style:none;     /* إيدج/IE: إخفاء الشريط */
+}
+.cat-bar::-webkit-scrollbar{display:none;} /* كروم/سفاري: إخفاء الشريط */
+.cat-btn{
+  flex:1 1 0;             /* الحاسوب: توزيع متساوٍ على كامل عرض البار */
+  width:100%;
+  background:rgba(255,255,255,0.92);
+  color:#92400e;
+  border:none;
+  padding:9px 20px;
+  border-radius:50px;
+  font-family:'Cairo',Arial,sans-serif;
+  font-size:13.5px;
+  font-weight:800;
+  cursor:pointer;
+  transition:all .2s ease;
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
+  text-align:center;
+}
+.cat-btn:hover,.cat-btn.active{
+  background:#1a1a1a;
+  color:#fbbf24;
+  transform:translateY(-2px);
+  box-shadow:0 6px 14px rgba(0,0,0,0.25);
+}
+@media (max-width:760px){
+  .cat-bar{padding:10px 14px;gap:8px;}
+  .cat-btn{flex:0 0 auto;width:auto;padding:8px 16px;font-size:12.5px;} /* الهاتف: عرض حسب المحتوى + سكرول أفقي */
+}
+
+/* ════════════════════════════════════════════════════════════
+   CATEGORY SECTIONS — أقسام التصنيفات (بيانات مستقلة 100%)
+   ════════════════════════════════════════════════════════════ */
+.cat-section{
+  display:none !important;           /* مخفي افتراضياً — يظهر فقط بعد الضغط على التصنيف */
+  max-width:1340px;
+  margin:0 auto;
+  padding:40px 20px;
+  scroll-margin-top:90px; /* لمراعاة الهيدر الثابت عند التنقل */
+}
+.cat-section.cat-section-visible{
+  display:block !important;          /* تُضاف هذه الكلاس عبر JS عند اختيار التصنيف فقط */
+}
+.cat-section-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:22px;
+}
+.cat-section-bar{
+  width:5px;
+  height:30px;
+  background:linear-gradient(135deg,#f59e0b,#d97706);
+  border-radius:4px;
+}
+.cat-section-title{
+  font-size:20px;
+  font-weight:900;
+  color:var(--navy);
+}
+.cat-section-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+.cat-section-placeholder{
+  background:var(--card);
+  border:2px dashed var(--orange-mid);
+  border-radius:var(--radius);
+  min-height:220px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--text-light);
+  font-size:13px;
+  font-weight:600;
+  text-align:center;
+  padding:16px;
+}
+@media (max-width:900px){
+  .cat-section-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:480px){
+  .cat-section-grid{grid-template-columns:1fr 1fr;gap:10px;}
+  .cat-section{padding:28px 14px;}
+}
 </style>
 </head>
 <body>
@@ -819,6 +927,109 @@ html[dir="ltr"] .lang-menu{right:0;}
     <div class="trust-item"><div class="trust-icon"><i class="fas fa-headset"></i></div><div><div class="trust-title" data-i18n="trust.4t">دعم 7/7</div><div class="trust-desc" data-i18n="trust.4d">نحن هنا دائماً لمساعدتك</div></div></div>
   </div>
 </div>
+
+<!-- ════════════════════════════════════════════════════════════
+     CATEGORY BAR — شريط التصنيفات (جديد كلياً، لا يمس أي شيء حالي)
+     ════════════════════════════════════════════════════════════ -->
+<div class="cat-bar-wrap">
+  <div class="cat-bar" id="catBar">
+    <button class="cat-btn" data-cat-target="catSec-femme">Femme</button>
+    <button class="cat-btn" data-cat-target="catSec-homme">Homme</button>
+    <button class="cat-btn" data-cat-target="catSec-maison">Maison</button>
+    <button class="cat-btn" data-cat-target="catSec-electronique">Produits électroniques</button>
+    <button class="cat-btn" data-cat-target="catSec-beaute">Beauté</button>
+    <button class="cat-btn" data-cat-target="catSec-cuisine">Cuisine</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     CATEGORY SECTIONS — أقسام مستقلة، بيانات منفصلة تماماً
+     (لا تشترك بأي شكل مع products[] الخاصة بالصفحة الرئيسية)
+     ════════════════════════════════════════════════════════════ -->
+
+<!-- قسم: Femme -->
+<section class="cat-section" id="catSec-femme">
+  <div class="cat-section-header">
+    <div class="cat-section-bar"></div>
+    <div class="cat-section-title">Femme</div>
+  </div>
+  <div class="cat-section-grid" id="catGrid-femme">
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+  </div>
+</section>
+
+<!-- قسم: Homme -->
+<section class="cat-section" id="catSec-homme">
+  <div class="cat-section-header">
+    <div class="cat-section-bar"></div>
+    <div class="cat-section-title">Homme</div>
+  </div>
+  <div class="cat-section-grid" id="catGrid-homme">
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+  </div>
+</section>
+
+<!-- قسم: Maison -->
+<section class="cat-section" id="catSec-maison">
+  <div class="cat-section-header">
+    <div class="cat-section-bar"></div>
+    <div class="cat-section-title">Maison</div>
+  </div>
+  <div class="cat-section-grid" id="catGrid-maison">
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+  </div>
+</section>
+
+<!-- قسم: Produits électroniques -->
+<section class="cat-section" id="catSec-electronique">
+  <div class="cat-section-header">
+    <div class="cat-section-bar"></div>
+    <div class="cat-section-title">Produits électroniques</div>
+  </div>
+  <div class="cat-section-grid" id="catGrid-electronique">
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+  </div>
+</section>
+
+<!-- قسم: Beauté -->
+<section class="cat-section" id="catSec-beaute">
+  <div class="cat-section-header">
+    <div class="cat-section-bar"></div>
+    <div class="cat-section-title">Beauté</div>
+  </div>
+  <div class="cat-section-grid" id="catGrid-beaute">
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+  </div>
+</section>
+
+<!-- قسم: Cuisine -->
+<section class="cat-section" id="catSec-cuisine">
+  <div class="cat-section-header">
+    <div class="cat-section-bar"></div>
+    <div class="cat-section-title">Cuisine</div>
+  </div>
+  <div class="cat-section-grid" id="catGrid-cuisine">
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+  </div>
+</section>
 
 <section class="products-section" id="productsSection">
   <div class="sec-header">
@@ -2533,6 +2744,53 @@ function applyLang(code){
 buildLangMenu();
 applyLang(currentLang);
 
+/* ════════════════════════════════════════════════════════════
+   CATEGORY BAR JS — منطق التنقل (مستقل تماماً عن products[])
+   ════════════════════════════════════════════════════════════ */
+(function(){
+  const catButtons = document.querySelectorAll('#catBar .cat-btn');
+  const allCatSections = document.querySelectorAll('.cat-section');
+
+  catButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-cat-target');
+      const targetSection = document.getElementById(targetId);
+      if(!targetSection) return;
+
+      // إخفاء جميع أقسام التصنيفات أولاً
+      allCatSections.forEach(sec => sec.classList.remove('cat-section-visible'));
+
+      // إظهار القسم المطلوب فقط
+      targetSection.classList.add('cat-section-visible');
+
+      // تمييز الزر النشط
+      catButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // الانتقال السلس إلى القسم المطلوب
+      targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // السحب اليدوي للشريط على الهاتف (سهولة إضافية في التمرير)
+  const catBar = document.getElementById('catBar');
+  if(catBar){
+    let isDown = false, startX, scrollLeft;
+    catBar.addEventListener('mousedown', e => {
+      isDown = true;
+      startX = e.pageX - catBar.offsetLeft;
+      scrollLeft = catBar.scrollLeft;
+    });
+    catBar.addEventListener('mouseleave', () => { isDown = false; });
+    catBar.addEventListener('mouseup', () => { isDown = false; });
+    catBar.addEventListener('mousemove', e => {
+      if(!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - catBar.offsetLeft;
+      catBar.scrollLeft = scrollLeft - (x - startX) * 1.2;
+    });
+  }
+})();
 </script>
 </body>
 </html>
