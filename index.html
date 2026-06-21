@@ -128,8 +128,7 @@ header{background:var(--white);position:sticky;top:0;z-index:900;border-bottom:2
 .sec-sub{font-size:13px;color:var(--text-light);margin-top:2px;}
 .sec-pill{background:var(--orange-soft);color:var(--orange);border:1.5px solid var(--orange-mid);border-radius:50px;padding:5px 16px;font-size:13px;font-weight:700;}
 .products-grid{display:flex;flex-direction:column;gap:28px;width:100%;}
-.sub-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;width:100%;max-width:1010px;}
-.sub-grid-gutter{display:none;}
+.sub-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;width:100%;}
 .sub-grid-wide{margin-top:8px;}
 .sub-list{display:grid;grid-template-columns:1fr 1fr;gap:18px;width:100%;}
 
@@ -380,19 +379,6 @@ header{background:var(--white);position:sticky;top:0;z-index:900;border-bottom:2
   box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);
 }
 
-.side-ad{position:fixed;top:50%;transform:translateY(-50%);width:230px;height:74vh;max-height:760px;min-height:520px;z-index:60;border-radius:18px;overflow:hidden;box-shadow:0 12px 36px rgba(15,23,42,0.18);display:none;}
-.side-ad-left{left:18px;}
-.side-ad-right{right:18px;}
-.side-ad-inner{position:relative;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;text-align:center;padding:26px 20px 22px;background:linear-gradient(165deg,#1a56db 0%,#1344b8 45%,#0f172a 100%);color:#fff;}
-.side-ad-inner.alt{background:linear-gradient(165deg,#0f172a 0%,#1e293b 45%,#1a56db 100%);}
-.side-ad-tag{font-size:10.5px;font-weight:700;letter-spacing:.5px;background:rgba(255,255,255,0.16);border:1px solid rgba(255,255,255,0.3);border-radius:50px;padding:4px 12px;margin-bottom:18px;}
-.side-ad-icon{width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;}
-.side-ad-title{font-size:20px;font-weight:900;line-height:1.35;margin-bottom:8px;}
-.side-ad-sub{font-size:12.5px;font-weight:500;color:rgba(255,255,255,0.78);margin-bottom:auto;}
-.side-ad-visual{flex:1;display:flex;align-items:center;justify-content:center;font-size:64px;color:rgba(255,255,255,0.16);min-height:0;}
-.side-ad-cta{background:#fff;color:#0f172a;border:none;border-radius:50px;padding:11px 20px;font-size:13px;font-weight:800;font-family:'Cairo',Arial,sans-serif;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:transform .2s;}
-.side-ad-cta:hover{transform:translateY(-2px);}
-@media (min-width:1680px){ .side-ad{display:block;} }
 .product-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;position:relative;transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;box-shadow:var(--shadow-sm);}
 .product-card:hover{transform:translateY(-7px);box-shadow:var(--shadow-lg);border-color:var(--orange);}
 .card-accent{height:4px;background:linear-gradient(90deg,#1a56db,#3b82f6,#f59e0b);}
@@ -423,21 +409,6 @@ header{background:var(--white);position:sticky;top:0;z-index:900;border-bottom:2
 .add-btn .btn-cart-icon{font-size:15px;transition:transform 0.3s;}
 .add-btn:hover .btn-cart-icon{transform:scale(1.15) rotate(-8deg);}
 @keyframes popIn{0%{transform:scale(1);}40%{transform:scale(1.06);}100%{transform:scale(1);}}
-
-.qty-stepper{display:flex;align-items:center;background:var(--orange-soft);border:1.5px solid var(--orange-mid);border-radius:10px;overflow:hidden;height:36px;flex-shrink:0;}
-.qty-btn{width:30px;height:34px;border:none;background:transparent;color:var(--orange);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;}
-.qty-btn:hover{background:var(--orange);color:#fff;}
-.qty-btn:active{transform:scale(.9);}
-.qty-val{min-width:34px;text-align:center;font-size:13px;font-weight:800;color:var(--navy);font-family:'Cairo',Arial,sans-serif;border-inline:1.5px solid var(--orange-mid);height:100%;display:flex;align-items:center;justify-content:center;}
-.qty-stepper-row{display:flex;justify-content:flex-start;margin-top:8px;}
-.card-list-bottom .qty-stepper{height:40px;}
-.card-list-bottom .qty-btn{height:38px;}
-.list-action-group{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-@media (max-width:480px){
-  .qty-stepper{height:32px;}
-  .qty-btn{width:26px;height:30px;font-size:10px;}
-  .qty-val{min-width:28px;font-size:12px;}
-}
 
 .fly-item{position:fixed;z-index:9998;pointer-events:none;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#1a56db,#2563eb);display:flex;align-items:center;justify-content:center;font-size:26px;color:white;box-shadow:0 8px 28px rgba(26,86,219,0.55),0 0 0 6px rgba(26,86,219,0.15);}
 .fly-trail{position:fixed;z-index:9997;pointer-events:none;border-radius:50%;background:rgba(26,86,219,0.5);animation:trailFade 0.6s ease forwards;}
@@ -571,18 +542,6 @@ footer{background:var(--navy);color:white;padding:40px 28px 20px;margin-top:auto
 .pd-stars-row .rating-count{font-size:13px;color:var(--text-light);}
 .pd-specs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px;}
 .pd-price-row{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:8px;}
-.pd-qty-row{margin-top:16px;}
-.pd-qty-select-wrap{position:relative;display:inline-flex;align-items:center;width:auto;max-width:160px;height:36px;padding:0 12px;border:1.5px solid var(--border);border-radius:50px;background:#fff;cursor:pointer;transition:border-color .2s,box-shadow .2s;user-select:none;}
-.pd-qty-select-wrap:hover{border-color:var(--orange-mid);}
-.pd-qty-select-wrap.open{border-color:#1a56db;box-shadow:0 0 0 3px rgba(26,86,219,0.12);}
-.pd-qty-display{font-family:'Cairo',Arial,sans-serif;font-size:13px;font-weight:700;color:var(--navy);}
-.pd-qty-chev{font-size:10px;color:var(--text-light);margin-inline-start:8px;transition:transform .2s;}
-.pd-qty-select-wrap.open .pd-qty-chev{transform:rotate(180deg);}
-.pd-qty-list{position:absolute;top:calc(100% + 5px);left:0;right:0;background:#fff;border:1.5px solid var(--border);border-radius:10px;box-shadow:var(--shadow-md);z-index:20;display:none;overflow:hidden;}
-.pd-qty-select-wrap.open .pd-qty-list{display:block;}
-.pd-qty-opt{padding:8px 14px;font-family:'Cairo',Arial,sans-serif;font-size:13px;font-weight:600;color:var(--text);cursor:pointer;transition:background .15s,color .15s;}
-.pd-qty-opt:hover{background:var(--orange-soft);}
-.pd-qty-opt.selected{background:#1a56db;color:#fff;font-weight:800;}
 .pd-price{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
 .pd-price .pd-now{font-size:28px;font-weight:900;color:#0f172a;line-height:1;}
 .pd-price .pd-now .cur{font-size:14px;font-weight:700;color:#1a56db;margin-left:3px;}
@@ -682,7 +641,6 @@ footer{background:linear-gradient(160deg,#0f172a 0%,#1e3a8a 60%,#0f172a 100%) !i
   .trust-inner{grid-template-columns:1fr 1fr !important;width:100% !important;}
   .trust-item{padding:12px 8px !important;gap:8px !important;}
   .sub-grid{grid-template-columns:repeat(2,1fr) !important;gap:10px !important;width:100% !important;}
-  .sub-grid-gutter{display:none !important;}
   .product-card{width:100% !important;max-width:100% !important;}
 
   /* ── الصف السفلي: تمرير أفقي (نمط أمازون) — في الهاتف فقط ── */
@@ -716,8 +674,6 @@ footer{background:linear-gradient(160deg,#0f172a 0%,#1e3a8a 60%,#0f172a 100%) !i
   .card-list-body .card-specs{display:flex !important;flex-wrap:wrap;gap:4px;}
   .card-list-body .card-specs .spec-tag{font-size:10px;padding:2px 8px;}
   .card-list-bottom{flex-direction:column !important;align-items:stretch !important;gap:10px !important;}
-  .list-action-group{width:100% !important;}
-  .list-action-group .add-btn{flex:1 !important;}
   .card-list-bottom .price-section{justify-content:space-between !important;}
   .card-list-bottom .add-btn{width:100% !important;padding:12px !important;}
   
@@ -861,27 +817,6 @@ html[dir="ltr"] .lang-menu{right:0;}
     <div class="trust-item"><div class="trust-icon"><i class="fas fa-truck"></i></div><div><div class="trust-title" data-i18n="trust.2t">توصيل مجاني</div><div class="trust-desc" data-i18n="trust.2d">لجميع الطلبات في المغرب</div></div></div>
     <div class="trust-item"><div class="trust-icon"><i class="fas fa-money-bill-wave"></i></div><div><div class="trust-title" data-i18n="trust.3t">كاش عند الاستلام</div><div class="trust-desc" data-i18n="trust.3d">ادفع عند استلام طلبك</div></div></div>
     <div class="trust-item"><div class="trust-icon"><i class="fas fa-headset"></i></div><div><div class="trust-title" data-i18n="trust.4t">دعم 7/7</div><div class="trust-desc" data-i18n="trust.4d">نحن هنا دائماً لمساعدتك</div></div></div>
-  </div>
-</div>
-
-<div class="side-ad side-ad-left">
-  <div class="side-ad-inner">
-    <div class="side-ad-tag" data-i18n="ad.sponsored">إعلان ممول</div>
-    <div class="side-ad-icon"><i class="fas fa-bolt"></i></div>
-    <div class="side-ad-title" data-i18n="ad.title1">شحن سريع<br>لكل أجهزتك</div>
-    <div class="side-ad-sub" data-i18n="ad.sub1">جودة عالية بأفضل سعر</div>
-    <div class="side-ad-visual"><i class="fas fa-charging-station"></i></div>
-    <button class="side-ad-cta" data-i18n="ad.cta">تسوّق الآن <i class="fas fa-arrow-left"></i></button>
-  </div>
-</div>
-<div class="side-ad side-ad-right">
-  <div class="side-ad-inner alt">
-    <div class="side-ad-tag" data-i18n="ad.sponsored">إعلان ممول</div>
-    <div class="side-ad-icon"><i class="fas fa-headphones"></i></div>
-    <div class="side-ad-title" data-i18n="ad.title2">صوت نقي<br>بلا حدود</div>
-    <div class="side-ad-sub" data-i18n="ad.sub2">عروض حصرية اليوم فقط</div>
-    <div class="side-ad-visual"><i class="fas fa-laptop"></i></div>
-    <button class="side-ad-cta" data-i18n="ad.cta">تسوّق الآن <i class="fas fa-arrow-left"></i></button>
   </div>
 </div>
 
@@ -1040,13 +975,6 @@ html[dir="ltr"] .lang-menu{right:0;}
       <div class="pd-price-row">
         <div class="pd-price" id="pdPrice"></div>
         <div class="pd-delivery" data-i18n="pd.delivery"><i class="fas fa-truck"></i> توصيل سريع · كاش عند الاستلام</div>
-      </div>
-      <div class="pd-qty-row">
-        <div class="pd-qty-select-wrap" id="pdQtyWrap" onclick="togglePdQtyList(event)">
-          <span class="pd-qty-display" id="pdQtyDisplay"></span>
-          <i class="fas fa-chevron-down pd-qty-chev"></i>
-          <div class="pd-qty-list" id="pdQtyList"></div>
-        </div>
       </div>
     </div>
     <div class="pd-related">
@@ -1597,17 +1525,6 @@ const products = [
 ];
 
 let cart = [];
-let cardQty = {};
-
-function changeCardQty(id, delta, event) {
-  if(event){ event.stopPropagation(); }
-  const cur = cardQty[id] || 1;
-  let next = cur + delta;
-  if(next < 1) next = 1;
-  if(next > 99) next = 99;
-  cardQty[id] = next;
-  document.querySelectorAll('.qty-val[data-pid="'+id+'"]').forEach(el => { el.textContent = '×' + next; });
-}
 let currentHero = 0;
 let heroTimer;
 
@@ -1781,10 +1698,10 @@ function cardList(p) {
 
 function renderProducts() {
   const grid = document.getElementById('productsGrid');
-  const gridItems = products.slice(0,9).map(cardGrid).join('');
-  const listItems = products.slice(9,19).map(cardList).join('');
-  const gridItems2 = products.slice(19,28).map(cardGrid).join('');
-  const gridItems3 = products.slice(28,40).map(cardGrid).join('');
+  const gridItems = products.slice(0,8).map(cardGrid).join('');
+  const listItems = products.slice(8,16).map(cardList).join('');
+  const gridItems2 = products.slice(16,24).map(cardGrid).join('');
+  const gridItems3 = products.slice(24,40).map(cardGrid).join('');
   grid.innerHTML = `
     <div class="sub-grid">${gridItems}</div>
     <div class="promo-banner">
@@ -1867,7 +1784,6 @@ function openProductPane(id) {
     `<span class="stars">${'★'.repeat(Math.floor(p.stars))}${'☆'.repeat(5-Math.floor(p.stars))}</span>
      <span class="rating-count">${p.stars} · (${p.reviews} ${t('pd.reviews')})</span>`;
   document.getElementById('pdSpecs').innerHTML = p.specs.map(s=>`<span class="spec-tag">${s}</span>`).join('');
-  buildPdQtyDropdown();
   const imgs = p.images || [p.img, p.img, p.img, p.img];
   document.getElementById('pdSlides').innerHTML = imgs.map(src => `
     <div class="pd-slide">
@@ -1924,47 +1840,9 @@ function pdGoTo(i) {
   pdUpdateSlider();
 }
 
-let pdQtyValue = 1;
-
-function buildPdQtyDropdown(reset) {
-  if(reset !== false) pdQtyValue = 1;
-  const display = document.getElementById('pdQtyDisplay');
-  const list = document.getElementById('pdQtyList');
-  const wrap = document.getElementById('pdQtyWrap');
-  if(!display || !list || !wrap) return;
-  wrap.classList.remove('open');
-  display.textContent = t('pd.qty') + ' : ' + pdQtyValue;
-  let opts = '';
-  for(let i=1;i<=3;i++){ opts += `<div class="pd-qty-opt${i===pdQtyValue?' selected':''}" data-val="${i}" onclick="selectPdQty(${i}, event)">${i}</div>`; }
-  list.innerHTML = opts;
-}
-
-function togglePdQtyList(event) {
-  event.stopPropagation();
-  const wrap = document.getElementById('pdQtyWrap');
-  if(wrap) wrap.classList.toggle('open');
-}
-
-function selectPdQty(val, event) {
-  if(event) event.stopPropagation();
-  pdQtyValue = val;
-  const display = document.getElementById('pdQtyDisplay');
-  if(display) display.textContent = t('pd.qty') + ' : ' + val;
-  document.querySelectorAll('.pd-qty-opt').forEach(el => el.classList.toggle('selected', parseInt(el.dataset.val,10) === val));
-  const wrap = document.getElementById('pdQtyWrap');
-  if(wrap) wrap.classList.remove('open');
-}
-
-document.addEventListener('click', () => {
-  const wrap = document.getElementById('pdQtyWrap');
-  if(wrap) wrap.classList.remove('open');
-});
-
 function pdAddToCart() {
   if(!pdCurrentId) return;
-  cardQty[pdCurrentId] = pdQtyValue || 1;
   addToCart(pdCurrentId, null);
-  buildPdQtyDropdown();
   const btn = document.getElementById('pdAddBtn');
   btn.innerHTML = t('pd.added');
   btn.style.background = 'linear-gradient(135deg,#16a34a,#22c55e)';
@@ -1979,12 +1857,9 @@ function closeProductPane() {
 
 function addToCart(id, event) {
   const p = products.find(x=>x.id===id);
-  const qtyToAdd = cardQty[id] || 1;
   const existing = cart.find(x=>x.id===id);
-  if(existing) existing.qty += qtyToAdd;
-  else cart.push({...p, qty:qtyToAdd});
-  cardQty[id] = 1;
-  document.querySelectorAll('.qty-val[data-pid="'+id+'"]').forEach(el => { el.textContent = '×1'; });
+  if(existing) existing.qty++;
+  else cart.push({...p, qty:1});
   updateCartCount();
   const btn = document.getElementById('btn'+id);
   if(event && btn) {
@@ -2325,13 +2200,6 @@ const I18N = {
     'prof.save':`<i class="fas fa-save"></i> حفظ التغييرات`,
     'prof.logout':`<i class="fas fa-sign-out-alt"></i> تسجيل الخروج`,
     'pd.title':`تفاصيل المنتج`,
-    'pd.qty':`الكمية`,
-    'ad.sponsored':`إعلان ممول`,
-    'ad.title1':`شحن سريع<br>لكل أجهزتك`,
-    'ad.sub1':`جودة عالية بأفضل سعر`,
-    'ad.title2':`صوت نقي<br>بلا حدود`,
-    'ad.sub2':`عروض حصرية اليوم فقط`,
-    'ad.cta':`تسوّق الآن <i class="fas fa-arrow-left"></i>`,
     'pd.delivery':`<i class="fas fa-truck"></i> توصيل سريع · كاش عند الاستلام`,
     'pd.related':`منتجات مشابهة`,
     'pd.add':`<i class="fas fa-cart-plus"></i> أضف إلى السلة`,
@@ -2456,13 +2324,6 @@ const I18N = {
     'prof.save':`<i class="fas fa-save"></i> Enregistrer les modifications`,
     'prof.logout':`<i class="fas fa-sign-out-alt"></i> Se déconnecter`,
     'pd.title':`Détails du produit`,
-    'pd.qty':`Quantité`,
-    'ad.sponsored':`Sponsorisé`,
-    'ad.title1':`Charge rapide<br>pour tous vos appareils`,
-    'ad.sub1':`Haute qualité au meilleur prix`,
-    'ad.title2':`Son pur<br>sans limites`,
-    'ad.sub2':`Offres exclusives aujourd'hui`,
-    'ad.cta':`Achetez maintenant <i class="fas fa-arrow-left"></i>`,
     'pd.delivery':`<i class="fas fa-truck"></i> Livraison rapide · Paiement à la livraison`,
     'pd.related':`Produits similaires`,
     'pd.add':`<i class="fas fa-cart-plus"></i> Ajouter au panier`,
@@ -2587,13 +2448,6 @@ const I18N = {
     'prof.save':`<i class="fas fa-save"></i> Save changes`,
     'prof.logout':`<i class="fas fa-sign-out-alt"></i> Log out`,
     'pd.title':`Product details`,
-    'pd.qty':`Quantity`,
-    'ad.sponsored':`Sponsored`,
-    'ad.title1':`Fast charging<br>for all your devices`,
-    'ad.sub1':`Top quality at the best price`,
-    'ad.title2':`Pure sound<br>without limits`,
-    'ad.sub2':`Exclusive deals today only`,
-    'ad.cta':`Shop now <i class="fas fa-arrow-left"></i>`,
     'pd.delivery':`<i class="fas fa-truck"></i> Fast delivery · Cash on delivery`,
     'pd.related':`Similar products`,
     'pd.add':`<i class="fas fa-cart-plus"></i> Add to cart`,
@@ -2672,7 +2526,6 @@ function applyLang(code){
   buildHeroCarousel();
   renderProducts();
   if(document.getElementById('cartPane').classList.contains('active')) renderCart();
-  if(document.getElementById('productPane').classList.contains('active')) buildPdQtyDropdown(false);
   buildLangMenu();
   updateAccountBtn();
 }
