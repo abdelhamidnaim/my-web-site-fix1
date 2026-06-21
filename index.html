@@ -418,6 +418,39 @@ header{background:var(--white);position:sticky;top:0;z-index:900;border-bottom:2
 @keyframes badgeBounce{0%{transform:scale(1);}40%{transform:scale(1.6);}70%{transform:scale(0.85);}100%{transform:scale(1);}}
 .cart-badge.bounce{animation:badgeBounce 0.5s cubic-bezier(0.34,1.56,0.64,1);}
 
+/* ════════════════════════════════════════════════════════════
+   FLOATING MOBILE CART BUTTON — زر سلة عائم على الهاتف فقط
+   ════════════════════════════════════════════════════════════ */
+.cart-float{
+  display:none;
+  position:fixed;
+  bottom:24px;
+  right:24px;
+  z-index:2500;
+  width:58px;height:58px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#f59e0b,#d97706);
+  color:#fff;
+  align-items:center;justify-content:center;
+  font-size:22px;
+  border:none;
+  cursor:pointer;
+  box-shadow:0 8px 22px rgba(245,158,11,0.45);
+  transition:.25s;
+}
+.cart-float:hover{transform:translateY(-3px) scale(1.05);}
+.cart-float .cart-float-badge{
+  position:absolute;top:-4px;left:-4px;
+  background:#ef4444;color:#fff;
+  font-size:11px;font-weight:800;
+  min-width:20px;height:20px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid #fff;
+}
+@media (max-width:600px){
+  .cart-float{display:flex;right:14px;bottom:18px;}
+}
+
 .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--navy);color:white;padding:13px 26px;border-radius:50px;font-size:14px;font-weight:600;border-right:4px solid #1a56db;z-index:9999;opacity:0;transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1),opacity 0.3s;display:flex;align-items:center;gap:10px;white-space:nowrap;box-shadow:0 8px 32px rgba(26,86,219,0.2);}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
 
@@ -869,6 +902,179 @@ html[dir="ltr"] .lang-menu{right:0;}
   .cat-section-grid{grid-template-columns:1fr 1fr;gap:10px;}
   .cat-section{padding:28px 14px;}
 }
+/* ════════════════════════════════════════════════════════════
+   POLICY MODAL CSS — نافذة السياسات (مستقلة تماماً)
+   ════════════════════════════════════════════════════════════ */
+.policy-overlay{
+  display:none;
+  position:fixed;inset:0;
+  background:rgba(15,23,42,0.55);
+  z-index:3000;
+  align-items:center;justify-content:center;
+  padding:20px;
+}
+.policy-overlay.active{display:flex;}
+.policy-box{
+  background:var(--card);
+  border-radius:18px;
+  max-width:640px;width:100%;
+  max-height:84vh;
+  display:flex;flex-direction:column;
+  box-shadow:var(--shadow-lg);
+  overflow:hidden;
+}
+.policy-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 22px;
+  border-bottom:1px solid var(--border);
+  flex-shrink:0;
+}
+.policy-head h3{font-size:17px;font-weight:900;color:var(--navy);}
+.policy-close{
+  background:var(--orange-soft);border:none;width:34px;height:34px;border-radius:50%;
+  color:var(--text-mid);cursor:pointer;font-size:14px;
+  display:flex;align-items:center;justify-content:center;transition:.2s;
+}
+.policy-close:hover{background:var(--orange);color:#fff;}
+.policy-body{
+  padding:20px 22px 28px;
+  overflow-y:auto;
+  font-size:14px;line-height:2;color:var(--text-mid);
+}
+.policy-body h4{color:var(--navy);font-size:15px;font-weight:800;margin:16px 0 8px;}
+.policy-body ul{margin:6px 0 6px 0;padding-right:20px;}
+.policy-body li{margin-bottom:6px;}
+
+/* ════════════════════════════════════════════════════════════
+   TESTIMONIALS — تقييمات وآراء العملاء (قسم جديد مستقل)
+   ════════════════════════════════════════════════════════════ */
+.testimonials-section{
+  max-width:1340px;
+  margin:0 auto;
+  padding:50px 20px;
+}
+.testi-head{
+  text-align:center;
+  margin-bottom:30px;
+}
+.testi-head h2{
+  font-size:24px;
+  font-weight:900;
+  color:var(--navy);
+  margin-bottom:10px;
+}
+.testi-rating{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:var(--orange-soft);
+  padding:8px 20px;
+  border-radius:50px;
+  font-weight:800;
+  color:var(--navy);
+  font-size:15px;
+}
+.testi-rating .stars{color:#f59e0b;letter-spacing:2px;}
+.testi-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+.testi-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:22px;
+  box-shadow:var(--shadow-sm);
+  transition:.2s;
+  position:relative;
+}
+
+.testi-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);}
+.testi-stars{color:#f59e0b;font-size:14px;margin-bottom:10px;letter-spacing:2px;}
+.testi-text{font-size:14.5px;color:var(--text-mid);line-height:1.9;margin-bottom:14px;}
+.testi-author{display:flex;align-items:center;gap:10px;}
+.testi-avatar{
+  width:38px;height:38px;border-radius:50%;
+  background:linear-gradient(135deg,#1a56db,#3b82f6);
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:15px;flex-shrink:0;
+}
+.testi-name{font-size:13.5px;font-weight:800;color:var(--navy);}
+.testi-city{font-size:12px;color:var(--text-light);}
+@media (max-width:700px){
+  .testi-grid{grid-template-columns:1fr;}
+  .testi-head h2{font-size:20px;}
+}
+
+/* نموذج إضافة رأي جديد */
+.testi-form-box{
+  margin-top:30px;
+  background:var(--orange-soft);
+  border:1px solid var(--orange-mid);
+  border-radius:var(--radius);
+  padding:24px;
+  max-width:560px;
+  margin-inline:auto;
+}
+.testi-form-title{font-size:15.5px;font-weight:800;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+.testi-form-row{display:flex;gap:10px;margin-bottom:12px;}
+.testi-input,.testi-textarea{
+  width:100%;border:1.5px solid var(--border);border-radius:10px;
+  padding:10px 14px;font-family:'Cairo',Arial,sans-serif;font-size:13.5px;
+  outline:none;background:#fff;color:var(--text);transition:.2s;
+}
+.testi-input:focus,.testi-textarea:focus{border-color:var(--orange);}
+.testi-textarea{resize:vertical;margin-bottom:14px;}
+.testi-stars-picker{display:flex;gap:6px;margin-bottom:14px;font-size:22px;}
+.testi-stars-picker i{color:#cbd5e1;cursor:pointer;transition:.15s;}
+.testi-stars-picker i.active{color:#f59e0b;}
+.testi-submit-btn{
+  width:100%;background:linear-gradient(135deg,#1a56db,#2563eb);color:#fff;
+  border:none;padding:12px;border-radius:10px;font-family:'Cairo',Arial,sans-serif;
+  font-weight:800;font-size:14px;cursor:pointer;transition:.2s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.testi-submit-btn:hover{box-shadow:0 8px 20px rgba(26,86,219,0.3);transform:translateY(-1px);}
+
+
+/* ════════════════════════════════════════════════════════════
+   FLOATING WHATSAPP BUTTON — زر واتساب عائم دائم
+   ════════════════════════════════════════════════════════════ */
+.wa-float{
+  position:fixed;
+  bottom:24px;
+  left:24px;
+  z-index:2500;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#25D366;
+  color:#fff;
+  text-decoration:none;
+  padding:13px 18px;
+  border-radius:50px;
+  box-shadow:0 8px 22px rgba(37,211,102,0.45);
+  font-family:'Cairo',Arial,sans-serif;
+  font-weight:800;
+  font-size:13.5px;
+  transition:.25s;
+  animation:waPulse 2.4s infinite;
+}
+.wa-float:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 12px 30px rgba(37,211,102,0.55);}
+.wa-float i{font-size:22px;}
+.wa-float-text{display:flex;flex-direction:column;line-height:1.3;}
+.wa-float-text small{font-weight:600;font-size:10.5px;opacity:.9;}
+@keyframes waPulse{
+  0%{box-shadow:0 8px 22px rgba(37,211,102,0.45),0 0 0 0 rgba(37,211,102,0.5);}
+  70%{box-shadow:0 8px 22px rgba(37,211,102,0.45),0 0 0 14px rgba(37,211,102,0);}
+  100%{box-shadow:0 8px 22px rgba(37,211,102,0.45),0 0 0 0 rgba(37,211,102,0);}
+}
+@media (max-width:600px){
+  .wa-float{left:14px;bottom:18px;padding:12px;border-radius:50%;}
+  .wa-float-text{display:none;}
+  .wa-float i{font-size:24px;}
+}
 </style>
 </head>
 <body>
@@ -1045,6 +1251,37 @@ html[dir="ltr"] .lang-menu{right:0;}
   <div class="products-grid" id="productsGrid"></div>
 </section>
 
+<!-- ════════════════════════════════════════════════════════════
+     TESTIMONIALS — تقييمات وآراء العملاء
+     ════════════════════════════════════════════════════════════ -->
+<section class="testimonials-section">
+  <div class="testi-head">
+    <h2>⭐ تقييمات وآراء العملاء</h2>
+    <div class="testi-rating"><span class="stars" id="testiAvgStars">⭐⭐⭐⭐⭐</span> <span id="testiAvgNum">4.8</span>/5</div>
+  </div>
+
+  <!-- الشبكة الديناميكية لعرض التقييمات (تُبنى عبر JS من localStorage) -->
+  <div class="testi-grid" id="testiGrid"></div>
+
+  <!-- نموذج إضافة رأي جديد من طرف الزبون -->
+  <div class="testi-form-box">
+    <h3 class="testi-form-title"><i class="fas fa-pen"></i> شاركنا رأيك</h3>
+    <div class="testi-form-row">
+      <input type="text" id="testiNameInput" class="testi-input" placeholder="اسمك">
+      <input type="text" id="testiCityInput" class="testi-input" placeholder="مدينتك">
+    </div>
+    <div class="testi-stars-picker" id="testiStarsPicker">
+      <i class="fas fa-star" data-val="1"></i>
+      <i class="fas fa-star" data-val="2"></i>
+      <i class="fas fa-star" data-val="3"></i>
+      <i class="fas fa-star" data-val="4"></i>
+      <i class="fas fa-star" data-val="5"></i>
+    </div>
+    <textarea id="testiTextInput" class="testi-textarea" placeholder="اكتب رأيك في المنتج أو الخدمة..." rows="3"></textarea>
+    <button class="testi-submit-btn" onclick="submitTestimonial()"><i class="fas fa-paper-plane"></i> إرسال التقييم</button>
+  </div>
+</section>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
@@ -1064,11 +1301,11 @@ html[dir="ltr"] .lang-menu{right:0;}
       </div>
       <div class="footer-col">
         <h4 data-i18n="foot.col2">سياسات المتجر</h4>
-        <ul><li><a href="#" data-i18n="foot.return">سياسة الإرجاع</a></li><li><a href="#" data-i18n="foot.terms">شروط الاستخدام</a></li><li><a href="#" data-i18n="foot.privacy">سياسة الخصوصية</a></li><li><a href="#" data-i18n="foot.warranty">الضمان</a></li></ul>
+        <ul><li><a href="#" onclick="openPolicy('return');return false;" data-i18n="foot.return">سياسة الإرجاع</a></li><li><a href="#" onclick="openPolicy('terms');return false;" data-i18n="foot.terms">شروط الاستخدام</a></li><li><a href="#" onclick="openPolicy('privacy');return false;" data-i18n="foot.privacy">سياسة الخصوصية</a></li><li><a href="#" onclick="openPolicy('warranty');return false;" data-i18n="foot.warranty">الضمان</a></li></ul>
       </div>
       <div class="footer-col">
         <h4 data-i18n="foot.col3">تواصل معنا</h4>
-        <ul><li><a href="https://wa.me/212687155245" target="_blank" data-i18n="foot.wa"><i class="fab fa-whatsapp"></i> واتساب</a></li><li><a href="#" data-i18n="foot.email"><i class="fas fa-envelope"></i> البريد الإلكتروني</a></li><li><a href="#" data-i18n="foot.location"><i class="fas fa-map-marker-alt"></i> الموقع</a></li><li><a href="#" data-i18n="foot.phone"><i class="fas fa-phone"></i> الهاتف</a></li></ul>
+        <ul><li><a href="https://wa.me/212687155245" target="_blank" data-i18n="foot.wa"><i class="fab fa-whatsapp"></i> واتساب</a></li><li><a href="mailto:naimabdelhamid73@gmail.com" data-i18n="foot.email"><i class="fas fa-envelope"></i> البريد الإلكتروني</a></li><li><a href="https://www.google.com/maps?q=33.6686002,-7.3881386" target="_blank" data-i18n="foot.location"><i class="fas fa-map-marker-alt"></i> الموقع</a></li><li><a href="tel:+212687155245" data-i18n="foot.phone"><i class="fas fa-phone"></i> الهاتف</a></li></ul>
       </div>
     </div>
     <div class="footer-bottom">
@@ -1080,6 +1317,20 @@ html[dir="ltr"] .lang-menu{right:0;}
     </div>
   </div>
 </footer>
+
+<!-- ════════════════════════════════════════════════════════════
+     POLICY MODAL — نافذة منبثقة لعرض السياسات (مستقلة تماماً)
+     ════════════════════════════════════════════════════════════ -->
+<div class="policy-overlay" id="policyOverlay" onclick="closePolicy(event)">
+  <div class="policy-box" onclick="event.stopPropagation()">
+    <div class="policy-head">
+      <h3 id="policyTitle">سياسة الإرجاع</h3>
+      <button class="policy-close" onclick="closePolicy()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="policy-body" id="policyBody"></div>
+  </div>
+</div>
+
 
 <div class="toast" id="toast"><i class="fas fa-check-circle" style="color:var(--orange)"></i><span id="toastMsg">تمت الإضافة إلى السلة</span></div>
 <div class="overlay" id="overlay" onclick="closeAll()"></div>
@@ -2140,7 +2391,10 @@ function addToCart(id, event) {
 function updateCartCount() {
   const total = cart.reduce((s,x)=>s+x.qty,0);
   document.getElementById('cartCount').textContent = total;
+  const floatBadge = document.getElementById('cartFloatCount'); // مزامنة عداد الزر العائم على الهاتف
+  if(floatBadge) floatBadge.textContent = total;
 }
+
 
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -2791,6 +3045,220 @@ applyLang(currentLang);
     });
   }
 })();
+
+/* ════════════════════════════════════════════════════════════
+   TESTIMONIALS JS — نظام التقييمات (تخزين + عرض + حذف)
+   ════════════════════════════════════════════════════════════ */
+const TESTI_KEY = 'naim_testimonials';
+
+// التقييمات الافتراضية (تُحمَّل مرة واحدة فقط عند أول زيارة)
+const DEFAULT_TESTIMONIALS = [
+  { id: 1, name: `مريم`, city: `الدار البيضاء`, stars: 5, text: `وصلني المنتج كما في الصورة` },
+  { id: 2, name: `يوسف`, city: `الرباط`, stars: 5, text: `توصيل سريع ومنتج ممتاز` }
+];
+
+function getTestimonials(){
+  let data = JSON.parse(localStorage.getItem(TESTI_KEY) || 'null');
+  if(!data){
+    data = DEFAULT_TESTIMONIALS;
+    localStorage.setItem(TESTI_KEY, JSON.stringify(data));
+  }
+  return data;
+}
+function saveTestimonials(list){ localStorage.setItem(TESTI_KEY, JSON.stringify(list)); }
+
+function renderTestimonials(){
+  const list = getTestimonials();
+  const grid = document.getElementById('testiGrid');
+  if(!grid) return;
+  grid.innerHTML = '';
+
+  if(list.length === 0){
+    grid.innerHTML = `<p style="grid-column:1/-1;text-align:center;color:var(--text-light);font-size:13.5px;">لا توجد تقييمات بعد.</p>`;
+  }
+
+  list.forEach(r => {
+    const card = document.createElement('div');
+    card.className = 'testi-card';
+    const starsHtml = '⭐'.repeat(r.stars) + '☆'.repeat(5 - r.stars);
+    const initial = r.name ? r.name.charAt(0).toUpperCase() : '؟';
+    card.innerHTML = `
+      <div class="testi-stars">${starsHtml}</div>
+      <p class="testi-text">"${r.text}"</p>
+      <div class="testi-author">
+        <div class="testi-avatar">${initial}</div>
+        <div>
+          <div class="testi-name">${r.name}</div>
+          <div class="testi-city">${r.city}</div>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  // حساب وعرض المعدل العام
+  if(list.length > 0){
+    const avg = list.reduce((s,r)=>s+r.stars,0) / list.length;
+    document.getElementById('testiAvgNum').textContent = avg.toFixed(1);
+    document.getElementById('testiAvgStars').textContent = '⭐'.repeat(Math.round(avg));
+  }
+}
+
+
+// اختيار عدد النجوم في النموذج
+let testiSelectedStars = 5;
+document.addEventListener('DOMContentLoaded', () => {
+  const picker = document.getElementById('testiStarsPicker');
+  if(picker){
+    const icons = picker.querySelectorAll('i');
+    function paintStars(val){
+      icons.forEach(ic => { ic.classList.toggle('active', parseInt(ic.dataset.val) <= val); });
+    }
+    paintStars(testiSelectedStars);
+    icons.forEach(ic => {
+      ic.addEventListener('click', () => {
+        testiSelectedStars = parseInt(ic.dataset.val);
+        paintStars(testiSelectedStars);
+      });
+    });
+  }
+  renderTestimonials();
+});
+
+// إرسال رأي جديد من الزبون
+function submitTestimonial(){
+  const name = document.getElementById('testiNameInput').value.trim();
+  const city = document.getElementById('testiCityInput').value.trim();
+  const text = document.getElementById('testiTextInput').value.trim();
+
+  if(!name || !city || !text){
+    showToast('⚠️ يرجى ملء جميع الحقول');
+    return;
+  }
+
+  const list = getTestimonials();
+  const newReview = {
+    id: Date.now(),
+    name, city,
+    stars: testiSelectedStars || 5,
+    text
+  };
+  list.unshift(newReview); // إضافة الرأي الجديد في الأعلى
+  saveTestimonials(list);
+  renderTestimonials();
+
+  // تفريغ النموذج
+  document.getElementById('testiNameInput').value = '';
+  document.getElementById('testiCityInput').value = '';
+  document.getElementById('testiTextInput').value = '';
+  testiSelectedStars = 5;
+  document.querySelectorAll('#testiStarsPicker i').forEach(ic => ic.classList.add('active'));
+
+  showToast('✅ شكراً لك! تم نشر رأيك');
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   POLICY MODAL JS — نصوص السياسات ومنطق الفتح/الإغلاق
+   ════════════════════════════════════════════════════════════ */
+const POLICY_TEXTS = {
+  return: {
+    title: `سياسة الإرجاع`,
+    html: `
+      <p>نحن نسعى لتقديم منتجات عالية الجودة. إذا استلمت منتجًا تالفًا أو غير مطابق للوصف، يمكنك طلب الإرجاع خلال <b>7 أيام</b> من تاريخ الاستلام.</p>
+      <h4>شروط الإرجاع</h4>
+      <ul>
+        <li>أن يكون المنتج في حالته الأصلية.</li>
+        <li>عدم وجود آثار استعمال أو تلف ناتج عن سوء الاستخدام.</li>
+        <li>الاحتفاظ بعلبة المنتج وجميع ملحقاته.</li>
+      </ul>
+      <p>بعد مراجعة الطلب والموافقة عليه، سيتم استبدال المنتج أو استرجاع المبلغ حسب الحالة.</p>
+    `
+  },
+  terms: {
+    title: `شروط الاستخدام`,
+    html: `
+      <p>باستخدامك لهذا الموقع فإنك توافق على الالتزام بالشروط التالية:</p>
+      <ul>
+        <li>تقديم معلومات صحيحة عند الطلب.</li>
+        <li>عدم استخدام الموقع لأي أغراض غير قانونية.</li>
+        <li>الأسعار والمعلومات قابلة للتحديث دون إشعار مسبق.</li>
+        <li>يحتفظ الموقع بحق رفض أو إلغاء أي طلب في حالة وجود خطأ في المعلومات أو عدم توفر المنتج.</li>
+      </ul>
+      <p>استمرارك في استخدام الموقع يعني موافقتك على هذه الشروط.</p>
+    `
+  },
+  privacy: {
+    title: `سياسة الخصوصية`,
+    html: `
+      <p>نحن نحترم خصوصيتك ونلتزم بحماية بياناتك الشخصية.</p>
+      <h4>قد نقوم بجمع المعلومات التالية</h4>
+      <ul>
+        <li>الاسم.</li>
+        <li>رقم الهاتف.</li>
+        <li>عنوان التوصيل.</li>
+        <li>معلومات الطلبات.</li>
+      </ul>
+      <p>تُستخدم هذه المعلومات فقط لمعالجة الطلبات وتحسين خدماتنا، ولا يتم بيع أو مشاركة بيانات العملاء مع أي جهة خارجية إلا عند الضرورة لإتمام عملية التوصيل.</p>
+    `
+  },
+  warranty: {
+    title: `الضمان`,
+    html: `
+      <p>تختلف مدة الضمان حسب نوع المنتج.</p>
+      <h4>يشمل الضمان</h4>
+      <ul>
+        <li>عيوب التصنيع.</li>
+        <li>الأعطال الناتجة عن الاستخدام العادي وفق تعليمات المنتج.</li>
+      </ul>
+      <h4>لا يشمل الضمان</h4>
+      <ul>
+        <li>الكسر أو التلف الناتج عن سوء الاستخدام.</li>
+        <li>الأضرار الناتجة عن الحوادث أو التعديلات غير المصرح بها.</li>
+      </ul>
+      <p>للاستفادة من الضمان يرجى التواصل مع خدمة العملاء وتقديم رقم الطلب.</p>
+      <h4>ملاحظات إضافية</h4>
+      <ul>
+        <li>توصيل لجميع مدن المغرب.</li>
+        <li>الدفع عند الاستلام متاح.</li>
+        <li>دعم العملاء 7/7.</li>
+        <li>مدة الإرجاع: 7 أيام من تاريخ الاستلام.</li>
+      </ul>
+    `
+  }
+};
+
+function openPolicy(key){
+  const data = POLICY_TEXTS[key];
+  if(!data) return;
+  document.getElementById('policyTitle').textContent = data.title;
+  document.getElementById('policyBody').innerHTML = data.html;
+  document.getElementById('policyOverlay').classList.add('active');
+}
+
+function closePolicy(e){
+  if(e) e.preventDefault();
+  document.getElementById('policyOverlay').classList.remove('active');
+}
 </script>
+<!-- ════════════════════════════════════════════════════════════
+     FLOATING WHATSAPP BUTTON — ظاهر دائماً في كل الصفحة
+     ════════════════════════════════════════════════════════════ -->
+<a class="wa-float" href="https://wa.me/212687155245" target="_blank">
+  <i class="fab fa-whatsapp"></i>
+  <span class="wa-float-text">
+    هل لديك سؤال؟
+    <small>تواصل معنا الآن</small>
+  </span>
+</a>
+
+<!-- ════════════════════════════════════════════════════════════
+     FLOATING MOBILE CART BUTTON — زر سلة عائم (هاتف فقط)
+     ════════════════════════════════════════════════════════════ -->
+<button class="cart-float" onclick="openCart()" title="السلة">
+  <i class="fas fa-shopping-cart"></i>
+  <span class="cart-float-badge" id="cartFloatCount">0</span>
+</button>
+
 </body>
 </html>
