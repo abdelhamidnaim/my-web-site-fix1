@@ -61,6 +61,35 @@ header{background:var(--white);position:sticky;top:0;z-index:900;border-bottom:2
 .nav-icon-btn.cart-ic:hover{box-shadow:0 6px 18px rgba(245,158,11,0.5);transform:translateY(-1px);}
 .cart-badge{position:absolute;top:-4px;left:-4px;background:#ef4444;color:white;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid white;}
 .btn-label{font-size:13px;font-weight:700;margin-right:4px;}
+.nav-icon-btn.search-ic{display:none;background:#eff6ff;color:#1a56db;border:2px solid #bfdbfe;}
+.nav-icon-btn.search-ic:hover{background:#1a56db;color:white;}
+
+/* ── لوحة البحث (Search pane) ── */
+.search-pane-head{padding:14px 18px;border-bottom:1px solid var(--border);}
+.search-pane-input-wrap{display:flex;align-items:center;gap:10px;border:2px solid #1a56db;border-radius:50px;padding:0 8px 0 16px;height:46px;background:#fff;}
+.search-pane-input-wrap i{color:#1a56db;font-size:15px;flex-shrink:0;}
+.search-pane-input-wrap input{flex:1;border:none;outline:none;font-family:'Cairo',Arial,sans-serif;font-size:14px;color:var(--text);background:transparent;height:100%;}
+.search-pane-input-wrap input::placeholder{color:var(--text-light);}
+.search-pane-clear{background:none;border:none;color:var(--text-light);cursor:pointer;font-size:14px;padding:6px;display:none;}
+.search-pane-clear.show{display:inline-flex;}
+.search-results{padding:8px 0;}
+.search-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:60px 24px;color:var(--text-light);text-align:center;}
+.search-empty i{font-size:42px;color:var(--orange-mid);}
+.search-empty span{font-size:14px;font-weight:600;}
+.search-result-item{display:flex;align-items:center;gap:14px;padding:12px 18px;cursor:pointer;border-bottom:1px solid var(--border);transition:background .15s;}
+.search-result-item:hover{background:var(--orange-soft);}
+.search-result-img{width:54px;height:54px;border-radius:10px;background:#f8f9fa;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.search-result-img img{width:100%;height:100%;object-fit:contain;}
+.search-result-info{flex:1;min-width:0;}
+.search-result-name{font-size:13.5px;font-weight:700;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.search-result-cat{font-size:11.5px;color:var(--text-light);margin-top:2px;}
+.search-result-price{font-size:14px;font-weight:800;color:#1a56db;flex-shrink:0;}
+.search-no-results{padding:50px 24px;text-align:center;color:var(--text-light);font-size:14px;font-weight:600;}
+
+@media (max-width:760px){
+  .search-bar{display:none !important;}
+  .nav-icon-btn.search-ic{display:flex !important;}
+}
 
 .hero-carousel{position:relative;width:100%;height:430px;overflow:hidden;background:#0f172a;}
 .hc-track{position:absolute;inset:0;}
@@ -648,7 +677,6 @@ footer{background:linear-gradient(160deg,#0f172a 0%,#1e3a8a 60%,#0f172a 100%) !i
   .card-list-bottom .add-btn{width:100% !important;padding:12px !important;}
   
   .navbar{display:grid !important;grid-template-columns:auto 1fr auto !important;gap:6px !important;padding:0 10px !important;width:100% !important;}
-  .search-bar{width:100% !important;max-width:100% !important;}
   .side-pane{width:100vw !important;}
   footer{padding:20px 12px 16px !important;}
   .footer-top{grid-template-columns:1fr !important;gap:20px !important;padding:0 !important;}
@@ -720,9 +748,12 @@ html[dir="ltr"] .lang-menu{right:0;}
       </div>
     </a>
     <div class="search-bar">
-      <input type="text" data-i18n-ph="search.ph" placeholder="ابحث عن منتج، ماركة أو فئة...">
-      <button class="search-btn"><i class="fas fa-search"></i></button>
+      <input type="text" id="navSearchInput" data-i18n-ph="search.ph" placeholder="ابحث عن منتج، ماركة أو فئة..." onkeydown="if(event.key==='Enter')openSearchPane(this.value)">
+      <button class="search-btn" onclick="openSearchPane(document.getElementById('navSearchInput').value)"><i class="fas fa-search"></i></button>
     </div>
+    <button class="nav-icon-btn search-ic" id="mobileSearchBtn" onclick="openSearchPane()" title="بحث" aria-label="بحث">
+      <i class="fas fa-search"></i>
+    </button>
     <div class="nav-actions">
       <div class="lang-switch" id="langSwitch">
         <button class="lang-btn" id="langBtn" onclick="toggleLangMenu(event)" aria-label="Language">
@@ -812,6 +843,20 @@ html[dir="ltr"] .lang-menu{right:0;}
 
 <div class="toast" id="toast"><i class="fas fa-check-circle" style="color:var(--orange)"></i><span id="toastMsg">تمت الإضافة إلى السلة</span></div>
 <div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+<div class="side-pane" id="searchPane">
+  <div class="pane-head"><h2><i class="fas fa-search" style="color:var(--orange);margin-inline-end:8px"></i> بحث</h2><button class="pane-close" onclick="closeAll()"><i class="fas fa-times"></i></button></div>
+  <div class="search-pane-head">
+    <div class="search-pane-input-wrap">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchPaneInput" placeholder="ابحث عن منتج، ماركة أو فئة..." oninput="runSearch(this.value)">
+      <button class="search-pane-clear" id="searchClearBtn" onclick="clearSearch()"><i class="fas fa-times-circle"></i></button>
+    </div>
+  </div>
+  <div class="pane-body" id="searchResults">
+    <div class="search-empty"><i class="fas fa-search"></i><span data-i18n="search.hint">اكتب اسم المنتج أو الفئة التي تبحث عنها</span></div>
+  </div>
+</div>
 
 <div class="side-pane" id="cartPane">
   <div class="pane-head"><h2 data-i18n="cart.title"><i class="fas fa-shopping-cart" style="color:var(--orange);margin-inline-end:8px"></i> سلة التسوق</h2><button class="pane-close" onclick="closeAll()"><i class="fas fa-times"></i></button></div>
@@ -1410,6 +1455,56 @@ function showToast(msg) {
   setTimeout(()=>t.classList.remove('show'),2800);
 }
 
+function openSearchPane(prefill) {
+  closeAll();
+  document.getElementById('searchPane').classList.add('active');
+  document.getElementById('overlay').classList.add('active');
+  const input = document.getElementById('searchPaneInput');
+  input.value = prefill || '';
+  runSearch(input.value);
+  setTimeout(() => input.focus(), 250);
+}
+
+function clearSearch() {
+  const input = document.getElementById('searchPaneInput');
+  input.value = '';
+  runSearch('');
+  input.focus();
+}
+
+function runSearch(query) {
+  const q = (query || '').trim().toLowerCase();
+  document.getElementById('searchClearBtn').classList.toggle('show', q.length > 0);
+  const results = document.getElementById('searchResults');
+
+  if (!q) {
+    results.innerHTML = `<div class="search-empty"><i class="fas fa-search"></i><span>${t('search.hint') || 'اكتب اسم المنتج أو الفئة التي تبحث عنها'}</span></div>`;
+    return;
+  }
+
+  const matches = products.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    p.cat.toLowerCase().includes(q) ||
+    (p.specs || []).some(s => s.toLowerCase().includes(q))
+  );
+
+  if (!matches.length) {
+    results.innerHTML = `<div class="search-no-results"><i class="fas fa-box-open" style="font-size:32px;color:var(--orange-mid);display:block;margin-bottom:10px"></i>${t('search.none') || 'لا توجد نتائج مطابقة'}</div>`;
+    return;
+  }
+
+  results.innerHTML = `<div class="search-results">${matches.map(p => `
+    <div class="search-result-item" onclick="closeAll();openProductPane(${p.id})">
+      <div class="search-result-img"><img src="${(p.images && p.images[0]) || p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'"></div>
+      <div class="search-result-info">
+        <div class="search-result-name">${p.name}</div>
+        <div class="search-result-cat">${p.cat}</div>
+      </div>
+      <div class="search-result-price">MAD ${p.price.toLocaleString()}</div>
+    </div>
+  `).join('')}</div>`;
+}
+
 function openCart() {
   closeAll();
   renderCart();
@@ -1526,6 +1621,8 @@ const I18N = {
     'topbar':`🚚 <b>توصيل مجاني</b> لجميع الطلبات في كل أرجاء المغرب &nbsp;|&nbsp; الدفع عند الاستلام ✓`,
     'logo.sub':`تقنية بلا حدود`,
     'search.ph':`ابحث عن منتج، ماركة أو فئة...`,
+    'search.hint':`اكتب اسم المنتج أو الفئة التي تبحث عنها`,
+    'search.none':`لا توجد نتائج مطابقة`,
     'nav.login':`تسجيل الدخول`,
     'nav.cart':`السلة`,
     'hero.cta':`تسوق الآن`,
@@ -1646,6 +1743,8 @@ const I18N = {
     'topbar':`🚚 <b>Livraison gratuite</b> pour toutes les commandes au Maroc &nbsp;|&nbsp; Paiement à la livraison ✓`,
     'logo.sub':`La technologie sans limites`,
     'search.ph':`Rechercher un produit, une marque...`,
+    'search.hint':`Tapez le nom du produit ou de la catégorie`,
+    'search.none':`Aucun résultat trouvé`,
     'nav.login':`Se connecter`,
     'nav.cart':`Panier`,
     'hero.cta':`Acheter maintenant`,
@@ -1766,6 +1865,8 @@ const I18N = {
     'topbar':`🚚 <b>Free delivery</b> on all orders across Morocco &nbsp;|&nbsp; Cash on delivery ✓`,
     'logo.sub':`Technology without limits`,
     'search.ph':`Search for a product, brand or category...`,
+    'search.hint':`Type the product name or category you're looking for`,
+    'search.none':`No matching results`,
     'nav.login':`Sign in`,
     'nav.cart':`Cart`,
     'hero.cta':`Shop now`,
