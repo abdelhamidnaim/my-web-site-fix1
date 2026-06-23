@@ -1,0 +1,2843 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>NAIM MARKET — تقنية بلا حدود</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root {
+  --orange:      #1a56db;
+  --orange-dark: #1344b8;
+  --orange-soft: #eff6ff;
+  --orange-mid:  #bfdbfe;
+  --navy:        #0f172a;
+  --navy-mid:    #1e293b;
+  --blue-accent: #3b82f6;
+  --white:       #ffffff;
+  --bg:          #f8faff;
+  --card:        #ffffff;
+  --text:        #0f172a;
+  --text-mid:    #475569;
+  --text-light:  #94a3b8;
+  --border:      #e2e8f0;
+  --red:         #ef4444;
+  --green:       #22c55e;
+  --radius:      14px;
+  --shadow-sm:   0 2px 8px rgba(26,86,219,0.08);
+  --shadow-md:   0 6px 24px rgba(26,86,219,0.12);
+  --shadow-lg:   0 16px 48px rgba(26,86,219,0.16);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;width:100%;overflow-x:hidden;}
+body{font-family:'Cairo',Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden;width:100%;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--orange);border-radius:3px;}
+
+.top-bar{background:var(--navy);color:rgba(255,255,255,0.75);font-size:12.5px;text-align:center;padding:8px 16px;letter-spacing:0.3px;width:100%;}
+.top-bar b{color:var(--orange);}
+
+header{background:var(--white);position:sticky;top:0;z-index:900;border-bottom:2px solid var(--orange);box-shadow:0 2px 16px rgba(26,86,219,0.08);width:100%;}
+.navbar{max-width:1340px;margin:0 auto;padding:0 20px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0;}
+.logo-box{width:38px;height:38px;background:linear-gradient(135deg,#1a56db,#2563eb);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:white;box-shadow:0 4px 12px rgba(26,86,219,0.35);}
+.logo-name{font-size:18px;font-weight:900;color:var(--navy);line-height:1;}
+.logo-name span{color:#1a56db;}
+.logo-sub{font-size:9px;color:var(--text-light);font-weight:500;letter-spacing:1px;text-transform:uppercase;}
+.search-bar{flex:1;max-width:440px;display:flex;height:40px;border:2px solid #1a56db;border-radius:50px;overflow:hidden;box-shadow:0 2px 10px rgba(26,86,219,0.1);}
+.search-bar input{flex:1;border:none;outline:none;padding:0 14px;font-size:13px;font-family:'Cairo',Arial,sans-serif;color:var(--text);background:white;}
+.search-bar input::placeholder{color:var(--text-light);}
+.search-btn{background:#1a56db;border:none;padding:0 16px;color:white;font-size:15px;cursor:pointer;transition:background 0.2s;}
+.search-btn:hover{background:#1344b8;}
+.nav-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.nav-icon-btn{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;font-size:17px;transition:all 0.2s;position:relative;font-family:'Cairo',Arial,sans-serif;}
+.nav-icon-btn.user-ic{background:#eff6ff;color:#1a56db;border:2px solid #bfdbfe;}
+.nav-icon-btn.user-ic:hover{background:#1a56db;color:white;}
+.nav-icon-btn.user-ic.logged{background:linear-gradient(135deg,#1a56db,#3b82f6);color:white;border-color:#1a56db;font-size:15px;font-weight:800;}
+.nav-icon-btn.cart-ic{background:linear-gradient(135deg,#f59e0b,#d97706);color:white;box-shadow:0 4px 12px rgba(245,158,11,0.35);}
+.nav-icon-btn.cart-ic:hover{box-shadow:0 6px 18px rgba(245,158,11,0.5);transform:translateY(-1px);}
+.cart-badge{position:absolute;top:-4px;left:-4px;background:#ef4444;color:white;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid white;}
+.btn-label{font-size:13px;font-weight:700;margin-right:4px;}
+.nav-icon-btn.search-ic{display:none;background:#eff6ff;color:#1a56db;border:2px solid #bfdbfe;}
+.nav-icon-btn.search-ic:hover{background:#1a56db;color:white;}
+
+/* ── لوحة البحث (Search pane) ── */
+.search-pane-head{padding:14px 18px;border-bottom:1px solid var(--border);}
+.search-pane-input-wrap{display:flex;align-items:center;gap:10px;border:2px solid #1a56db;border-radius:50px;padding:0 8px 0 16px;height:46px;background:#fff;}
+.search-pane-input-wrap i{color:#1a56db;font-size:15px;flex-shrink:0;}
+.search-pane-input-wrap input{flex:1;border:none;outline:none;font-family:'Cairo',Arial,sans-serif;font-size:14px;color:var(--text);background:transparent;height:100%;}
+.search-pane-input-wrap input::placeholder{color:var(--text-light);}
+.search-pane-clear{background:none;border:none;color:var(--text-light);cursor:pointer;font-size:14px;padding:6px;display:none;}
+.search-pane-clear.show{display:inline-flex;}
+.search-results{padding:8px 0;}
+.search-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:60px 24px;color:var(--text-light);text-align:center;}
+.search-empty i{font-size:42px;color:var(--orange-mid);}
+.search-empty span{font-size:14px;font-weight:600;}
+.search-result-item{display:flex;align-items:center;gap:14px;padding:12px 18px;cursor:pointer;border-bottom:1px solid var(--border);transition:background .15s;}
+.search-result-item:hover{background:var(--orange-soft);}
+.search-result-img{width:54px;height:54px;border-radius:10px;background:#f8f9fa;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.search-result-img img{width:100%;height:100%;object-fit:contain;}
+.search-result-info{flex:1;min-width:0;}
+.search-result-name{font-size:13.5px;font-weight:700;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.search-result-cat{font-size:11.5px;color:var(--text-light);margin-top:2px;}
+.search-result-price{font-size:14px;font-weight:800;color:#1a56db;flex-shrink:0;}
+.search-no-results{padding:50px 24px;text-align:center;color:var(--text-light);font-size:14px;font-weight:600;}
+
+@media (max-width:760px){
+  .search-bar{display:none !important;}
+  .nav-icon-btn.search-ic{display:flex !important;}
+}
+
+.hero-carousel{position:relative;width:100%;height:430px;overflow:hidden;background:#0f172a;}
+.hc-track{position:absolute;inset:0;}
+.hc-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .8s ease;}
+.hc-slide.active{opacity:1;visibility:visible;z-index:2;}
+.hc-img{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.1);transition:transform 6.5s ease;}
+.hc-slide.active .hc-img{transform:scale(1);}
+.hc-overlay{position:absolute;inset:0;background:linear-gradient(to left,rgba(15,23,42,.90) 0%,rgba(15,23,42,.55) 42%,rgba(15,23,42,.05) 100%);}
+.hc-content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;text-align:right;padding:0 7%;max-width:620px;z-index:3;color:#fff;}
+.hc-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,158,11,.18);border:1.5px solid rgba(245,158,11,.55);color:#fcd34d;border-radius:50px;padding:7px 18px;font-size:13px;font-weight:700;margin-bottom:16px;backdrop-filter:blur(4px);}
+.hc-title{font-size:clamp(30px,5vw,52px);font-weight:900;line-height:1.15;margin-bottom:12px;text-shadow:0 2px 18px rgba(0,0,0,.45);}
+.hc-sub{font-size:clamp(15px,2vw,19px);font-weight:500;color:rgba(255,255,255,.92);margin-bottom:26px;text-shadow:0 1px 10px rgba(0,0,0,.4);max-width:440px;line-height:1.7;}
+.hc-cta{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#1a56db,#3b82f6);color:#fff;border:none;border-radius:50px;padding:14px 34px;font-size:16px;font-weight:800;font-family:'Cairo',sans-serif;cursor:pointer;box-shadow:0 10px 30px rgba(26,86,219,.5);transition:transform .2s,box-shadow .2s;}
+.hc-cta:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(26,86,219,.65);}
+.hc-arrow{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.92);border:none;color:#1a56db;font-size:17px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;box-shadow:0 4px 16px rgba(0,0,0,.25);transition:background .2s,color .2s;}
+.hc-arrow:hover{background:#1a56db;color:#fff;}
+.hc-prev{right:18px;}
+.hc-next{left:18px;}
+.hc-dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:5;}
+.hc-dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.45);border:none;cursor:pointer;padding:0;transition:all .3s;}
+.hc-dot.active{width:30px;border-radius:5px;background:#f59e0b;}
+
+.trust-strip{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);padding:0 28px;width:100%;}
+.trust-inner{max-width:1340px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:0;width:100%;}
+.trust-item{display:flex;align-items:center;gap:14px;padding:20px 16px;border-left:1px solid rgba(255,255,255,0.08);}
+.trust-item:last-child{border-left:none;}
+.trust-icon{width:42px;height:42px;border-radius:10px;background:rgba(26,86,219,0.12);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--orange);flex-shrink:0;}
+.trust-title{font-size:13.5px;font-weight:700;color:white;}
+.trust-desc{font-size:11.5px;color:rgba(255,255,255,0.5);margin-top:1px;}
+
+.products-section{max-width:1340px;margin:0 auto;padding:56px 28px 60px;flex:1;width:100%;}
+.sec-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;width:100%;}
+.sec-left{display:flex;align-items:center;gap:14px;}
+.sec-bar{width:5px;height:32px;background:linear-gradient(to bottom,#1a56db,#3b82f6);border-radius:3px;}
+.sec-title{font-size:23px;font-weight:900;color:var(--navy);}
+.sec-sub{font-size:13px;color:var(--text-light);margin-top:2px;}
+.sec-pill{background:var(--orange-soft);color:var(--orange);border:1.5px solid var(--orange-mid);border-radius:50px;padding:5px 16px;font-size:13px;font-weight:700;}
+.products-grid{display:flex;flex-direction:column;gap:28px;width:100%;}
+.sub-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;width:100%;}
+.sub-grid-wide{margin-top:8px;}
+.sub-list{display:grid;grid-template-columns:1fr 1fr;gap:18px;width:100%;}
+
+/* Grid card */
+.card-grid-style .card-img-wrap{height:180px;padding:10px;background:#f8f9fa;position:relative;overflow:hidden;}
+.card-grid-style .card-body{padding:12px 14px 14px;}
+.card-grid-style .card-name{font-size:13px;min-height:38px;margin-bottom:6px;}
+.card-grid-style .card-stars-row{margin-bottom:10px;}
+.card-grid-style .card-bottom{flex-direction:column;gap:8px;padding-top:10px;}
+.card-grid-style .price-val{font-size:19px;}
+
+.card-img-rotator{width:100%;height:100%;position:relative;overflow:hidden;border-radius:8px;}
+.card-img-rotator img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity 0.8s ease-in-out;}
+.card-img-rotator img.active{opacity:1;}
+.card-img-rotator img.fade-out{opacity:0;}
+.rotator-dots{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);display:flex;gap:4px;z-index:5;background:rgba(0,0,0,0.3);padding:2px 6px;border-radius:10px;}
+.rotator-dots span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.4);transition:all 0.3s;}
+.rotator-dots span.active{background:#fff;transform:scale(1.2);}
+
+/* ── المنتجات الأفقية (نمط أمازون) ── */
+.card-list-style {
+  flex-direction: row !important;
+  align-items: stretch !important;
+  min-height: 180px !important;
+  border-radius: var(--radius);
+  padding: 0 !important;
+  overflow: hidden;
+  background: white;
+  border: 1.5px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.card-list-style:hover {
+  border-color: var(--orange);
+  box-shadow: var(--shadow-md);
+}
+
+.card-list-style .card-accent {
+  width: 5px !important;
+  height: auto !important;
+  background: linear-gradient(to bottom, #1a56db, #3b82f6, #f59e0b) !important;
+  flex-shrink: 0;
+}
+
+.card-list-img {
+  width: 220px !important;
+  min-width: 220px !important;
+  max-width: 220px !important;
+  height: 100% !important;
+  min-height: 180px !important;
+  background: #f8f9fa;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 16px !important;
+  position: relative;
+  border-left: 1px solid var(--border);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.card-list-img .badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 10px;
+  padding: 4px 12px;
+  z-index: 5;
+}
+
+.card-list-img .card-img-rotator {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.card-list-img .card-img-rotator img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.card-list-img .card-img-rotator img.active {
+  opacity: 1;
+}
+
+.card-list-img .rotator-dots {
+  bottom: 6px;
+}
+
+.card-list-body {
+  flex: 1;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.card-list-body .card-cat {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.card-list-body .card-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.4;
+  margin-bottom: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.card-list-body .card-name:hover {
+  color: var(--orange);
+}
+
+.card-list-body .card-specs {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.card-list-body .card-specs .spec-tag {
+  font-size: 10px;
+  font-weight: 600;
+  background: var(--bg);
+  color: var(--text-mid);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 2px 8px;
+}
+
+.card-list-body .card-stars-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.card-list-body .card-stars-row .stars {
+  color: #f59e0b;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.card-list-body .card-stars-row .rating-count {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+.card-list-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.card-list-bottom .price-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.card-list-bottom .price-val {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--navy);
+  line-height: 1;
+}
+
+.card-list-bottom .price-cur {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--orange);
+  margin-right: 3px;
+}
+
+.card-list-bottom .price-old {
+  font-size: 13px;
+  color: #94a3b8;
+  text-decoration: line-through;
+  font-weight: 700;
+}
+
+.card-list-bottom .price-off {
+  font-size: 11px;
+  font-weight: 800;
+  color: #fff;
+  background: #ef4444;
+  border-radius: 5px;
+  padding: 2px 10px;
+}
+
+.card-list-bottom .price-note {
+  font-size: 12px;
+  color: var(--green);
+  font-weight: 600;
+}
+
+.card-list-bottom .add-btn {
+  flex: 0 0 auto;
+  width: auto;
+  padding: 0 20px;
+  height: 40px;
+  font-size: 13px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #1a56db, #2563eb);
+  color: white;
+  border: none;
+  font-weight: 800;
+  font-family: 'Cairo', Arial, sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 4px 14px rgba(26, 86, 219, 0.3);
+  transition: all 0.25s;
+}
+
+.card-list-bottom .add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(26, 86, 219, 0.45);
+}
+
+.card-list-bottom .add-btn.added {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35);
+}
+
+.product-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;position:relative;transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;box-shadow:var(--shadow-sm);}
+.product-card:hover{transform:translateY(-7px);box-shadow:var(--shadow-lg);border-color:var(--orange);}
+.card-accent{height:4px;background:linear-gradient(90deg,#1a56db,#3b82f6,#f59e0b);}
+.badge{position:absolute;top:18px;right:16px;font-size:10.5px;font-weight:800;padding:4px 11px;border-radius:50px;letter-spacing:0.3px;z-index:3;}
+.badge-fire{background:#fff0eb;color:#e05d00;border:1px solid #ffd0b5;}
+.badge-new{background:#e8f5e9;color:#2e7d32;border:1px solid #c8e6c9;}
+.badge-star{background:#fff8e1;color:#f57f17;border:1px solid #ffe082;}
+.badge-blue{background:#e3f2fd;color:#1565c0;border:1px solid #bbdefb;}
+.card-img-wrap{padding:12px;display:flex;align-items:center;justify-content:center;height:190px;background:#f8f9fa;position:relative;overflow:hidden;border-bottom:1px solid var(--border);}
+.card-body{padding:16px 18px 20px;display:flex;flex-direction:column;flex:1;}
+.card-cat{font-size:11px;font-weight:700;color:var(--orange);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:7px;}
+.card-name{font-size:14px;font-weight:700;color:var(--navy);line-height:1.5;margin-bottom:7px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:42px;}
+.card-specs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.spec-tag{font-size:11px;font-weight:600;background:var(--bg);color:var(--text-mid);border:1px solid var(--border);border-radius:6px;padding:3px 9px;}
+.card-stars-row{display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:nowrap;}
+.card-stars-row .stars{color:#f59e0b;font-size:13px;letter-spacing:1px;white-space:nowrap;flex-shrink:0;}
+.card-stars-row .rating-count{font-size:11.5px;color:var(--text-light);white-space:nowrap;}
+.card-bottom{margin-top:auto;display:flex;flex-direction:column;gap:12px;padding-top:14px;border-top:1px solid var(--border);}
+.price-val{font-size:22px;font-weight:900;color:var(--navy);line-height:1;}
+.price-cur{font-size:12px;font-weight:700;color:var(--orange);margin-right:3px;}
+.price-note{font-size:11px;color:var(--text-light);margin-top:2px;}
+.add-btn{flex:1;height:44px;background:linear-gradient(135deg,#1a56db,#2563eb);border:none;border-radius:12px;color:white;font-size:13.5px;font-weight:800;font-family:'Cairo',Arial,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px rgba(26,86,219,0.3);transition:all 0.25s;position:relative;overflow:hidden;white-space:nowrap;}
+.add-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.15),transparent);opacity:0;transition:opacity 0.2s;}
+.add-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,86,219,0.45);}
+.add-btn:hover::before{opacity:1;}
+.add-btn:active{transform:scale(0.97);}
+.add-btn.added{background:linear-gradient(135deg,#16a34a,#22c55e);box-shadow:0 4px 14px rgba(34,197,94,0.35);animation:popIn 0.35s cubic-bezier(0.34,1.56,0.64,1);}
+.add-btn .btn-cart-icon{font-size:15px;transition:transform 0.3s;}
+.add-btn:hover .btn-cart-icon{transform:scale(1.15) rotate(-8deg);}
+@keyframes popIn{0%{transform:scale(1);}40%{transform:scale(1.06);}100%{transform:scale(1);}}
+
+.fly-item{position:fixed;z-index:9998;pointer-events:none;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#1a56db,#2563eb);display:flex;align-items:center;justify-content:center;font-size:26px;color:white;box-shadow:0 8px 28px rgba(26,86,219,0.55),0 0 0 6px rgba(26,86,219,0.15);}
+.fly-trail{position:fixed;z-index:9997;pointer-events:none;border-radius:50%;background:rgba(26,86,219,0.5);animation:trailFade 0.6s ease forwards;}
+@keyframes trailFade{0%{opacity:0.7;transform:scale(1);}100%{opacity:0;transform:scale(0);}}
+@keyframes cartArrive{0%{box-shadow:0 4px 12px rgba(245,158,11,0.35),0 0 0 0 rgba(26,86,219,0.6);}50%{box-shadow:0 4px 12px rgba(245,158,11,0.35),0 0 0 14px rgba(26,86,219,0.15);}100%{box-shadow:0 4px 12px rgba(245,158,11,0.35),0 0 0 22px rgba(26,86,219,0);}}
+.nav-icon-btn.cart-ic.arrive{animation:cartArrive 0.55s ease-out;}
+@keyframes badgeBounce{0%{transform:scale(1);}40%{transform:scale(1.6);}70%{transform:scale(0.85);}100%{transform:scale(1);}}
+.cart-badge.bounce{animation:badgeBounce 0.5s cubic-bezier(0.34,1.56,0.64,1);}
+
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--navy);color:white;padding:13px 26px;border-radius:50px;font-size:14px;font-weight:600;border-right:4px solid #1a56db;z-index:9999;opacity:0;transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1),opacity 0.3s;display:flex;align-items:center;gap:10px;white-space:nowrap;box-shadow:0 8px 32px rgba(26,86,219,0.2);}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+
+.overlay{position:fixed;inset:0;background:rgba(15,27,51,0.55);backdrop-filter:blur(5px);z-index:1000;opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s;}
+.overlay.active{opacity:1;visibility:visible;}
+.side-pane{position:fixed;top:0;right:-500px;width:min(460px,96vw);height:100%;background:white;border-left:1px solid var(--border);z-index:1100;display:flex;flex-direction:column;transition:right 0.38s cubic-bezier(0.4,0,0.2,1);box-shadow:-8px 0 40px rgba(15,27,51,0.12);}
+.side-pane.active{right:0;}
+.pane-head{padding:0 22px;height:68px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--orange);flex-shrink:0;background:white;}
+.pane-head h2{font-size:17px;font-weight:800;color:var(--navy);}
+.pane-close{width:36px;height:36px;border-radius:10px;background:var(--bg);border:1px solid var(--border);color:var(--text-mid);font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;}
+.pane-close:hover{background:var(--orange-soft);border-color:var(--orange);color:var(--orange);}
+.pane-body{flex:1;overflow-y:auto;padding:22px;}
+.cart-item{display:flex;gap:15px;align-items:center;padding:16px 0;border-bottom:1px solid var(--border);}
+.ci-img{width:68px;height:68px;object-fit:contain;background:var(--bg);border-radius:10px;padding:8px;border:1px solid var(--border);flex-shrink:0;}
+.ci-name{font-size:13.5px;font-weight:700;color:var(--navy);line-height:1.45;margin-bottom:5px;}
+.ci-price{font-size:15px;font-weight:800;color:var(--orange);margin-bottom:8px;}
+.ci-remove{background:#fff5f5;border:1px solid #fed7d7;color:var(--red);border-radius:8px;padding:4px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Cairo',Arial,sans-serif;transition:all 0.2s;}
+.ci-remove:hover{background:var(--red);color:white;border-color:var(--red);}
+.empty-state{text-align:center;padding:70px 20px;}
+.empty-icon{width:90px;height:90px;border-radius:50%;background:var(--orange-soft);border:2px dashed var(--orange-mid);display:flex;align-items:center;justify-content:center;font-size:38px;color:var(--orange);margin:0 auto 20px;}
+.empty-state h3{font-size:17px;font-weight:800;color:var(--navy);margin-bottom:8px;}
+.empty-state p{font-size:13px;color:var(--text-light);}
+.pane-footer{padding:18px 22px;border-top:1px solid var(--border);flex-shrink:0;background:var(--bg);}
+.total-row{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:white;border-radius:10px;border:1px solid var(--border);margin-bottom:14px;}
+.total-row span{font-size:14px;color:var(--text-mid);font-weight:600;}
+.total-row strong{font-size:22px;font-weight:900;color:var(--navy);}
+.total-row strong em{color:var(--orange);font-style:normal;font-size:14px;margin-right:4px;}
+.btn-checkout{width:100%;padding:15px;background:linear-gradient(135deg,#1a56db,#2563eb);color:white;border:none;border-radius:12px;font-size:15px;font-weight:800;font-family:'Cairo',Arial,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 4px 18px rgba(26,86,219,0.3);transition:transform 0.2s,box-shadow 0.2s;}
+.btn-checkout:hover{transform:translateY(-1px);box-shadow:0 7px 26px rgba(26,86,219,0.42);}
+.btn-back{width:100%;padding:12px;background:white;color:var(--text-mid);border:1.5px solid var(--border);border-radius:12px;font-size:14px;font-weight:700;font-family:'Cairo',Arial,sans-serif;cursor:pointer;margin-top:10px;transition:border-color 0.2s,color 0.2s;}
+.btn-back:hover{border-color:var(--orange);color:var(--orange);}
+
+.checkout-pane .pane-body{padding:22px;}
+.form-block-title{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800;color:var(--text-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;margin-top:6px;}
+.form-block-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.form-group{margin-bottom:14px;}
+.form-group label{display:block;font-size:13px;font-weight:700;color:var(--text-mid);margin-bottom:6px;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:'Cairo',Arial,sans-serif;color:var(--text);outline:none;transition:border-color 0.2s,box-shadow 0.2s;background:white;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,109,0,0.1);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.radio-group{display:flex;gap:12px;}
+.radio-opt{flex:1;border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;cursor:pointer;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--text-mid);transition:all 0.2s;}
+.radio-opt:hover{border-color:var(--orange-mid);background:var(--orange-soft);}
+.radio-opt.selected{border-color:var(--orange);background:var(--orange-soft);color:var(--orange);}
+.radio-opt i{font-size:16px;}
+
+footer{background:var(--navy);color:white;padding:40px 28px 20px;margin-top:auto;width:100%;}
+.footer-inner{max-width:1340px;margin:0 auto;width:100%;}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;margin-bottom:36px;}
+.footer-brand .logo-name{font-size:22px;font-weight:900;color:white;margin-bottom:12px;display:block;}
+.footer-brand .logo-name span{color:var(--orange);}
+.footer-brand p{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.8;margin-bottom:20px;}
+.footer-social{display:flex;gap:10px;}
+.social-btn{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;transition:all 0.2s;text-decoration:none;}
+.social-btn:hover{background:var(--orange);border-color:var(--orange);color:white;}
+.footer-col h4{font-size:14px;font-weight:800;color:white;margin-bottom:16px;}
+.footer-col ul{list-style:none;}
+.footer-col ul li{margin-bottom:10px;}
+.footer-col ul li a{font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.2s;}
+.footer-col ul li a:hover{color:var(--orange);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.footer-bottom p{font-size:12.5px;color:rgba(255,255,255,0.4);}
+.footer-badges{display:flex;gap:8px;}
+.foot-badge{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:6px;padding:5px 12px;font-size:11.5px;color:rgba(255,255,255,0.5);display:flex;align-items:center;gap:6px;}
+.foot-badge i{color:var(--orange);}
+
+.auth-tabs{display:flex;border-radius:12px;overflow:hidden;border:1px solid var(--border);margin-bottom:24px;}
+.auth-tab{flex:1;padding:12px;text-align:center;font-weight:700;font-size:14px;cursor:pointer;background:white;color:var(--text-mid);transition:all 0.2s;border:none;font-family:'Cairo',Arial,sans-serif;}
+.auth-tab.active{background:var(--orange);color:white;}
+.auth-panel{display:none;}
+.auth-panel.active{display:block;}
+.input-icon-wrap{position:relative;display:flex;align-items:center;}
+.input-icon-wrap .input-icon{position:absolute;right:12px;color:var(--text-light);font-size:14px;}
+.input-icon-wrap input{padding-right:38px;width:100%;}
+.input-icon-wrap .toggle-pass{position:absolute;left:12px;background:none;border:none;color:var(--text-light);cursor:pointer;font-size:14px;}
+.err-msg{color:var(--red);font-size:12px;margin-top:6px;display:none;}
+.err-msg.show{display:block;}
+.success-msg{color:var(--green);font-size:12px;margin-top:6px;display:none;}
+.success-msg.show{display:block;}
+.auth-divider{text-align:center;color:var(--text-light);font-size:13px;margin:16px 0;position:relative;}
+.auth-divider::before,.auth-divider::after{content:'';position:absolute;top:50%;width:30%;height:1px;background:var(--border);}
+.auth-divider::before{right:0;}
+.auth-divider::after{left:0;}
+.social-login{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px;border-radius:12px;text-decoration:none;font-weight:700;font-size:13px;transition:all 0.2s;background:#fafafa;border:1px solid var(--border);color:var(--text-mid);}
+.social-login.ig{background:#fafafa;border-color:#e0e0e0;color:#333;}
+.social-login.ig:hover{background:#f0f0f0;border-color:#ccc;}
+
+.profile-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#1a56db,#3b82f6);color:white;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;margin:0 auto 16px;box-shadow:0 4px 16px rgba(26,86,219,0.3);}
+.profile-name{text-align:center;font-size:20px;font-weight:800;color:var(--navy);}
+.profile-email{text-align:center;font-size:13px;color:var(--text-light);margin-bottom:20px;}
+.profile-stat{display:flex;gap:20px;justify-content:center;margin-bottom:24px;}
+.pstat{text-align:center;padding:12px 24px;background:var(--bg);border-radius:12px;border:1px solid var(--border);flex:1;}
+.pstat-num{font-size:24px;font-weight:900;color:var(--orange);}
+.pstat-label{font-size:12px;color:var(--text-light);}
+.btn-logout{width:100%;padding:14px;background:#fff5f5;color:var(--red);border:1.5px solid #fed7d7;border-radius:12px;font-size:15px;font-weight:700;font-family:'Cairo',Arial,sans-serif;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.2s;}
+.btn-logout:hover{background:var(--red);color:white;border-color:var(--red);}
+#authPane .pane-body,#profilePane .pane-body{padding:24px;}
+
+.product-detail-pane{width:min(520px,100vw);}
+.pd-slider{position:relative;width:100%;height:300px;overflow:hidden;background:#f8f9fa;border-radius:12px;direction:ltr;}
+.pd-slides{display:flex;height:100%;transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);will-change:transform;}
+.pd-slide{min-width:100%;height:100%;display:flex;align-items:center;justify-content:center;padding:16px;flex-shrink:0;}
+.pd-slide img{max-width:90%;max-height:90%;object-fit:contain;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.06);}
+.pd-arrow{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:white;border:1.5px solid var(--border);color:var(--navy);font-size:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,0.1);transition:all 0.2s;z-index:5;}
+.pd-arrow:hover{background:var(--orange);color:white;border-color:var(--orange);}
+.pd-arrow-r{right:10px;}
+.pd-arrow-l{left:10px;}
+.pd-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:5;}
+.pd-dot{width:7px;height:7px;border-radius:50%;background:rgba(26,86,219,0.25);border:none;cursor:pointer;padding:0;transition:all 0.3s;}
+.pd-dot.active{width:22px;border-radius:4px;background:#1a56db;}
+.pd-thumbs{display:flex;gap:8px;padding:10px 14px;overflow-x:auto;background:#f8f9fa;border-bottom:1px solid var(--border);min-height:70px;}
+.pd-thumbs::-webkit-scrollbar{height:3px;}
+.pd-thumbs::-webkit-scrollbar-thumb{background:var(--orange);border-radius:2px;}
+.pd-thumb{width:60px;height:60px;flex-shrink:0;border-radius:10px;overflow:hidden;border:2px solid var(--border);cursor:pointer;transition:all 0.2s;background:white;padding:4px;display:flex;align-items:center;justify-content:center;}
+.pd-thumb img{width:100%;height:100%;object-fit:contain;}
+.pd-thumb.active{border-color:#1a56db;box-shadow:0 0 0 3px rgba(26,86,219,0.15);}
+.pd-info{padding:16px 20px;}
+.pd-cat{font-size:11px;font-weight:700;color:var(--orange);letter-spacing:0.8px;text-transform:uppercase;margin-bottom:6px;}
+.pd-name{font-size:17px;font-weight:800;color:var(--navy);line-height:1.4;margin-bottom:10px;}
+.pd-stars-row{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+.pd-stars-row .stars{font-size:15px;color:#f59e0b;}
+.pd-stars-row .rating-count{font-size:13px;color:var(--text-light);}
+.pd-specs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px;}
+.pd-price-row{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.pd-price{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.pd-price .pd-now{font-size:28px;font-weight:900;color:#0f172a;line-height:1;}
+.pd-price .pd-now .cur{font-size:14px;font-weight:700;color:#1a56db;margin-left:3px;}
+.pd-price .pd-old{font-size:16px;color:#94a3b8;text-decoration:line-through;font-weight:700;}
+.pd-price .pd-off{font-size:12px;font-weight:800;color:#fff;background:#ef4444;border-radius:7px;padding:2px 10px;}
+.pd-delivery{font-size:12px;color:var(--green);font-weight:600;display:flex;align-items:center;gap:5px;}
+.pd-related{padding:16px 16px 20px;border-top:1px solid var(--border);background:var(--bg);}
+.pd-related-title{font-size:14px;font-weight:800;color:var(--navy);margin-bottom:12px;}
+.pd-related-scroll{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;padding-bottom:6px;}
+.pd-rel-card{background:white;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all 0.2s;}
+.pd-rel-card:hover{border-color:var(--orange);transform:translateY(-3px);box-shadow:var(--shadow-md);}
+.pd-rel-img{width:100%;height:90px;background:#f8f9fa;display:flex;align-items:center;justify-content:center;padding:8px;overflow:hidden;}
+.pd-rel-img img{max-width:100%;max-height:100%;object-fit:contain;}
+.pd-rel-info{padding:8px 10px 10px;}
+.pd-rel-name{font-size:11.5px;font-weight:700;color:var(--navy);line-height:1.35;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.pd-rel-price{font-size:13px;font-weight:900;color:var(--orange);}
+.pd-rel-price s{color:#b0b8c4;font-weight:600;font-size:11px;margin-right:5px;}
+
+@media (min-width: 901px){
+  #productPane.product-detail-pane{top:2.5vh !important;bottom:2.5vh !important;left:2vw !important;right:2vw !important;width:auto !important;height:auto !important;max-height:none !important;border:none !important;border-radius:18px !important;box-shadow:0 30px 90px rgba(15,23,42,.45) !important;transform:scale(.97) !important;opacity:0;visibility:hidden;transition:opacity .3s ease,transform .38s cubic-bezier(.34,1.2,.5,1),visibility .3s !important;}
+  #productPane.product-detail-pane.active{transform:scale(1) !important;opacity:1;visibility:visible;}
+  #productPane .pane-body{display:flex !important;flex-wrap:wrap;align-items:flex-start;gap:8px 40px;padding:28px 38px 16px !important;}
+  #productPane .pd-gallery{flex:1 1 52%;min-width:0;}
+  #productPane .pd-slider{height:min(54vh,560px) !important;border-radius:18px;}
+  #productPane .pd-thumbs{margin-top:12px;padding:4px 2px;min-height:auto;background:transparent;border-bottom:none;justify-content:flex-start;gap:12px;}
+  #productPane .pd-thumb{width:84px;height:84px;}
+  #productPane .pd-info{flex:1 1 40%;min-width:0;padding:8px 2px 0 0 !important;}
+  #productPane .pd-cat{font-size:13px !important;}
+  #productPane .pd-name{font-size:25px !important;line-height:1.35;margin-bottom:14px;}
+  #productPane .pd-price .pd-now{font-size:36px !important;}
+  #productPane .pd-related{flex:1 1 100%;margin-top:22px;padding-top:18px;border-top:1px solid #e2e8f0;background:transparent;}
+  #productPane .pd-related-title{font-size:18px !important;margin-bottom:16px;}
+  #productPane .pd-rel-card{min-width:0;}
+  #productPane .pd-rel-img{height:130px;}
+  #productPane .pd-rel-name{font-size:13px;}
+  #productPane .pd-rel-price{font-size:15px;}
+  #productPane .pane-head{border-radius:18px 18px 0 0;}
+  #productPane .pd-slide img{max-width:97% !important;max-height:97% !important;}
+}
+@media (max-width: 480px){
+  .pd-related-scroll{grid-template-columns:repeat(3,1fr) !important;}
+  .pd-slider{height:220px !important;}
+  .pd-slide img{max-width:90% !important;max-height:90% !important;}
+  .pd-thumb{width:50px;height:50px;}
+  .pd-price .pd-now{font-size:22px !important;}
+}
+
+.top-bar{background:linear-gradient(90deg,#0f172a 0%,#1e3a8a 50%,#0f172a 100%) !important;}
+.top-bar b{color:#f59e0b !important;}
+header{border-bottom:2px solid #1a56db !important;}
+.logo-box{background:linear-gradient(135deg,#1a56db,#3b82f6) !important;box-shadow:0 4px 12px rgba(26,86,219,0.4) !important;}
+.logo-name span{color:#1a56db !important;}
+.search-bar{border-color:#1a56db !important;}
+.search-btn{background:#1a56db !important;}
+.search-btn:hover{background:#1344b8 !important;}
+.nav-icon-btn.cart-ic{background:linear-gradient(135deg,#f59e0b,#d97706) !important;box-shadow:0 4px 12px rgba(245,158,11,0.35) !important;}
+.trust-icon{background:rgba(245,158,11,0.15) !important;color:#f59e0b !important;}
+.trust-strip{background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 50%,#0f172a 100%) !important;}
+.sec-bar{background:linear-gradient(to bottom,#1a56db,#3b82f6) !important;}
+.sec-pill{background:#eff6ff !important;color:#1a56db !important;border-color:#bfdbfe !important;}
+.card-accent{background:linear-gradient(90deg,#1a56db,#3b82f6,#f59e0b) !important;}
+.card-cat{color:#1a56db !important;}
+.add-btn{background:linear-gradient(135deg,#1a56db,#2563eb) !important;border-color:#1a56db !important;color:white !important;}
+.add-btn:hover{background:linear-gradient(135deg,#1344b8,#1a56db) !important;box-shadow:0 8px 24px rgba(26,86,219,0.5) !important;}
+.price-cur{color:#1a56db !important;}
+.pane-head{border-bottom-color:#1a56db !important;}
+.btn-checkout{background:linear-gradient(135deg,#1a56db,#2563eb) !important;box-shadow:0 4px 18px rgba(26,86,219,0.35) !important;}
+.toast{border-left:none !important;border-right:4px solid #1a56db !important;background:linear-gradient(135deg,#0f172a,#1e293b) !important;}
+footer{background:linear-gradient(160deg,#0f172a 0%,#1e3a8a 60%,#0f172a 100%) !important;}
+.footer-brand .logo-name span{color:#f59e0b !important;}
+.social-btn:hover{background:#f59e0b !important;border-color:#f59e0b !important;}
+.footer-col ul li a:hover{color:#f59e0b !important;}
+.foot-badge i{color:#f59e0b !important;}
+.ci-price{color:#1a56db !important;}
+.auth-tab.active{background:#1a56db !important;}
+.radio-opt.selected{border-color:#1a56db !important;background:#eff6ff !important;color:#1a56db !important;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#1a56db !important;box-shadow:0 0 0 3px rgba(26,86,219,0.12) !important;}
+::-webkit-scrollbar-thumb{background:#1a56db !important;}
+.hc-cta{background:linear-gradient(135deg,#1a56db,#3b82f6) !important;box-shadow:0 10px 30px rgba(26,86,219,.5) !important;}
+.hc-cta:hover{box-shadow:0 14px 38px rgba(26,86,219,.65) !important;}
+.hc-arrow:hover{background:#1a56db !important;}
+.hc-dot.active{background:#f59e0b !important;}
+
+.price-old-row{display:flex;align-items:center;gap:8px;margin-top:5px;}
+.price-inline{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.price-old{font-size:13px;color:#94a3b8;text-decoration:line-through;font-weight:700;}
+.price-off{font-size:11px;font-weight:800;color:#fff;background:#ef4444;border-radius:6px;padding:2px 8px;letter-spacing:.3px;}
+.card-grid-style .price-old{font-size:12px;}
+.card-grid-style .price-off{font-size:10px;padding:2px 6px;}
+
+/* ── إصلاح عرض الموقع على الهواتف ── */
+@media (max-width: 480px){
+  html,body{overflow-x:hidden !important;width:100% !important;max-width:100% !important;}
+  .navbar,.trust-inner,.products-section,.footer-inner,.sec-header,.products-grid{padding-left:12px !important;padding-right:12px !important;max-width:100% !important;width:100% !important;}
+  .hero-carousel{width:100% !important;max-width:100% !important;border-radius:0 !important;}
+  .trust-strip{padding:0 !important;width:100% !important;}
+  .trust-inner{grid-template-columns:1fr 1fr !important;width:100% !important;}
+  .trust-item{padding:12px 8px !important;gap:8px !important;}
+  .sub-grid{grid-template-columns:repeat(2,1fr) !important;gap:10px !important;width:100% !important;}
+  .product-card{width:100% !important;max-width:100% !important;}
+
+  /* ── الصف السفلي: تمرير أفقي (نمط أمازون) — في الهاتف فقط ── */
+  .sub-list{
+    display:flex !important;
+    grid-template-columns:none !important;
+    flex-wrap:nowrap !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    gap:12px !important;
+    width:100% !important;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    padding:2px 2px 12px !important;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+  }
+  .sub-list::-webkit-scrollbar{display:none;}
+  .sub-list .card-list-style{
+    flex:0 0 76% !important;
+    width:76% !important;
+    min-width:76% !important;
+    max-width:300px !important;
+    scroll-snap-align:start;
+    flex-direction:column !important;
+    min-height:auto !important;
+  }
+  .card-list-img{width:100% !important;min-width:100% !important;max-width:100% !important;height:200px !important;min-height:200px !important;border-left:none !important;border-bottom:1px solid var(--border);padding:16px !important;}
+  .card-list-body{padding:14px 16px !important;}
+  .card-list-body .card-name{font-size:15px !important;}
+  .card-list-body .card-specs{display:flex !important;flex-wrap:wrap;gap:4px;}
+  .card-list-body .card-specs .spec-tag{font-size:10px;padding:2px 8px;}
+  .card-list-bottom{flex-direction:column !important;align-items:stretch !important;gap:10px !important;}
+  .card-list-bottom .price-section{justify-content:space-between !important;}
+  .card-list-bottom .add-btn{width:100% !important;padding:12px !important;}
+  
+  .navbar{display:grid !important;grid-template-columns:auto 1fr auto !important;gap:6px !important;padding:0 10px !important;width:100% !important;}
+  .side-pane{width:100vw !important;}
+  footer{padding:20px 12px 16px !important;}
+  .footer-top{grid-template-columns:1fr !important;gap:20px !important;padding:0 !important;}
+  .footer-bottom{flex-direction:column !important;align-items:flex-start !important;}
+  .sec-title{font-size:18px !important;}
+  .sec-sub{font-size:12px !important;}
+  .sec-pill{font-size:11px !important;padding:4px 12px !important;}
+}
+
+/* ── مبدّل اللغة (Language switcher) ── */
+.lang-switch{position:relative;flex-shrink:0;}
+.lang-btn{display:flex;align-items:center;gap:6px;height:40px;padding:0 12px;border:2px solid var(--orange-mid);background:var(--orange-soft);border-radius:50px;cursor:pointer;font-family:'Cairo',Arial,sans-serif;font-weight:800;font-size:13px;color:var(--navy);transition:all .2s;}
+.lang-btn:hover{border-color:var(--orange);background:#fff;}
+.lang-btn .lang-flag{font-size:18px;line-height:1;display:inline-flex;}
+.flag-svg{width:21px;height:14px;border-radius:3px;display:inline-block;vertical-align:middle;box-shadow:0 0 0 1px rgba(0,0,0,.10);}
+.lang-btn .lang-code{letter-spacing:.5px;}
+.lang-btn .lang-caret{font-size:10px;color:var(--text-light);transition:transform .25s;}
+.lang-switch.open .lang-btn .lang-caret{transform:rotate(180deg);}
+.lang-menu{position:absolute;top:48px;min-width:175px;background:#fff;border:1.5px solid var(--border);border-radius:12px;box-shadow:var(--shadow-lg);padding:6px;opacity:0;visibility:hidden;transform:translateY(-8px);transition:all .2s ease;z-index:1200;}
+html[dir="rtl"] .lang-menu{left:0;}
+html[dir="ltr"] .lang-menu{right:0;}
+.lang-switch.open .lang-menu{opacity:1;visibility:visible;transform:translateY(0);}
+.lang-opt{display:flex;align-items:center;gap:10px;width:100%;padding:9px 12px;border:none;background:none;border-radius:8px;cursor:pointer;font-family:'Cairo',Arial,sans-serif;font-weight:700;font-size:13.5px;color:var(--navy);text-align:start;transition:background .15s;}
+.lang-opt:hover{background:var(--orange-soft);}
+.lang-opt.active{background:var(--orange);color:#fff;}
+.lang-opt .lang-flag{font-size:19px;line-height:1;display:inline-flex;}
+.lang-opt .flag-svg{width:24px;height:16px;}
+.lang-opt .opt-check{margin-inline-start:auto;font-size:12px;opacity:0;}
+.lang-opt.active .opt-check{opacity:1;}
+@media (max-width:480px){
+  .lang-btn{padding:0 9px;height:38px;gap:4px;}
+  .lang-btn .lang-code{display:none;}
+  .lang-menu{min-width:160px;}
+}
+
+/* ── شريط إشهاري بين صفّي المنتجات (Promo banner) ── */
+.promo-banner{position:relative;overflow:hidden;margin:34px 0;padding:26px 30px;border-radius:18px;display:flex;align-items:center;justify-content:space-between;gap:22px;background:linear-gradient(115deg,#0f172a 0%,#1e293b 55%,#243456 100%);box-shadow:0 14px 34px rgba(15,23,42,.3);}
+.promo-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 88% 18%,rgba(59,130,246,.40),transparent 44%);pointer-events:none;}
+.promo-deco{position:absolute;inset-inline-end:20px;top:50%;transform:translateY(-50%);font-size:118px;color:rgba(255,255,255,.05);z-index:1;pointer-events:none;}
+.promo-left{position:relative;z-index:2;display:flex;align-items:center;gap:18px;min-width:0;}
+.promo-ic{flex-shrink:0;width:62px;height:62px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:27px;color:#fff;background:linear-gradient(135deg,#1a56db,#3b82f6);box-shadow:0 8px 20px rgba(26,86,219,.55);}
+.promo-text{min-width:0;}
+.promo-tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.4px;color:#bfdbfe;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);padding:3px 11px;border-radius:50px;margin-bottom:8px;}
+.promo-text h3{margin:0 0 5px;color:#fff;font-size:21px;font-weight:800;line-height:1.3;}
+.promo-text p{margin:0;color:rgba(255,255,255,.78);font-size:13.5px;line-height:1.5;}
+.promo-cta{position:relative;z-index:2;flex-shrink:0;display:flex;align-items:center;gap:8px;background:#fff;color:var(--navy);border:none;border-radius:50px;padding:13px 26px;font-family:'Cairo',Arial,sans-serif;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 7px 18px rgba(0,0,0,.22);transition:transform .2s,box-shadow .2s;}
+.promo-cta:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(0,0,0,.3);}
+.promo-cta i{color:#1a56db;}
+
+/* ── بانر فاصل بخلفية متحركة ── */
+.split-banner{position:relative;overflow:hidden;margin:40px 0;border-radius:20px;height:220px;box-shadow:0 16px 40px rgba(15,23,42,.28);}
+.split-banner-bg{position:absolute;inset:-15px;background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80');background-size:cover;background-position:center;animation:bannerPan 18s ease-in-out infinite alternate;filter:saturate(1.05);}
+@keyframes bannerPan{
+  0%{transform:scale(1.08) translateX(-2%);}
+  100%{transform:scale(1.18) translateX(2%);}
+}
+.split-banner-overlay{position:absolute;inset:0;background:linear-gradient(115deg,rgba(15,23,42,.92) 0%,rgba(15,23,42,.65) 45%,rgba(26,86,219,.35) 100%);}
+.split-banner-shine{position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.16) 45%,transparent 60%);background-size:250% 100%;animation:bannerShine 6s ease-in-out infinite;pointer-events:none;}
+@keyframes bannerShine{
+  0%{background-position:160% 0;}
+  60%,100%{background-position:-60% 0;}
+}
+.split-banner-content{position:relative;z-index:3;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px;padding:0 24px;}
+.split-banner-icon{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;font-size:24px;color:#fbbc05;backdrop-filter:blur(4px);animation:bannerFloat 3s ease-in-out infinite;}
+@keyframes bannerFloat{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-8px);}
+}
+.split-banner-title{color:#fff;font-size:22px;font-weight:900;text-shadow:0 2px 14px rgba(0,0,0,.4);}
+.split-banner-sub{color:rgba(255,255,255,.85);font-size:13.5px;font-weight:500;max-width:480px;line-height:1.6;}
+@media (max-width:480px){
+  .split-banner{height:170px;margin:28px 0;border-radius:16px;}
+  .split-banner-title{font-size:18px;}
+  .split-banner-sub{font-size:12.5px;}
+  .split-banner-icon{width:46px;height:46px;font-size:19px;}
+}
+@media (max-width:480px){
+  .promo-banner{flex-direction:column;text-align:center;align-items:center;padding:24px 18px;gap:16px;margin:24px 0;border-radius:16px;}
+  .promo-left{flex-direction:column;gap:13px;}
+  .promo-deco{font-size:92px;inset-inline-end:50%;transform:translate(50%,-50%);}
+  .promo-text h3{font-size:18px;}
+  .promo-cta{width:100%;justify-content:center;}
+}
+
+/* ════════════════════════════════════════════════════════════
+   CATEGORY BAR — شريط التصنيفات (مستقل تماماً عن باقي الصفحة)
+   ════════════════════════════════════════════════════════════ */
+.cat-bar-wrap{
+  width:100%;
+  background:linear-gradient(135deg,#fbbf24,#f59e0b);
+  box-shadow:0 4px 14px rgba(245,158,11,0.25);
+  position:relative;
+  z-index:50;
+}
+.cat-bar{
+  max-width:1340px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 20px;
+  overflow-x:auto;
+  white-space:nowrap;
+  flex-wrap:nowrap;
+  scrollbar-width:none;        /* فايرفوكس: إخفاء الشريط */
+  -ms-overflow-style:none;     /* إيدج/IE: إخفاء الشريط */
+}
+.cat-bar::-webkit-scrollbar{display:none;} /* كروم/سفاري: إخفاء الشريط */
+.cat-btn{
+  flex:1 1 0;             /* الحاسوب: توزيع متساوٍ على كامل عرض البار */
+  width:100%;
+  background:rgba(255,255,255,0.92);
+  color:#92400e;
+  border:none;
+  padding:9px 20px;
+  border-radius:50px;
+  font-family:'Cairo',Arial,sans-serif;
+  font-size:13.5px;
+  font-weight:800;
+  cursor:pointer;
+  transition:all .2s ease;
+  box-shadow:0 2px 6px rgba(0,0,0,0.08);
+  text-align:center;
+}
+.cat-btn:hover,.cat-btn.active{
+  background:#1a1a1a;
+  color:#fbbf24;
+  transform:translateY(-2px);
+  box-shadow:0 6px 14px rgba(0,0,0,0.25);
+}
+@media (max-width:760px){
+  .cat-bar{padding:10px 14px;gap:8px;}
+  .cat-btn{flex:0 0 auto;width:auto;padding:8px 16px;font-size:12.5px;} /* الهاتف: عرض حسب المحتوى + سكرول أفقي */
+}
+
+/* ════════════════════════════════════════════════════════════
+   CATEGORY SECTIONS — أقسام التصنيفات (بيانات مستقلة 100%)
+   ════════════════════════════════════════════════════════════ */
+.cat-section{
+  display:none !important;           /* مخفي افتراضياً — يظهر فقط بعد الضغط على التصنيف */
+  max-width:1340px;
+  margin:0 auto;
+  padding:40px 20px;
+  scroll-margin-top:90px; /* لمراعاة الهيدر الثابت عند التنقل */
+}
+.cat-section.cat-section-visible{
+  display:block !important;          /* تُضاف هذه الكلاس عبر JS عند اختيار التصنيف فقط */
+}
+.cat-section-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:22px;
+}
+.cat-section-bar{
+  width:5px;
+  height:30px;
+  background:linear-gradient(135deg,#f59e0b,#d97706);
+  border-radius:4px;
+}
+.cat-section-title{
+  font-size:20px;
+  font-weight:900;
+  color:var(--navy);
+}
+.cat-section-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+.cat-section-placeholder{
+  background:var(--card);
+  border:2px dashed var(--orange-mid);
+  border-radius:var(--radius);
+  min-height:220px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--text-light);
+  font-size:13px;
+  font-weight:600;
+  text-align:center;
+  padding:16px;
+}
+@media (max-width:900px){
+  .cat-section-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:480px){
+  .cat-section-grid{grid-template-columns:1fr 1fr;gap:10px;}
+  .cat-section{padding:28px 14px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     🔒 صفحة المتجر المغلق — لا تحذف هذا العنصر
+     ═══════════════════════════════════════════════ -->
+<div id="site-closed-overlay" style="
+  display:none;
+  position:fixed;inset:0;z-index:99999;
+  background:#0f172a;
+  flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:24px;font-family:'Cairo',Arial,sans-serif;
+">
+  <div style="font-size:72px;margin-bottom:20px;">🔒</div>
+  <h1 style="color:#fff;font-size:28px;font-weight:900;margin-bottom:12px;">المتجر مغلق مؤقتاً</h1>
+  <p style="color:#94a3b8;font-size:16px;max-width:380px;line-height:1.8;">
+    نعمل على تحسين تجربتك، سنعود قريباً.<br>
+    للتواصل: <strong style="color:#1a56db;">WhatsApp</strong>
+  </p>
+  <div style="margin-top:36px;width:48px;height:4px;background:#1a56db;border-radius:2px;opacity:0.4;"></div>
+</div>
+
+<div class="top-bar" data-i18n="topbar">🚚 <b>توصيل مجاني</b> لجميع الطلبات في كل أرجاء المغرب &nbsp;|&nbsp; الدفع عند الاستلام ✓</div>
+
+<header>
+  <nav class="navbar">
+    <a class="logo" href="#">
+      <div class="logo-box">N</div>
+      <div>
+        <div class="logo-name">NAIM <span>MARKET</span></div>
+        <div class="logo-sub" data-i18n="logo.sub">تقنية بلا حدود</div>
+      </div>
+    </a>
+    <div class="search-bar">
+      <input type="text" id="navSearchInput" data-i18n-ph="search.ph" placeholder="ابحث عن منتج، ماركة أو فئة..." onkeydown="if(event.key==='Enter')openSearchPane(this.value)">
+      <button class="search-btn" onclick="openSearchPane(document.getElementById('navSearchInput').value)"><i class="fas fa-search"></i></button>
+    </div>
+    <button class="nav-icon-btn search-ic" id="mobileSearchBtn" onclick="openSearchPane()" title="بحث" aria-label="بحث">
+      <i class="fas fa-search"></i>
+    </button>
+    <div class="nav-actions">
+      <div class="lang-switch" id="langSwitch">
+        <button class="lang-btn" id="langBtn" onclick="toggleLangMenu(event)" aria-label="Language">
+          <span class="lang-flag" id="langFlag"></span>
+          <span class="lang-code" id="langCode">AR</span>
+          <i class="fas fa-chevron-down lang-caret"></i>
+        </button>
+        <div class="lang-menu" id="langMenu"></div>
+      </div>
+      <button class="nav-icon-btn user-ic" id="accountBtn" onclick="openAuth()" title="تسجيل الدخول">
+        <i class="fas fa-user" id="accountIcon"></i>
+        <span class="btn-label" id="accountBtnText"></span>
+      </button>
+      <button class="nav-icon-btn cart-ic" onclick="openCart()" title="السلة">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-badge" id="cartCount">0</span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<section class="hero-carousel" id="heroCarousel">
+  <div class="hc-track" id="hcTrack"></div>
+  <button class="hc-arrow hc-prev" onclick="moveHeroCarousel(-1)"><i class="fas fa-chevron-right"></i></button>
+  <button class="hc-arrow hc-next" onclick="moveHeroCarousel(1)"><i class="fas fa-chevron-left"></i></button>
+  <div class="hc-dots" id="hcDots"></div>
+</section>
+
+<div class="trust-strip">
+  <div class="trust-inner">
+    <div class="trust-item"><div class="trust-icon"><i class="fas fa-shield-alt"></i></div><div><div class="trust-title" data-i18n="trust.1t">ضمان الجودة</div><div class="trust-desc" data-i18n="trust.1d">منتجات أصلية 100%</div></div></div>
+    <div class="trust-item"><div class="trust-icon"><i class="fas fa-truck"></i></div><div><div class="trust-title" data-i18n="trust.2t">توصيل مجاني</div><div class="trust-desc" data-i18n="trust.2d">لجميع الطلبات في المغرب</div></div></div>
+    <div class="trust-item"><div class="trust-icon"><i class="fas fa-money-bill-wave"></i></div><div><div class="trust-title" data-i18n="trust.3t">كاش عند الاستلام</div><div class="trust-desc" data-i18n="trust.3d">ادفع عند استلام طلبك</div></div></div>
+    <div class="trust-item"><div class="trust-icon"><i class="fas fa-headset"></i></div><div><div class="trust-title" data-i18n="trust.4t">دعم 7/7</div><div class="trust-desc" data-i18n="trust.4d">نحن هنا دائماً لمساعدتك</div></div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     CATEGORY BAR — شريط التصنيفات (جديد كلياً، لا يمس أي شيء حالي)
+     ════════════════════════════════════════════════════════════ -->
+<div class="cat-bar-wrap">
+  <div class="cat-bar" id="catBar">
+    <button class="cat-btn" data-cat-target="catSec-femme">Femme</button>
+    <button class="cat-btn" data-cat-target="catSec-homme">Homme</button>
+    <button class="cat-btn" data-cat-target="catSec-maison">Maison</button>
+    <button class="cat-btn" data-cat-target="catSec-electronique">Produits électroniques</button>
+    <button class="cat-btn" data-cat-target="catSec-beaute">Beauté</button>
+    <button class="cat-btn" data-cat-target="catSec-cuisine">Cuisine</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     CATEGORY SECTIONS — أقسام مستقلة، بيانات منفصلة تماماً
+     (لا تشترك بأي شكل مع products[] الخاصة بالصفحة الرئيسية)
+     ════════════════════════════════════════════════════════════ -->
+
+<!-- قسم: Femme -->
+<section class="cat-section" id="catSec-femme">
+  <div class="cat-section-header">
+    <div class="cat-section-bar"></div>
+    <div class="cat-section-title">Femme</div>
+  </div>
+  <div class="cat-section-grid" id="catGrid-femme">
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+  </div>
+</section>
+
+<!-- قسم: Homme -->
+<section class="cat-section" id="catSec-homme">
+  <div class="cat-section-header">
+    <div class="cat-section-bar"></div>
+    <div class="cat-section-title">Homme</div>
+  </div>
+  <div class="cat-section-grid" id="catGrid-homme">
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+  </div>
+</section>
+
+<!-- قسم: Maison -->
+<section class="cat-section" id="catSec-maison">
+  <div class="cat-section-header">
+    <div class="cat-section-bar"></div>
+    <div class="cat-section-title">Maison</div>
+  </div>
+  <div class="cat-section-grid" id="catGrid-maison">
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+  </div>
+</section>
+
+<!-- قسم: Produits électroniques -->
+<section class="cat-section" id="catSec-electronique">
+  <div class="cat-section-header">
+    <div class="cat-section-bar"></div>
+    <div class="cat-section-title">Produits électroniques</div>
+  </div>
+  <div class="cat-section-grid" id="catGrid-electronique">
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+  </div>
+</section>
+
+<!-- قسم: Beauté -->
+<section class="cat-section" id="catSec-beaute">
+  <div class="cat-section-header">
+    <div class="cat-section-bar"></div>
+    <div class="cat-section-title">Beauté</div>
+  </div>
+  <div class="cat-section-grid" id="catGrid-beaute">
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+  </div>
+</section>
+
+<!-- قسم: Cuisine -->
+<section class="cat-section" id="catSec-cuisine">
+  <div class="cat-section-header">
+    <div class="cat-section-bar"></div>
+    <div class="cat-section-title">Cuisine</div>
+  </div>
+  <div class="cat-section-grid" id="catGrid-cuisine">
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+    <div class="cat-section-placeholder">سيتم إضافة المنتجات لاحقاً</div>
+  </div>
+</section>
+
+<section class="products-section" id="productsSection">
+  <div class="sec-header">
+    <div class="sec-left">
+      <div class="sec-bar"></div>
+      <div>
+        <div class="sec-title" data-i18n="sec.title">🛒 منتجاتنا المميزة</div>
+        <div class="sec-sub" data-i18n="sec.sub">أحدث التقنيات بأفضل الأسعار في المغرب</div>
+      </div>
+    </div>
+    <span class="sec-pill" data-i18n="sec.pill">🔥 عروض حصرية</span>
+  </div>
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="logo-name">NAIM <span>MARKET</span></span>
+        <p data-i18n="foot.about">متجرك الإلكتروني الأول للأجهزة والإكسسوارات التقنية في المغرب. منتجات أصلية بأسعار لا تُنافَس، توصيل سريع لكل أرجاء المملكة.</p>
+        <div class="footer-social">
+          <a class="social-btn" href="#"><i class="fab fa-facebook-f"></i></a>
+          <a class="social-btn" href="https://www.instagram.com/ab.delhamid18?igsh=MXJwOXlhYnFrZ3ozbA==" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a class="social-btn" href="#"><i class="fab fa-tiktok"></i></a>
+          <a class="social-btn" href="https://wa.me/212687155245" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="foot.col1">الرئيسية</h4>
+        <ul><li><a href="#" data-i18n="foot.home">الصفحة الرئيسية</a></li><li><a href="#" data-i18n="foot.products">المنتجات</a></li><li><a href="#" data-i18n="foot.offers">العروض</a></li><li><a href="#" data-i18n="foot.blog">المدونة</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="foot.col2">سياسات المتجر</h4>
+        <ul><li><a href="#" data-i18n="foot.return">سياسة الإرجاع</a></li><li><a href="#" data-i18n="foot.terms">شروط الاستخدام</a></li><li><a href="#" data-i18n="foot.privacy">سياسة الخصوصية</a></li><li><a href="#" data-i18n="foot.warranty">الضمان</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4 data-i18n="foot.col3">تواصل معنا</h4>
+        <ul><li><a href="https://wa.me/212687155245" target="_blank" data-i18n="foot.wa"><i class="fab fa-whatsapp"></i> واتساب</a></li><li><a href="#" data-i18n="foot.email"><i class="fas fa-envelope"></i> البريد الإلكتروني</a></li><li><a href="#" data-i18n="foot.location"><i class="fas fa-map-marker-alt"></i> الموقع</a></li><li><a href="#" data-i18n="foot.phone"><i class="fas fa-phone"></i> الهاتف</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-i18n="foot.copy">© NAIM MARKET 2025 · جميع الحقوق محفوظة · تقنية بلا حدود - المغرب</p>
+      <div class="footer-badges">
+        <div class="foot-badge" data-i18n="foot.b1"><i class="fas fa-truck"></i> توصيل لكل المغرب</div>
+        <div class="foot-badge" data-i18n="foot.b2"><i class="fas fa-money-bill-wave"></i> كاش عند الاستلام</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"><i class="fas fa-check-circle" style="color:var(--orange)"></i><span id="toastMsg">تمت الإضافة إلى السلة</span></div>
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+<div class="side-pane" id="searchPane">
+  <div class="pane-head"><h2><i class="fas fa-search" style="color:var(--orange);margin-inline-end:8px"></i> بحث</h2><button class="pane-close" onclick="closeAll()"><i class="fas fa-times"></i></button></div>
+  <div class="search-pane-head">
+    <div class="search-pane-input-wrap">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchPaneInput" placeholder="ابحث عن منتج، ماركة أو فئة..." oninput="runSearch(this.value)">
+      <button class="search-pane-clear" id="searchClearBtn" onclick="clearSearch()"><i class="fas fa-times-circle"></i></button>
+    </div>
+  </div>
+  <div class="pane-body" id="searchResults">
+    <div class="search-empty"><i class="fas fa-search"></i><span data-i18n="search.hint">اكتب اسم المنتج أو الفئة التي تبحث عنها</span></div>
+  </div>
+</div>
+
+<div class="side-pane" id="cartPane">
+  <div class="pane-head"><h2 data-i18n="cart.title"><i class="fas fa-shopping-cart" style="color:var(--orange);margin-inline-end:8px"></i> سلة التسوق</h2><button class="pane-close" onclick="closeAll()"><i class="fas fa-times"></i></button></div>
+  <div class="pane-body" id="cartBody"></div>
+  <div class="pane-footer" id="cartFooter" style="display:none">
+    <div class="total-row"><span data-i18n="cart.total">المجموع الكلي</span><strong><em>MAD</em><span id="cartTotal">0</span></strong></div>
+    <button class="btn-checkout" onclick="openCheckout()" data-i18n="cart.checkout"><i class="fas fa-lock"></i> إتمام الطلب</button>
+    <button class="btn-back" onclick="closeAll()" data-i18n="cart.continue">متابعة التسوق</button>
+  </div>
+</div>
+
+<div class="side-pane checkout-pane" id="checkoutPane">
+  <div class="pane-head"><h2 data-i18n="co.title"><i class="fas fa-clipboard-list" style="color:var(--orange);margin-inline-end:8px"></i> إتمام الطلب</h2><button class="pane-close" onclick="closeAll()"><i class="fas fa-times"></i></button></div>
+  <div class="pane-body">
+    <div class="form-block-title" data-i18n="co.delivery"><i class="fas fa-user"></i> معلومات التوصيل</div>
+    <div class="form-row"><div class="form-group"><label data-i18n="co.name">الاسم الكامل</label><input type="text" data-i18n-ph="co.namePh" placeholder="محمد علي"></div><div class="form-group"><label data-i18n="co.phone">رقم الهاتف</label><input type="tel" placeholder="06 XX XX XX XX"></div></div>
+    <div class="form-group"><label data-i18n="co.city">المدينة</label><select><option data-i18n="city.choose">اختر مدينتك</option><option data-i18n="city.casa">الدار البيضاء</option><option data-i18n="city.rabat">الرباط</option><option data-i18n="city.marrakech">مراكش</option><option data-i18n="city.fes">فاس</option><option data-i18n="city.tanger">طنجة</option><option data-i18n="city.agadir">أكادير</option><option data-i18n="city.meknes">مكناس</option><option data-i18n="city.oujda">وجدة</option><option data-i18n="city.mohammedia">المحمدية</option><option data-i18n="city.other">أخرى</option></select></div>
+    <div class="form-group"><label data-i18n="co.address">العنوان التفصيلي</label><input type="text" data-i18n-ph="co.addressPh" placeholder="الحي، الشارع، رقم المنزل..."></div>
+    <div class="form-block-title" data-i18n="co.payment"><i class="fas fa-credit-card"></i> طريقة الدفع</div>
+    <div class="radio-group"><div class="radio-opt selected" onclick="selectPay(this)" data-i18n="co.cod"><i class="fas fa-money-bill-wave"></i> كاش عند الاستلام</div><div class="radio-opt" onclick="selectPay(this)" data-i18n="co.card"><i class="fas fa-credit-card"></i> بطاقة بنكية</div></div>
+    <div style="margin-top:20px"><div class="total-row"><span data-i18n="co.total">المجموع</span><strong><em>MAD</em><span id="checkTotal">0</span></strong></div></div>
+  </div>
+  <div class="pane-footer">
+    <button class="btn-checkout" onclick="confirmOrder()" data-i18n="co.confirm"><i class="fas fa-check-circle"></i> تأكيد الطلب</button>
+    <button class="btn-back" onclick="openCart()" data-i18n="co.back"><i class="fas fa-arrow-right"></i> العودة للسلة</button>
+  </div>
+</div>
+
+<div class="side-pane" id="authPane">
+  <div class="pane-head"><h2 id="authPaneTitle" data-i18n="auth.title"><i class="fas fa-user-circle" style="color:#1a56db;margin-inline-end:8px"></i> تسجيل الدخول</h2><button class="pane-close" onclick="closeAll()"><i class="fas fa-times"></i></button></div>
+  <div class="pane-body">
+    <div class="auth-tabs"><div class="auth-tab active" onclick="switchTab('login')" data-i18n="auth.tabLogin">دخول</div><div class="auth-tab" onclick="switchTab('register')" data-i18n="auth.tabReg">حساب جديد</div></div>
+    <div class="auth-panel active" id="loginPanel">
+      <div class="form-group"><label data-i18n="auth.email">البريد الإلكتروني</label><div class="input-icon-wrap"><i class="fas fa-envelope input-icon"></i><input type="email" id="loginEmail" placeholder="example@email.com"></div></div>
+      <div class="form-group"><label data-i18n="auth.pass">كلمة المرور</label><div class="input-icon-wrap"><i class="fas fa-lock input-icon"></i><input type="password" id="loginPass" placeholder="••••••••"><button class="toggle-pass" onclick="togglePass('loginPass',this)"><i class="fas fa-eye"></i></button></div><div class="err-msg" id="loginErr" data-i18n="auth.loginErr">البريد أو كلمة المرور غير صحيحة</div></div>
+      <button class="btn-checkout" style="margin-top:8px" onclick="doLogin()" data-i18n="auth.loginBtn"><i class="fas fa-sign-in-alt"></i> دخول</button>
+      <div class="auth-divider" data-i18n="auth.or">أو</div>
+      <a href="https://www.instagram.com/ab.delhamid18?igsh=MXJwOXlhYnFrZ3ozbA==" target="_blank" class="social-login ig" data-i18n="auth.ig"><i class="fab fa-instagram"></i> تابعنا على Instagram @ab.delhamid18</a>
+    </div>
+    <div class="auth-panel" id="registerPanel">
+      <div class="form-group"><label data-i18n="auth.name">الاسم الكامل</label><div class="input-icon-wrap"><i class="fas fa-user input-icon"></i><input type="text" id="regName" data-i18n-ph="auth.namePh" placeholder="محمد علي"></div></div>
+      <div class="form-group"><label data-i18n="auth.email">البريد الإلكتروني</label><div class="input-icon-wrap"><i class="fas fa-envelope input-icon"></i><input type="email" id="regEmail" placeholder="example@email.com"></div><div class="err-msg" id="regEmailErr" data-i18n="auth.regEmailErr">هذا البريد مسجل مسبقاً</div></div>
+      <div class="form-group"><label data-i18n="auth.phone">رقم الهاتف</label><div class="input-icon-wrap"><i class="fas fa-phone input-icon"></i><input type="tel" id="regPhone" placeholder="06 XX XX XX XX"></div></div>
+      <div class="form-group"><label data-i18n="auth.pass">كلمة المرور</label><div class="input-icon-wrap"><i class="fas fa-lock input-icon"></i><input type="password" id="regPass" data-i18n-ph="auth.passPh" placeholder="8 أحرف على الأقل"><button class="toggle-pass" onclick="togglePass('regPass',this)"><i class="fas fa-eye"></i></button></div></div>
+      <div class="form-group"><label data-i18n="auth.confirmPass">تأكيد كلمة المرور</label><div class="input-icon-wrap"><i class="fas fa-lock input-icon"></i><input type="password" id="regPass2" placeholder="••••••••"></div><div class="err-msg" id="regErr" data-i18n="auth.regErr">كلمتا المرور غير متطابقتين</div><div class="success-msg" id="regSuccess" data-i18n="auth.regSuccess">✓ تم إنشاء حسابك بنجاح!</div></div>
+      <button class="btn-checkout" style="margin-top:8px" onclick="doRegister()" data-i18n="auth.createBtn"><i class="fas fa-user-plus"></i> إنشاء الحساب</button>
+    </div>
+  </div>
+</div>
+
+<div class="side-pane" id="profilePane">
+  <div class="pane-head"><h2 data-i18n="prof.title"><i class="fas fa-id-card" style="color:#1a56db;margin-inline-end:8px"></i> حسابي</h2><button class="pane-close" onclick="closeAll()"><i class="fas fa-times"></i></button></div>
+  <div class="pane-body">
+    <div class="profile-avatar" id="profileAvatar">N</div>
+    <div class="profile-name" id="profileName">—</div>
+    <div class="profile-email" id="profileEmail">—</div>
+    <div class="profile-stat"><div class="pstat"><div class="pstat-num" id="profileOrders">0</div><div class="pstat-label" data-i18n="prof.orders">طلباتي</div></div><div class="pstat"><div class="pstat-num" id="profileCart">0</div><div class="pstat-label" data-i18n="prof.cart">في السلة</div></div></div>
+    <div class="form-block-title" data-i18n="prof.info"><i class="fas fa-info-circle"></i> معلومات الحساب</div>
+    <div class="form-group"><label data-i18n="prof.name">الاسم الكامل</label><input type="text" id="editName" data-i18n-ph="prof.namePh" placeholder="الاسم"></div>
+    <div class="form-group"><label data-i18n="prof.phone">رقم الهاتف</label><input type="tel" id="editPhone" placeholder="06 XX XX XX XX"></div>
+    <div class="form-group"><label data-i18n="prof.city">المدينة</label><select id="editCity"><option data-i18n="city.choose">اختر مدينتك</option><option data-i18n="city.casa">الدار البيضاء</option><option data-i18n="city.rabat">الرباط</option><option data-i18n="city.marrakech">مراكش</option><option data-i18n="city.fes">فاس</option><option data-i18n="city.tanger">طنجة</option><option data-i18n="city.agadir">أكادير</option><option data-i18n="city.meknes">مكناس</option><option data-i18n="city.oujda">وجدة</option><option data-i18n="city.mohammedia">المحمدية</option><option data-i18n="city.other">أخرى</option></select></div>
+    <button class="btn-checkout" onclick="saveProfile()" style="margin-bottom:10px" data-i18n="prof.save"><i class="fas fa-save"></i> حفظ التغييرات</button>
+    <button class="btn-logout" onclick="doLogout()" data-i18n="prof.logout"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</button>
+  </div>
+</div>
+
+<div class="side-pane product-detail-pane" id="productPane">
+  <div class="pane-head">
+    <h2 id="pdTitle" data-i18n="pd.title">تفاصيل المنتج</h2>
+    <button class="pane-close" onclick="closeProductPane()"><i class="fas fa-times"></i></button>
+  </div>
+  <div class="pane-body" style="padding:0;">
+    <div class="pd-gallery">
+    <div class="pd-slider">
+      <div class="pd-slides" id="pdSlides"></div>
+      <button class="pd-arrow pd-arrow-r" onclick="pdSlide(-1)"><i class="fas fa-chevron-right"></i></button>
+      <button class="pd-arrow pd-arrow-l" onclick="pdSlide(1)"><i class="fas fa-chevron-left"></i></button>
+      <div class="pd-dots" id="pdDots"></div>
+    </div>
+    <div class="pd-thumbs" id="pdThumbs"></div>
+    </div>
+    <div class="pd-info">
+      <div class="pd-cat" id="pdCat"></div>
+      <div class="pd-name" id="pdName"></div>
+      <div class="pd-stars-row" id="pdStars"></div>
+      <div class="pd-specs" id="pdSpecs"></div>
+      <div class="pd-price-row">
+        <div class="pd-price" id="pdPrice"></div>
+        <div class="pd-delivery" data-i18n="pd.delivery"><i class="fas fa-truck"></i> توصيل سريع · كاش عند الاستلام</div>
+      </div>
+    </div>
+    <div class="pd-related">
+      <div class="pd-related-title" data-i18n="pd.related">منتجات مشابهة</div>
+      <div class="pd-related-scroll" id="pdRelated"></div>
+    </div>
+  </div>
+  <div class="pane-footer">
+    <button class="btn-checkout" id="pdAddBtn" onclick="pdAddToCart()" data-i18n="pd.add">
+      <i class="fas fa-cart-plus"></i> أضف إلى السلة
+    </button>
+  </div>
+</div>
+
+<script>
+const heroSlides = [
+  { id:1, img:'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=1400&q=80', badge:`🎓 الأكثر مبيعاً`, title:`لابتوب HP FHD`, sub:`أداء قوي للعمل والدراسة مع بطارية تدوم طويلاً`, i18n:{ar:{badge:`🎓 الأكثر مبيعاً`,title:`لابتوب HP FHD`,sub:`أداء قوي للعمل والدراسة مع بطارية تدوم طويلاً`},fr:{badge:`🎓 Best-seller`,title:`Ordinateur HP FHD`,sub:`Performances puissantes pour le travail et les études, batterie longue durée`},en:{badge:`🎓 Best Seller`,title:`HP FHD Laptop`,sub:`Powerful performance for work and study with long-lasting battery`}} },
+  { id:2, img:'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=1400&q=80', badge:`⚡ أداء خارق`, title:`ASUS RTX 5080`, sub:`أفضل كارت شاشة للألعاب وتطبيقات الذكاء الاصطناعي`, i18n:{ar:{badge:`⚡ أداء خارق`,title:`ASUS RTX 5080`,sub:`أفضل كارت شاشة للألعاب وتطبيقات الذكاء الاصطناعي`},fr:{badge:`⚡ Performance extrême`,title:`ASUS RTX 5080`,sub:`La meilleure carte graphique pour le gaming et l'IA`},en:{badge:`⚡ Extreme performance`,title:`ASUS RTX 5080`,sub:`The best graphics card for gaming and AI applications`}} },
+  { id:3, img:'https://images.unsplash.com/photo-1593640408182-31c228d1cf3d?w=1400&q=80', badge:`🔥 حصري`, title:`AMD Ryzen 5`, sub:`كمبيوتر جيمنج بقوة لا مثيل لها بأسعار تنافسية`, i18n:{ar:{badge:`🔥 حصري`,title:`AMD Ryzen 5`,sub:`كمبيوتر جيمنج بقوة لا مثيل لها بأسعار تنافسية`},fr:{badge:`🔥 Exclusif`,title:`AMD Ryzen 5`,sub:`PC gaming d'une puissance inégalée à prix compétitif`},en:{badge:`🔥 Exclusive`,title:`AMD Ryzen 5`,sub:`Gaming PC with unmatched power at competitive prices`}} },
+  { id:4, img:'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=1400&q=80', badge:`🎵 صوت محيطي`, title:`Tronsmart Bluetooth`, sub:`مكبر صوت محمول بجودة استوديو مع بطارية تدوم 24 ساعة`, i18n:{ar:{badge:`🎵 صوت محيطي`,title:`Tronsmart Bluetooth`,sub:`مكبر صوت محمول بجودة استوديو مع بطارية تدوم 24 ساعة`},fr:{badge:`🎵 Son surround`,title:`Tronsmart Bluetooth`,sub:`Haut-parleur portable qualité studio, batterie 24 h`},en:{badge:`🎵 Surround sound`,title:`Tronsmart Bluetooth`,sub:`Portable studio-quality speaker with 24-hour battery`}} },
+  { id:5, img:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=1400&q=80', badge:`🎧 عزل الضوضاء`, title:`Sony WH-1000XM5`, sub:`سماعات لاسلكية مع تقنية إلغاء الضوضاء Hi-Res Audio`, i18n:{ar:{badge:`🎧 عزل الضوضاء`,title:`Sony WH-1000XM5`,sub:`سماعات لاسلكية مع تقنية إلغاء الضوضاء Hi-Res Audio`},fr:{badge:`🎧 Réduction de bruit`,title:`Sony WH-1000XM5`,sub:`Casque sans fil avec réduction de bruit et Hi-Res Audio`},en:{badge:`🎧 Noise cancelling`,title:`Sony WH-1000XM5`,sub:`Wireless headphones with noise cancelling and Hi-Res Audio`}} },
+  { id:6, img:'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=1400&q=80', badge:`🖥️ دقة 4K`, title:`LG 27" 4K IPS`, sub:`شاشة احترافية للتصميم والمونتاج بألوان دقيقة`, i18n:{ar:{badge:`🖥️ دقة 4K`,title:`LG 27" 4K IPS`,sub:`شاشة احترافية للتصميم والمونتاج بألوان دقيقة`},fr:{badge:`🖥️ Résolution 4K`,title:`LG 27" 4K IPS`,sub:`Écran pro pour design et montage, couleurs précises`},en:{badge:`🖥️ 4K resolution`,title:`LG 27" 4K IPS`,sub:`Professional monitor for design and editing with accurate colors`}} },
+  { id:7, img:'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=1400&q=80', badge:`⌨️ لاسلكي`, title:`Logitech MX Keys`, sub:`لوحة مفاتيح مريحة تدعم الاتصال بـ 3 أجهزة`, i18n:{ar:{badge:`⌨️ لاسلكي`,title:`Logitech MX Keys`,sub:`لوحة مفاتيح مريحة تدعم الاتصال بـ 3 أجهزة`},fr:{badge:`⌨️ Sans fil`,title:`Logitech MX Keys`,sub:`Clavier confortable connectable à 3 appareils`},en:{badge:`⌨️ Wireless`,title:`Logitech MX Keys`,sub:`Comfortable keyboard supporting 3-device connection`}} },
+  { id:8, img:'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=1400&q=80', badge:`🎮 جيمنج`, title:`Razer DeathAdder V3`, sub:`ماوس جيمنج بدقة 30K DPI بإضاءة RGB`, i18n:{ar:{badge:`🎮 جيمنج`,title:`Razer DeathAdder V3`,sub:`ماوس جيمنج بدقة 30K DPI بإضاءة RGB`},fr:{badge:`🎮 Gaming`,title:`Razer DeathAdder V3`,sub:`Souris gaming 30K DPI avec éclairage RGB`},en:{badge:`🎮 Gaming`,title:`Razer DeathAdder V3`,sub:`Gaming mouse with 30K DPI and RGB lighting`}} }
+];
+
+const products = [
+  {
+    id:1, cat:`حاسوب محمول`, name:`لابتوب HP FHD — عمل ودراسة`, i18n:{ar:{cat:`حاسوب محمول`,name:`لابتوب HP FHD — عمل ودراسة`,badge:`🎓 دراسة`},fr:{cat:`Ordinateur portable`,name:`Ordinateur portable HP FHD — travail & études`,badge:`🎓 Études`},en:{cat:`Laptop`,name:`HP FHD Laptop — Work & Study`,badge:`🎓 Study`}},
+    specs:['Full HD','بطارية طويلة','أداء قوي'],
+    stars:4.3, reviews:203, price:4500, oldPrice:5990,
+    badge:{cls:'badge-blue',txt:'🎓 دراسة'},
+    images:[
+      'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=80',
+      'https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=600&q=80',
+      'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&q=80',
+      'https://images.unsplash.com/photo-1611186871525-17b77cdf7f4a?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=80'
+  },
+  {
+    id:2, cat:`كارت شاشة`, name:`ASUS TUF RTX 5080 OC 16GB GDDR7`, i18n:{ar:{cat:`كارت شاشة`,name:`ASUS TUF RTX 5080 OC 16GB GDDR7`,badge:`⭐ الأفضل`},fr:{cat:`Carte graphique`,name:`ASUS TUF RTX 5080 OC 16 Go GDDR7`,badge:`⭐ Le meilleur`},en:{cat:`Graphics card`,name:`ASUS TUF RTX 5080 OC 16GB GDDR7`,badge:`⭐ Best`}},
+    specs:['OC Edition','4K Gaming','16GB GDDR7'],
+    stars:5.0, reviews:75, price:14742, oldPrice:17900,
+    badge:{cls:'badge-star',txt:'⭐ الأفضل'},
+    images:[
+      'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=600&q=80',
+      'https://images.unsplash.com/photo-1555680202-c86f0e12f086?w=600&q=80',
+      'https://images.unsplash.com/photo-1591488320449-011701bb6704?w=600&q=80',
+      'https://images.unsplash.com/photo-1622957404458-4e3f03ce4e3a?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=600&q=80'
+  },
+  {
+    id:3, cat:`كمبيوتر مكتبي`, name:`AMD Ryzen 5 + RTX 3050 جيمنج`, i18n:{ar:{cat:`كمبيوتر مكتبي`,name:`AMD Ryzen 5 + RTX 3050 جيمنج`,badge:`🔥 حصري`},fr:{cat:`Ordinateur de bureau`,name:`AMD Ryzen 5 + RTX 3050 Gaming`,badge:`🔥 Exclusif`},en:{cat:`Desktop PC`,name:`AMD Ryzen 5 + RTX 3050 Gaming`,badge:`🔥 Exclusive`}},
+    specs:['RTX 3050','1TB NVMe','32GB RAM'],
+    stars:4.4, reviews:128, price:8313, oldPrice:9990,
+    badge:{cls:'badge-fire',txt:'🔥 حصري'},
+    images:[
+      'https://images.unsplash.com/photo-1593640408182-31c228d1cf3d?w=600&q=80',
+      'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=600&q=80',
+      'https://images.unsplash.com/photo-1547082299-de196ea013d6?w=600&q=80',
+      'https://images.unsplash.com/photo-1622957461168-4e7fc93e9a92?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1593640408182-31c228d1cf3d?w=600&q=80'
+  },
+  {
+    id:4, cat:`مكبر صوت`, name:`Tronsmart Bluetooth — صوت محيطي`, i18n:{ar:{cat:`مكبر صوت`,name:`Tronsmart Bluetooth — صوت محيطي`,badge:`✅ جديد`},fr:{cat:`Haut-parleur`,name:`Tronsmart Bluetooth — son surround`,badge:`✅ Nouveau`},en:{cat:`Speaker`,name:`Tronsmart Bluetooth — Surround sound`,badge:`✅ New`}},
+    specs:['IPX7','24h Battery','Sound 360°'],
+    stars:4.4, reviews:316, price:415, oldPrice:599,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&q=80',
+      'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&q=80',
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&q=80'
+  },
+  {
+    id:5, cat:`سماعات`, name:`Sony WH-1000XM5 إلغاء الضوضاء`, i18n:{ar:{cat:`سماعات`,name:`Sony WH-1000XM5 إلغاء الضوضاء`,badge:`⭐ مميز`},fr:{cat:`Casque audio`,name:`Sony WH-1000XM5 Réduction de bruit`,badge:`⭐ Premium`},en:{cat:`Headphones`,name:`Sony WH-1000XM5 Noise Cancelling`,badge:`⭐ Premium`}},
+    specs:['ANC','30h Battery','Hi-Res Audio'],
+    stars:4.8, reviews:512, price:2890, oldPrice:3690,
+    badge:{cls:'badge-star',txt:'⭐ مميز'},
+    images:[
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80',
+      'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=600&q=80',
+      'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&q=80',
+      'https://images.unsplash.com/photo-1524678606370-a47ad25cb82a?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80'
+  },
+  {
+    id:6, cat:`شاشة`, name:`LG 27" 4K IPS Monitor للتصميم`, i18n:{ar:{cat:`شاشة`,name:`LG 27" 4K IPS Monitor للتصميم`,badge:`🖥️ احترافي`},fr:{cat:`Écran`,name:`LG 27" 4K IPS pour le design`,badge:`🖥️ Professionnel`},en:{cat:`Monitor`,name:`LG 27" 4K IPS Monitor for Design`,badge:`🖥️ Professional`}},
+    specs:['4K UHD','IPS Panel','USB-C'],
+    stars:4.6, reviews:89, price:3200, oldPrice:3990,
+    badge:{cls:'badge-blue',txt:'🖥️ احترافي'},
+    images:[
+      'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&q=80',
+      'https://images.unsplash.com/photo-1547082299-de196ea013d6?w=600&q=80',
+      'https://images.unsplash.com/photo-1593640408182-31c228d1cf3d?w=600&q=80',
+      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&q=80'
+  },
+  {
+    id:7, cat:`لوحة مفاتيح`, name:`Logitech MX Keys Wireless Keyboard`, i18n:{ar:{cat:`لوحة مفاتيح`,name:`Logitech MX Keys Wireless Keyboard`,badge:`✅ جديد`},fr:{cat:`Clavier`,name:`Logitech MX Keys Clavier sans fil`,badge:`✅ Nouveau`},en:{cat:`Keyboard`,name:`Logitech MX Keys Wireless Keyboard`,badge:`✅ New`}},
+    specs:['Wireless','Backlit','Multi-Device'],
+    stars:4.7, reviews:234, price:780, oldPrice:999,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80',
+      'https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=600&q=80',
+      'https://images.unsplash.com/photo-1595044426077-d36d9236d54a?w=600&q=80',
+      'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80'
+  },
+  {
+    id:8, cat:`ماوس`, name:`Razer DeathAdder V3 Gaming Mouse`, i18n:{ar:{cat:`ماوس`,name:`Razer DeathAdder V3 Gaming Mouse`,badge:`🔥 الأكثر مبيعاً`},fr:{cat:`Souris`,name:`Razer DeathAdder V3 Souris Gaming`,badge:`🔥 Best-seller`},en:{cat:`Mouse`,name:`Razer DeathAdder V3 Gaming Mouse`,badge:`🔥 Best seller`}},
+    specs:['30K DPI','Ultra Light','RGB'],
+    stars:4.9, reviews:445, price:650, oldPrice:890,
+    badge:{cls:'badge-fire',txt:'🔥 الأكثر مبيعاً'},
+    images:[
+      'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&q=80',
+      'https://images.unsplash.com/photo-1629429408209-1f912961dbd8?w=600&q=80',
+      'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&q=80',
+      'https://images.unsplash.com/photo-1563297007-0686b7003af7?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=600&q=80'
+  },
+  {
+    id:9, cat:`ساعة ذكية`, name:`Apple Watch Series 9 GPS 45mm`, i18n:{ar:{cat:`ساعة ذكية`,name:`Apple Watch Series 9 GPS 45mm`,badge:`⭐ مميز`},fr:{cat:`Montre connectée`,name:`Apple Watch Series 9 GPS 45 mm`,badge:`⭐ Premium`},en:{cat:`Smartwatch`,name:`Apple Watch Series 9 GPS 45mm`,badge:`⭐ Premium`}},
+    specs:['شاشة Retina','مقاومة للماء','تتبع صحي'],
+    stars:4.7, reviews:289, price:3990, oldPrice:4590,
+    badge:{cls:'badge-star',txt:'⭐ مميز'},
+    images:[
+      'https://images.unsplash.com/photo-1551816230-ef5deaed4a26?w=600&q=80',
+      'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=600&q=80',
+      'https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=600&q=80',
+      'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1551816230-ef5deaed4a26?w=600&q=80'
+  },
+  {
+    id:10, cat:`هاتف ذكي`, name:`Samsung Galaxy S24 Ultra 256GB`, i18n:{ar:{cat:`هاتف ذكي`,name:`Samsung Galaxy S24 Ultra 256GB`,badge:`🔥 الأكثر طلباً`},fr:{cat:`Smartphone`,name:`Samsung Galaxy S24 Ultra 256 Go`,badge:`🔥 Très demandé`},en:{cat:`Smartphone`,name:`Samsung Galaxy S24 Ultra 256GB`,badge:`🔥 Top demand`}},
+    specs:['200MP Camera','S Pen','5G'],
+    stars:4.8, reviews:612, price:11990, oldPrice:13990,
+    badge:{cls:'badge-fire',txt:'🔥 الأكثر طلباً'},
+    images:[
+      'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600&q=80',
+      'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&q=80',
+      'https://images.unsplash.com/photo-1592286927505-1def25115481?w=600&q=80',
+      'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=600&q=80'
+  },
+  {
+    id:11, cat:`طابعة`, name:`HP LaserJet Pro M404 طابعة ليزر`, i18n:{ar:{cat:`طابعة`,name:`HP LaserJet Pro M404 طابعة ليزر`,badge:`✅ جديد`},fr:{cat:`Imprimante`,name:`HP LaserJet Pro M404 — Imprimante laser`,badge:`✅ Nouveau`},en:{cat:`Printer`,name:`HP LaserJet Pro M404 Laser Printer`,badge:`✅ New`}},
+    specs:['طباعة سريعة','Wi-Fi','أبيض وأسود'],
+    stars:4.5, reviews:97, price:2190, oldPrice:2690,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1612815154858-60aa4c59eabd?w=600&q=80',
+      'https://images.unsplash.com/photo-1563770660941-20978e870e26?w=600&q=80',
+      'https://images.unsplash.com/photo-1581235720704-06d3acc89b46?w=600&q=80',
+      'https://images.unsplash.com/photo-1612996470715-ada6b2b0c5d3?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1612815154858-60aa4c59eabd?w=600&q=80'
+  },
+  {
+    id:12, cat:`قرص صلب`, name:`SanDisk SSD 1TB NVMe سريع جداً`, i18n:{ar:{cat:`قرص صلب`,name:`SanDisk SSD 1TB NVMe سريع جداً`,badge:`⚡ سرعة فائقة`},fr:{cat:`Disque dur`,name:`SanDisk SSD 1 To NVMe ultra rapide`,badge:`⚡ Vitesse extrême`},en:{cat:`Storage`,name:`SanDisk SSD 1TB NVMe Ultra Fast`,badge:`⚡ Extreme speed`}},
+    specs:['1TB','NVMe Gen4','7000MB/s'],
+    stars:4.6, reviews:341, price:1290, oldPrice:1690,
+    badge:{cls:'badge-blue',txt:'⚡ سرعة فائقة'},
+    images:[
+      'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=600&q=80',
+      'https://images.unsplash.com/photo-1531492746076-161ca9bcad58?w=600&q=80',
+      'https://images.unsplash.com/photo-1591488320449-011701bb6704?w=600&q=80',
+      'https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=600&q=80'
+  },
+  {
+    id:13, cat:`كاميرا`, name:`Canon EOS R50 كاميرا احترافية`, i18n:{ar:{cat:`كاميرا`,name:`Canon EOS R50 كاميرا احترافية`,badge:`📸 احترافي`},fr:{cat:`Appareil photo`,name:`Canon EOS R50 — Appareil pro`,badge:`📸 Pro`},en:{cat:`Camera`,name:`Canon EOS R50 Professional Camera`,badge:`📸 Pro`}},
+    specs:['24.2MP','4K Video','Mirrorless'],
+    stars:4.7, reviews:156, price:8990, oldPrice:10490,
+    badge:{cls:'badge-star',txt:'📸 احترافي'},
+    images:[
+      'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&q=80',
+      'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80',
+      'https://images.unsplash.com/photo-1606986628253-05620e9c2a90?w=600&q=80',
+      'https://images.unsplash.com/photo-1606980707330-3d9d36fb5d83?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&q=80'
+  },
+  {
+    id:14, cat:`طاولة جيمنج`, name:`RGB Mechanical Gaming Keyboard لوحة ميكانيكية`, i18n:{ar:{cat:`لوحة مفاتيح`,name:`RGB Mechanical Gaming Keyboard لوحة ميكانيكية`,badge:`🎮 جيمنج`},fr:{cat:`Clavier`,name:`Clavier mécanique gaming RGB`,badge:`🎮 Gaming`},en:{cat:`Keyboard`,name:`RGB Mechanical Gaming Keyboard`,badge:`🎮 Gaming`}},
+    specs:['Switches ميكانيكية','RGB كامل','Anti-Ghosting'],
+    stars:4.5, reviews:278, price:790, oldPrice:990,
+    badge:{cls:'badge-fire',txt:'🎮 جيمنج'},
+    images:[
+      'https://images.unsplash.com/photo-1595044426077-d36d9236d54a?w=600&q=80',
+      'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&q=80',
+      'https://images.unsplash.com/photo-1561112078-7d24e04c3407?w=600&q=80',
+      'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1595044426077-d36d9236d54a?w=600&q=80'
+  },
+  {
+    id:15, cat:`شاحن لاسلكي`, name:`Anker MagGo شاحن سريع 3 في 1`, i18n:{ar:{cat:`شاحن لاسلكي`,name:`Anker MagGo شاحن سريع 3 في 1`,badge:`✅ جديد`},fr:{cat:`Chargeur sans fil`,name:`Anker MagGo — Chargeur rapide 3-en-1`,badge:`✅ Nouveau`},en:{cat:`Wireless charger`,name:`Anker MagGo 3-in-1 Fast Charger`,badge:`✅ New`}},
+    specs:['MagSafe','شحن سريع','3 أجهزة'],
+    stars:4.4, reviews:203, price:540, oldPrice:720,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1591290619762-c6c50cf9c0f1?w=600&q=80',
+      'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80',
+      'https://images.unsplash.com/photo-1606229365485-93a3b8ee0385?w=600&q=80',
+      'https://images.unsplash.com/photo-1622957404458-4e3f03ce4e3a?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1591290619762-c6c50cf9c0f1?w=600&q=80'
+  },
+  {
+    id:16, cat:`حقيبة لابتوب`, name:`Targus حقيبة ظهر مقاومة للماء`, i18n:{ar:{cat:`حقيبة لابتوب`,name:`Targus حقيبة ظهر مقاومة للماء`,badge:`🎒 عملي`},fr:{cat:`Sac à dos`,name:`Targus — Sac à dos imperméable`,badge:`🎒 Pratique`},en:{cat:`Laptop bag`,name:`Targus Waterproof Backpack`,badge:`🎒 Practical`}},
+    specs:['مقاوم للماء','15.6 إنش','جيوب متعددة'],
+    stars:4.3, reviews:164, price:380, oldPrice:520,
+    badge:{cls:'badge-blue',txt:'🎒 عملي'},
+    images:[
+      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80',
+      'https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=600&q=80',
+      'https://images.unsplash.com/photo-1581605405669-fcdf81165afa?w=600&q=80',
+      'https://images.unsplash.com/photo-1547949003-9792a18a2645?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80'
+  },
+  {
+    id:17, cat:`جهاز لوحي`, name:`iPad Air 11 إنش M2 256GB`, i18n:{ar:{cat:`جهاز لوحي`,name:`iPad Air 11 إنش M2 256GB`,badge:`⭐ مميز`},fr:{cat:`Tablette`,name:`iPad Air 11" M2 256 Go`,badge:`⭐ Premium`},en:{cat:`Tablet`,name:`iPad Air 11" M2 256GB`,badge:`⭐ Premium`}},
+    specs:['شريحة M2','شاشة Liquid Retina','يدعم Apple Pencil'],
+    stars:4.8, reviews:198, price:8490, oldPrice:9690,
+    badge:{cls:'badge-star',txt:'⭐ مميز'},
+    images:[
+      'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&q=80',
+      'https://images.unsplash.com/photo-1561154464-82e9adf32764?w=600&q=80',
+      'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&q=80',
+      'https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&q=80'
+  },
+  {
+    id:18, cat:`راوتر`, name:`TP-Link Archer AX55 راوتر WiFi 6`, i18n:{ar:{cat:`راوتر`,name:`TP-Link Archer AX55 راوتر WiFi 6`,badge:`✅ جديد`},fr:{cat:`Routeur`,name:`TP-Link Archer AX55 — Routeur WiFi 6`,badge:`✅ Nouveau`},en:{cat:`Router`,name:`TP-Link Archer AX55 WiFi 6 Router`,badge:`✅ New`}},
+    specs:['WiFi 6','سرعة عالية','تغطية واسعة'],
+    stars:4.5, reviews:227, price:690, oldPrice:890,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1606904825846-647eb07f5be2?w=600&q=80',
+      'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600&q=80',
+      'https://images.unsplash.com/photo-1593510987185-1ec2256148a3?w=600&q=80',
+      'https://images.unsplash.com/photo-1614624532983-4ce03382d63d?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1606904825846-647eb07f5be2?w=600&q=80'
+  },
+  {
+    id:19, cat:`بروجكتور`, name:`Epson Home Cinema بروجكتور Full HD`, i18n:{ar:{cat:`بروجكتور`,name:`Epson Home Cinema بروجكتور Full HD`,badge:`🎬 سينمائي`},fr:{cat:`Projecteur`,name:`Epson Home Cinema — Projecteur Full HD`,badge:`🎬 Cinéma`},en:{cat:`Projector`,name:`Epson Home Cinema Full HD Projector`,badge:`🎬 Cinema`}},
+    specs:['Full HD','3000 Lumens','HDMI'],
+    stars:4.6, reviews:112, price:4990, oldPrice:5990,
+    badge:{cls:'badge-blue',txt:'🎬 سينمائي'},
+    images:[
+      'https://images.unsplash.com/photo-1626814026160-2237a95fc5c0?w=600&q=80',
+      'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=600&q=80',
+      'https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=600&q=80',
+      'https://images.unsplash.com/photo-1576267423048-15c0040fec78?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1626814026160-2237a95fc5c0?w=600&q=80'
+  },
+  {
+    id:20, cat:`كرسي جيمنج`, name:`DXRacer كرسي جيمنج مريح`, i18n:{ar:{cat:`كرسي جيمنج`,name:`DXRacer كرسي جيمنج مريح`,badge:`🎮 جيمنج`},fr:{cat:`Chaise gaming`,name:`DXRacer — Chaise gaming confortable`,badge:`🎮 Gaming`},en:{cat:`Gaming chair`,name:`DXRacer Comfortable Gaming Chair`,badge:`🎮 Gaming`}},
+    specs:['دعم قطني','قابل للتعديل','جلد PU'],
+    stars:4.4, reviews:139, price:2490, oldPrice:2990,
+    badge:{cls:'badge-fire',txt:'🎮 جيمنج'},
+    images:[
+      'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=600&q=80',
+      'https://images.unsplash.com/photo-1598550476439-6847785fcea6?w=600&q=80',
+      'https://images.unsplash.com/photo-1611117775350-ac3950990985?w=600&q=80',
+      'https://images.unsplash.com/photo-1505843513577-22bb7d21e455?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=600&q=80'
+  },
+  {
+    id:21, cat:`كاميرا مراقبة`, name:`Xiaomi Smart Camera 360 كاميرا منزلية`, i18n:{ar:{cat:`كاميرا مراقبة`,name:`Xiaomi Smart Camera 360 كاميرا منزلية`,badge:`🏠 ذكي`},fr:{cat:`Caméra de surveillance`,name:`Xiaomi Smart Camera 360 — Caméra domestique`,badge:`🏠 Intelligent`},en:{cat:`Security camera`,name:`Xiaomi Smart Camera 360 Home Camera`,badge:`🏠 Smart`}},
+    specs:['1080p','رؤية ليلية','تطبيق ذكي'],
+    stars:4.3, reviews:301, price:290, oldPrice:390,
+    badge:{cls:'badge-blue',txt:'🏠 ذكي'},
+    images:[
+      'https://images.unsplash.com/photo-1557324232-b8917d3c3dcb?w=600&q=80',
+      'https://images.unsplash.com/photo-1557324232-7d1b7a8d3e6f?w=600&q=80',
+      'https://images.unsplash.com/photo-1582139329536-e7284fece509?w=600&q=80',
+      'https://images.unsplash.com/photo-1558002038-1055907df827?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1557324232-b8917d3c3dcb?w=600&q=80'
+  },
+  {
+    id:22, cat:`سماعة بلوتوث`, name:`JBL Flip 6 مكبر صوت محمول`, i18n:{ar:{cat:`سماعة بلوتوث`,name:`JBL Flip 6 مكبر صوت محمول`,badge:`✅ جديد`},fr:{cat:`Enceinte Bluetooth`,name:`JBL Flip 6 — Enceinte portable`,badge:`✅ Nouveau`},en:{cat:`Bluetooth speaker`,name:`JBL Flip 6 Portable Speaker`,badge:`✅ New`}},
+    specs:['IP67','12 ساعة بطارية','صوت قوي'],
+    stars:4.6, reviews:418, price:790, oldPrice:990,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&q=80',
+      'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=600&q=80',
+      'https://images.unsplash.com/photo-1558537348-c0f8e733989d?w=600&q=80',
+      'https://images.unsplash.com/photo-1589003077984-894e133dabab?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1545454675-3531b543be5d?w=600&q=80'
+  },
+  {
+    id:23, cat:`طابعة 3D`, name:`Creality Ender 3 طابعة ثلاثية الأبعاد`, i18n:{ar:{cat:`طابعة 3D`,name:`Creality Ender 3 طابعة ثلاثية الأبعاد`,badge:`🔧 احترافي`},fr:{cat:`Imprimante 3D`,name:`Creality Ender 3 — Imprimante 3D`,badge:`🔧 Pro`},en:{cat:`3D printer`,name:`Creality Ender 3 3D Printer`,badge:`🔧 Pro`}},
+    specs:['دقة عالية','سهل التركيب','مفتوح المصدر'],
+    stars:4.5, reviews:87, price:2890, oldPrice:3490,
+    badge:{cls:'badge-blue',txt:'🔧 احترافي'},
+    images:[
+      'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80',
+      'https://images.unsplash.com/photo-1631556097152-7595a09f6b5d?w=600&q=80',
+      'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=600&q=80',
+      'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80'
+  },
+  {
+    id:24, cat:`ميكروفون`, name:`Blue Yeti USB ميكروفون احترافي`, i18n:{ar:{cat:`ميكروفون`,name:`Blue Yeti USB ميكروفون احترافي`,badge:`🎙️ استوديو`},fr:{cat:`Microphone`,name:`Blue Yeti USB — Micro professionnel`,badge:`🎙️ Studio`},en:{cat:`Microphone`,name:`Blue Yeti USB Professional Microphone`,badge:`🎙️ Studio`}},
+    specs:['USB Plug & Play','4 أنماط تسجيل','جودة استوديو'],
+    stars:4.7, reviews:254, price:1490, oldPrice:1890,
+    badge:{cls:'badge-star',txt:'🎙️ استوديو'},
+    images:[
+      'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=600&q=80',
+      'https://images.unsplash.com/photo-1610348725531-843dff563e2c?w=600&q=80',
+      'https://images.unsplash.com/photo-1583946099390-d4e0ec2c0e3f?w=600&q=80',
+      'https://images.unsplash.com/photo-1598653222000-6b7b7a552625?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=600&q=80'
+  },
+  {
+    id:25, cat:`سماعة أذن`, name:`AirPods Pro 2 إلغاء ضوضاء نشط`, i18n:{ar:{cat:`سماعة أذن`,name:`AirPods Pro 2 إلغاء ضوضاء نشط`,badge:`⭐ مميز`},fr:{cat:`Écouteurs`,name:`AirPods Pro 2 — Réduction de bruit active`,badge:`⭐ Premium`},en:{cat:`Earbuds`,name:`AirPods Pro 2 Active Noise Cancelling`,badge:`⭐ Premium`}},
+    specs:['ANC نشط','مقاومة للماء','شحن لاسلكي'],
+    stars:4.8, reviews:534, price:2390, oldPrice:2790,
+    badge:{cls:'badge-star',txt:'⭐ مميز'},
+    images:[
+      'https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=600&q=80',
+      'https://images.unsplash.com/photo-1588423771073-b8903fbb85b5?w=600&q=80',
+      'https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=600&q=80',
+      'https://images.unsplash.com/photo-1572569511254-d8f925fe2cbd?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=600&q=80'
+  },
+  {
+    id:26, cat:`حامل لابتوب`, name:`حامل ألمنيوم قابل للطي للابتوب`, i18n:{ar:{cat:`حامل لابتوب`,name:`حامل ألمنيوم قابل للطي للابتوب`,badge:`🎒 عملي`},fr:{cat:`Support PC`,name:`Support pliable en aluminium pour PC portable`,badge:`🎒 Pratique`},en:{cat:`Laptop stand`,name:`Foldable Aluminum Laptop Stand`,badge:`🎒 Practical`}},
+    specs:['قابل للطي','ألمنيوم','يدعم 17 إنش'],
+    stars:4.4, reviews:176, price:220, oldPrice:320,
+    badge:{cls:'badge-blue',txt:'🎒 عملي'},
+    images:[
+      'https://images.unsplash.com/photo-1527443224154-3f4d3d3a9e6c?w=600&q=80',
+      'https://images.unsplash.com/photo-1611078489935-0cb964de46d6?w=600&q=80',
+      'https://images.unsplash.com/photo-1593642634524-b40b5baae6bb?w=600&q=80',
+      'https://images.unsplash.com/photo-1593062096033-9a26b09da705?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1527443224154-3f4d3d3a9e6c?w=600&q=80'
+  },
+  {
+    id:27, cat:`سماعة جيمنج`, name:`HyperX Cloud II سماعة جيمنج بصوت محيطي`, i18n:{ar:{cat:`سماعة جيمنج`,name:`HyperX Cloud II سماعة جيمنج بصوت محيطي`,badge:`🎮 جيمنج`},fr:{cat:`Casque gaming`,name:`HyperX Cloud II — Casque gaming surround`,badge:`🎮 Gaming`},en:{cat:`Gaming headset`,name:`HyperX Cloud II Surround Gaming Headset`,badge:`🎮 Gaming`}},
+    specs:['صوت 7.1','مايك قابل للفصل','وسادات مريحة'],
+    stars:4.6, reviews:392, price:690, oldPrice:890,
+    badge:{cls:'badge-fire',txt:'🎮 جيمنج'},
+    images:[
+      'https://images.unsplash.com/photo-1599669454699-248893623440?w=600&q=80',
+      'https://images.unsplash.com/photo-1599669454699-1c7d2a3f0e7e?w=600&q=80',
+      'https://images.unsplash.com/photo-1612444530582-fc66183b16f7?w=600&q=80',
+      'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1599669454699-248893623440?w=600&q=80'
+  },
+  {
+    id:28, cat:`بطارية محمولة`, name:`Anker PowerCore 20000mAh بور بانك`, i18n:{ar:{cat:`بطارية محمولة`,name:`Anker PowerCore 20000mAh بور بانك`,badge:`✅ جديد`},fr:{cat:`Batterie externe`,name:`Anker PowerCore 20000 mAh — Power bank`,badge:`✅ Nouveau`},en:{cat:`Power bank`,name:`Anker PowerCore 20000mAh Power Bank`,badge:`✅ New`}},
+    specs:['20000mAh','شحن سريع','منفذين USB'],
+    stars:4.5, reviews:467, price:390, oldPrice:520,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=600&q=80',
+      'https://images.unsplash.com/photo-1606293459339-aa5ddf8c5cbe?w=600&q=80',
+      'https://images.unsplash.com/photo-1591290619762-c6c50cf9c0f1?w=600&q=80',
+      'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=600&q=80'
+  },
+  {
+    id:29, cat:`عصا تحكم`, name:`PS5 DualSense Wireless Controller`, i18n:{ar:{cat:`عصا تحكم`,name:`PS5 DualSense Wireless Controller`,badge:`🎮 جيمنج`},fr:{cat:`Manette`,name:`PS5 DualSense — Manette sans fil`,badge:`🎮 Gaming`},en:{cat:`Controller`,name:`PS5 DualSense Wireless Controller`,badge:`🎮 Gaming`}},
+    specs:['اهتزاز تكيفي','بطارية طويلة','بلوتوث'],
+    stars:4.7, reviews:389, price:790, oldPrice:990,
+    badge:{cls:'badge-fire',txt:'🎮 جيمنج'},
+    images:[
+      'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=600&q=80',
+      'https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=600&q=80',
+      'https://images.unsplash.com/photo-1592840496694-26d035b52b48?w=600&q=80',
+      'https://images.unsplash.com/photo-1622297845775-5ff3fef71d13?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=600&q=80'
+  },
+  {
+    id:30, cat:`شاشة جيمنج`, name:`Samsung Odyssey G5 27 إنش 144Hz`, i18n:{ar:{cat:`شاشة جيمنج`,name:`Samsung Odyssey G5 27 إنش 144Hz`,badge:`🖥️ جيمنج`},fr:{cat:`Écran gaming`,name:`Samsung Odyssey G5 27" 144Hz`,badge:`🖥️ Gaming`},en:{cat:`Gaming monitor`,name:`Samsung Odyssey G5 27" 144Hz`,badge:`🖥️ Gaming`}},
+    specs:['144Hz','منحني','QHD'],
+    stars:4.6, reviews:213, price:2890, oldPrice:3490,
+    badge:{cls:'badge-blue',txt:'🖥️ جيمنج'},
+    images:[
+      'https://images.unsplash.com/photo-1616588589676-62b3bd4ff6d2?w=600&q=80',
+      'https://images.unsplash.com/photo-1547082299-de196ea013d6?w=600&q=80',
+      'https://images.unsplash.com/photo-1601944179066-29786cb9d32a?w=600&q=80',
+      'https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1616588589676-62b3bd4ff6d2?w=600&q=80'
+  },
+  {
+    id:31, cat:`ماسح ضوئي`, name:`Canon CanoScan ماسح ضوئي للمستندات`, i18n:{ar:{cat:`ماسح ضوئي`,name:`Canon CanoScan ماسح ضوئي للمستندات`,badge:`✅ جديد`},fr:{cat:`Scanner`,name:`Canon CanoScan — Scanner de documents`,badge:`✅ Nouveau`},en:{cat:`Scanner`,name:`Canon CanoScan Document Scanner`,badge:`✅ New`}},
+    specs:['دقة عالية','USB','سريع'],
+    stars:4.3, reviews:64, price:990, oldPrice:1290,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1563770660941-20978e870e26?w=600&q=80',
+      'https://images.unsplash.com/photo-1612815154858-60aa4c59eabd?w=600&q=80',
+      'https://images.unsplash.com/photo-1581235720704-06d3acc89b46?w=600&q=80',
+      'https://images.unsplash.com/photo-1612996470715-ada6b2b0c5d3?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1563770660941-20978e870e26?w=600&q=80'
+  },
+  {
+    id:32, cat:`عدسة كاميرا`, name:`Sony 50mm f/1.8 عدسة احترافية`, i18n:{ar:{cat:`عدسة كاميرا`,name:`Sony 50mm f/1.8 عدسة احترافية`,badge:`📸 احترافي`},fr:{cat:`Objectif`,name:`Sony 50mm f/1.8 — Objectif pro`,badge:`📸 Pro`},en:{cat:`Camera lens`,name:`Sony 50mm f/1.8 Professional Lens`,badge:`📸 Pro`}},
+    specs:['f/1.8','بوكيه ناعم','خفيف الوزن'],
+    stars:4.8, reviews:142, price:1890, oldPrice:2290,
+    badge:{cls:'badge-star',txt:'📸 احترافي'},
+    images:[
+      'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80',
+      'https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&q=80',
+      'https://images.unsplash.com/photo-1606980707330-3d9d36fb5d83?w=600&q=80',
+      'https://images.unsplash.com/photo-1606986628253-05620e9c2a90?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&q=80'
+  },
+  {
+    id:33, cat:`مصباح مكتب`, name:`مصباح LED ذكي قابل للتعديل`, i18n:{ar:{cat:`مصباح مكتب`,name:`مصباح LED ذكي قابل للتعديل`,badge:`🏠 ذكي`},fr:{cat:`Lampe de bureau`,name:`Lampe LED intelligente réglable`,badge:`🏠 Intelligent`},en:{cat:`Desk lamp`,name:`Smart Adjustable LED Desk Lamp`,badge:`🏠 Smart`}},
+    specs:['إضاءة قابلة للتعديل','شحن USB','توقيت تلقائي'],
+    stars:4.4, reviews:198, price:290, oldPrice:390,
+    badge:{cls:'badge-blue',txt:'🏠 ذكي'},
+    images:[
+      'https://images.unsplash.com/photo-1565636192335-2a584a73cd9c?w=600&q=80',
+      'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&q=80',
+      'https://images.unsplash.com/photo-1543198126-cc44ee8b4053?w=600&q=80',
+      'https://images.unsplash.com/photo-1517991104123-1d56a6e81ed9?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1565636192335-2a584a73cd9c?w=600&q=80'
+  },
+  {
+    id:34, cat:`كابل شحن`, name:`Anker PowerLine III كابل USB-C سريع`, i18n:{ar:{cat:`كابل شحن`,name:`Anker PowerLine III كابل USB-C سريع`,badge:`✅ جديد`},fr:{cat:`Câble`,name:`Anker PowerLine III — Câble USB-C rapide`,badge:`✅ Nouveau`},en:{cat:`Charging cable`,name:`Anker PowerLine III Fast USB-C Cable`,badge:`✅ New`}},
+    specs:['شحن سريع','متين','1.8 متر'],
+    stars:4.5, reviews:312, price:99, oldPrice:149,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80',
+      'https://images.unsplash.com/photo-1606229365485-93a3b8ee0385?w=600&q=80',
+      'https://images.unsplash.com/photo-1622957404458-4e3f03ce4e3a?w=600&q=80',
+      'https://images.unsplash.com/photo-1591290619762-c6c50cf9c0f1?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80'
+  },
+  {
+    id:35, cat:`جهاز عرض تقديمي`, name:`Logitech Spotlight جهاز تحكم للعروض`, i18n:{ar:{cat:`جهاز عرض تقديمي`,name:`Logitech Spotlight جهاز تحكم للعروض`,badge:`✅ جديد`},fr:{cat:`Pointeur de présentation`,name:`Logitech Spotlight — Présentateur`,badge:`✅ Nouveau`},en:{cat:`Presentation remote`,name:`Logitech Spotlight Presentation Remote`,badge:`✅ New`}},
+    specs:['بلوتوث','بطارية طويلة','مدى 30 متر'],
+    stars:4.4, reviews:78, price:690, oldPrice:890,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80',
+      'https://images.unsplash.com/photo-1595044426077-d36d9236d54a?w=600&q=80',
+      'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&q=80',
+      'https://images.unsplash.com/photo-1561112078-7d24e04c3407?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80'
+  },
+  {
+    id:36, cat:`حامل هاتف`, name:`حامل هاتف مغناطيسي للسيارة`, i18n:{ar:{cat:`حامل هاتف`,name:`حامل هاتف مغناطيسي للسيارة`,badge:`🎒 عملي`},fr:{cat:`Support téléphone`,name:`Support téléphone magnétique pour voiture`,badge:`🎒 Pratique`},en:{cat:`Phone mount`,name:`Magnetic Car Phone Mount`,badge:`🎒 Practical`}},
+    specs:['مغناطيسي قوي','تركيب سهل','دوران 360°'],
+    stars:4.3, reviews:256, price:120, oldPrice:180,
+    badge:{cls:'badge-blue',txt:'🎒 عملي'},
+    images:[
+      'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=600&q=80',
+      'https://images.unsplash.com/photo-1609692814859-08d0e98d4318?w=600&q=80',
+      'https://images.unsplash.com/photo-1592890288564-76628a30a657?w=600&q=80',
+      'https://images.unsplash.com/photo-1622957404458-4e3f03ce4e3a?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=600&q=80'
+  },
+  {
+    id:37, cat:`سماعة استوديو`, name:`Audio-Technica ATH-M50x سماعة استوديو`, i18n:{ar:{cat:`سماعة استوديو`,name:`Audio-Technica ATH-M50x سماعة استوديو`,badge:`🎙️ استوديو`},fr:{cat:`Casque studio`,name:`Audio-Technica ATH-M50x — Casque studio`,badge:`🎙️ Studio`},en:{cat:`Studio headphones`,name:`Audio-Technica ATH-M50x Studio Headphones`,badge:`🎙️ Studio`}},
+    specs:['صوت دقيق','وسادات دوارة','جودة احترافية'],
+    stars:4.8, reviews:421, price:1690, oldPrice:1990,
+    badge:{cls:'badge-star',txt:'🎙️ استوديو'},
+    images:[
+      'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=600&q=80',
+      'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80',
+      'https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600&q=80',
+      'https://images.unsplash.com/photo-1524678606370-a47ad25cb82a?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1484704849700-f032a568e944?w=600&q=80'
+  },
+  {
+    id:38, cat:`لوحة رسم`, name:`Wacom Intuos لوحة رسم رقمية`, i18n:{ar:{cat:`لوحة رسم`,name:`Wacom Intuos لوحة رسم رقمية`,badge:`🎨 إبداعي`},fr:{cat:`Tablette graphique`,name:`Wacom Intuos — Tablette graphique`,badge:`🎨 Créatif`},en:{cat:`Drawing tablet`,name:`Wacom Intuos Digital Drawing Tablet`,badge:`🎨 Creative`}},
+    specs:['قلم حساس للضغط','بلوتوث','سطح كبير'],
+    stars:4.6, reviews:167, price:1290, oldPrice:1590,
+    badge:{cls:'badge-blue',txt:'🎨 إبداعي'},
+    images:[
+      'https://images.unsplash.com/photo-1561154464-82e9adf32764?w=600&q=80',
+      'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&q=80',
+      'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&q=80',
+      'https://images.unsplash.com/photo-1585790050230-5dd28404ccb9?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1561154464-82e9adf32764?w=600&q=80'
+  },
+  {
+    id:39, cat:`مروحة تبريد`, name:`مروحة تبريد للابتوب بإضاءة RGB`, i18n:{ar:{cat:`مروحة تبريد`,name:`مروحة تبريد للابتوب بإضاءة RGB`,badge:`🎮 جيمنج`},fr:{cat:`Refroidisseur`,name:`Refroidisseur pour PC portable RGB`,badge:`🎮 Gaming`},en:{cat:`Cooling pad`,name:`RGB Laptop Cooling Pad`,badge:`🎮 Gaming`}},
+    specs:['إضاءة RGB','تبريد فعال','USB'],
+    stars:4.2, reviews:143, price:250, oldPrice:350,
+    badge:{cls:'badge-fire',txt:'🎮 جيمنج'},
+    images:[
+      'https://images.unsplash.com/photo-1587202372616-b43abea06133?w=600&q=80',
+      'https://images.unsplash.com/photo-1591405351990-4726e331f141?w=600&q=80',
+      'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=600&q=80',
+      'https://images.unsplash.com/photo-1593640408182-31c228d1cf3d?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1587202372616-b43abea06133?w=600&q=80'
+  },
+  {
+    id:40, cat:`خزانة شحن`, name:`محطة شحن لاسلكية ثلاثية لجميع الأجهزة`, i18n:{ar:{cat:`خزانة شحن`,name:`محطة شحن لاسلكية ثلاثية لجميع الأجهزة`,badge:`✅ جديد`},fr:{cat:`Station de charge`,name:`Station de charge sans fil 3-en-1`,badge:`✅ Nouveau`},en:{cat:`Charging station`,name:`3-in-1 Wireless Charging Station`,badge:`✅ New`}},
+    specs:['Qi شحن سريع','3 أجهزة','تصميم أنيق'],
+    stars:4.5, reviews:201, price:450, oldPrice:620,
+    badge:{cls:'badge-new',txt:'✅ جديد'},
+    images:[
+      'https://images.unsplash.com/photo-1606229365485-93a3b8ee0385?w=600&q=80',
+      'https://images.unsplash.com/photo-1591290619762-c6c50cf9c0f1?w=600&q=80',
+      'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=600&q=80',
+      'https://images.unsplash.com/photo-1622957404458-4e3f03ce4e3a?w=600&q=80'
+    ],
+    img:'https://images.unsplash.com/photo-1606229365485-93a3b8ee0385?w=600&q=80'
+  }
+];
+
+let cart = [];
+let currentHero = 0;
+let heroTimer;
+
+function buildHeroCarousel() {
+  const track = document.getElementById('hcTrack');
+  const dotsContainer = document.getElementById('hcDots');
+  track.innerHTML = heroSlides.map((slide, index) => `
+    <div class="hc-slide ${index === 0 ? 'active' : ''}" data-index="${index}">
+      <div class="hc-img" style="background-image:url('${slide.img}')"></div>
+      <div class="hc-overlay"></div>
+      <div class="hc-content">
+        <div class="hc-badge"><i class="fas fa-star"></i> ${slide.badge}</div>
+        <h2 class="hc-title">${slide.title}</h2>
+        <p class="hc-sub">${slide.sub}</p>
+        <button class="hc-cta" onclick="document.getElementById('productsSection').scrollIntoView({behavior:'smooth'})">
+          <i class="fas fa-shopping-bag"></i> تسوق الآن
+        </button>
+      </div>
+    </div>
+  `).join('');
+  dotsContainer.innerHTML = heroSlides.map((_, i) => `
+    <button class="hc-dot ${i === 0 ? 'active' : ''}" onclick="goToHeroSlide(${i})"></button>
+  `).join('');
+  startHeroTimer();
+}
+
+function goToHeroSlide(index) {
+  const slides = document.querySelectorAll('.hc-slide');
+  const dots = document.querySelectorAll('.hc-dot');
+  slides.forEach((s, i) => s.classList.toggle('active', i === index));
+  dots.forEach((d, i) => d.classList.toggle('active', i === index));
+  currentHero = index;
+  resetHeroTimer();
+}
+
+function moveHeroCarousel(dir) {
+  const total = heroSlides.length;
+  goToHeroSlide((currentHero + dir + total) % total);
+}
+
+function startHeroTimer() {
+  heroTimer = setInterval(() => {
+    const total = heroSlides.length;
+    goToHeroSlide((currentHero + 1) % total);
+  }, 5000);
+}
+
+function resetHeroTimer() {
+  clearInterval(heroTimer);
+  startHeroTimer();
+}
+
+function createRotator(container, images, intervalMs = 3000) {
+  if (!container) return null;
+  if (!images || images.length < 2) {
+    container.innerHTML = `<img src="${images?.[0] || 'https://via.placeholder.com/300x200?text=Product'}" alt="Product" style="width:100%;height:100%;object-fit:contain;">`;
+    return null;
+  }
+  let currentIndex = 0;
+  const imgElements = [];
+  container.innerHTML = '';
+  images.forEach((src, index) => {
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = 'Product image';
+    img.className = index === 0 ? 'active' : '';
+    container.appendChild(img);
+    imgElements.push(img);
+  });
+  const dots = document.createElement('div');
+  dots.className = 'rotator-dots';
+  images.forEach((_, index) => {
+    const dot = document.createElement('span');
+    dot.className = index === 0 ? 'active' : '';
+    dots.appendChild(dot);
+  });
+  container.appendChild(dots);
+  function rotateTo(index) {
+    imgElements.forEach((img, i) => {
+      img.classList.remove('active');
+      img.classList.remove('fade-out');
+    });
+    imgElements[index].classList.add('active');
+    const dotSpans = dots.querySelectorAll('span');
+    dotSpans.forEach((dot, i) => dot.classList.toggle('active', i === index));
+    currentIndex = index;
+  }
+  const intervalId = setInterval(() => {
+    const nextIndex = (currentIndex + 1) % images.length;
+    imgElements[currentIndex].classList.add('fade-out');
+    setTimeout(() => rotateTo(nextIndex), 100);
+  }, intervalMs);
+  container.dataset.intervalId = intervalId;
+  container.addEventListener('mouseenter', () => clearInterval(intervalId));
+  container.addEventListener('mouseleave', () => {
+    const newInterval = setInterval(() => {
+      const nextIndex = (currentIndex + 1) % images.length;
+      imgElements[currentIndex].classList.add('fade-out');
+      setTimeout(() => rotateTo(nextIndex), 100);
+    }, intervalMs);
+    container.dataset.intervalId = newInterval;
+  });
+  return intervalId;
+}
+
+function cardGrid(p) {
+  return `
+    <div class="product-card card-grid-style" data-product-id="${p.id}">
+      <div class="card-accent"></div>
+      <span class="badge ${p.badge.cls}">${p.badge.txt}</span>
+      <div class="card-img-wrap" onclick="openProductPaneFrom(${p.id}, this)" style="cursor:pointer">
+        <div class="card-img-rotator" id="rotator-grid-${p.id}"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-cat">${p.cat}</div>
+        <div class="card-name" onclick="openProductPaneFrom(${p.id}, this)" style="cursor:pointer">${p.name}</div>
+        <div class="card-stars-row">
+          <span class="stars">${'★'.repeat(Math.floor(p.stars))}${'☆'.repeat(5-Math.floor(p.stars))}</span>
+          <span class="rating-count">(${p.reviews})</span>
+        </div>
+        <div class="card-bottom">
+          <div class="card-price">
+            <div class="price-val"><span class="price-cur">MAD</span>${p.price.toLocaleString()}</div>
+            <div class="price-old-row"><span class="price-old">${p.oldPrice.toLocaleString()}</span><span class="price-off">-${Math.round((1-p.price/p.oldPrice)*100)}%</span></div>
+          </div>
+          <button class="add-btn" id="btn${p.id}" onclick="addToCart(${p.id}, event)">
+            <i class="fas fa-cart-plus btn-cart-icon"></i>
+            <span class="btn-text">${t('card.add')}</span>
+          </button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function cardList(p) {
+  const discount = p.oldPrice ? Math.round((1 - p.price / p.oldPrice) * 100) : 0;
+  return `
+    <div class="product-card card-list-style" data-product-id="${p.id}">
+      <div class="card-accent"></div>
+      <div class="card-list-img" onclick="openProductPaneFrom(${p.id}, this)" style="cursor:pointer">
+        <span class="badge ${p.badge.cls}">${p.badge.txt}</span>
+        <div class="card-img-rotator" id="rotator-list-${p.id}"></div>
+      </div>
+      <div class="card-list-body">
+        <div>
+          <div class="card-cat">${p.cat}</div>
+          <div class="card-name" onclick="openProductPaneFrom(${p.id}, this)">${p.name}</div>
+          <div class="card-specs">${p.specs.map(s => `<span class="spec-tag">${s}</span>`).join('')}</div>
+          <div class="card-stars-row">
+            <span class="stars">${'★'.repeat(Math.floor(p.stars))}${'☆'.repeat(5 - Math.floor(p.stars))}</span>
+            <span class="rating-count">${p.stars} (${p.reviews})</span>
+          </div>
+        </div>
+        <div class="card-list-bottom">
+          <div class="price-section">
+            <div>
+              <div class="price-val"><span class="price-cur">MAD</span>${p.price.toLocaleString()}</div>
+              <div class="price-old">${p.oldPrice.toLocaleString()}</div>
+            </div>
+            <span class="price-off">-${discount}%</span>
+            <div class="price-note">${t('card.cod')}</div>
+          </div>
+          <button class="add-btn" id="btn${p.id}" onclick="addToCart(${p.id}, event)">
+            <i class="fas fa-cart-plus btn-cart-icon"></i>
+            <span class="btn-text">${t('card.addLong')}</span>
+          </button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderProducts() {
+  const grid = document.getElementById('productsGrid');
+  const gridItems = products.slice(0,8).map(cardGrid).join('');
+  const listItems = products.slice(8,16).map(cardList).join('');
+  const gridItems2 = products.slice(16,24).map(cardGrid).join('');
+  const gridItems3 = products.slice(24,40).map(cardGrid).join('');
+  grid.innerHTML = `
+    <div class="sub-grid">${gridItems}</div>
+    <div class="promo-banner">
+      <div class="promo-deco"><i class="fas fa-bolt"></i></div>
+      <div class="promo-left">
+        <div class="promo-ic"><i class="fas fa-bolt"></i></div>
+        <div class="promo-text">
+          <span class="promo-tag">${t('promo.tag')}</span>
+          <h3>${t('promo.title')}</h3>
+          <p>${t('promo.sub')}</p>
+        </div>
+      </div>
+      <button class="promo-cta" onclick="document.getElementById('subList').scrollIntoView({behavior:'smooth',block:'center'})">
+        <i class="fas fa-tags"></i> ${t('promo.cta')}
+      </button>
+    </div>
+    <div class="sub-list" id="subList">${listItems}</div>
+    <div class="split-banner">
+      <div class="split-banner-bg"></div>
+      <div class="split-banner-overlay"></div>
+      <div class="split-banner-shine"></div>
+      <div class="split-banner-content">
+        <div class="split-banner-icon"><i class="fas fa-star"></i></div>
+        <div class="split-banner-title">${t('split.title')}</div>
+        <div class="split-banner-sub">${t('split.sub')}</div>
+      </div>
+    </div>
+    <div class="sub-grid">${gridItems2}</div>
+    <div class="sub-grid sub-grid-wide">${gridItems3}</div>
+  `;
+  setTimeout(() => {
+    products.forEach(p => {
+      const gridRotator = document.getElementById(`rotator-grid-${p.id}`);
+      if (gridRotator) createRotator(gridRotator, p.images);
+      const listRotator = document.getElementById(`rotator-list-${p.id}`);
+      if (listRotator) createRotator(listRotator, p.images);
+    });
+  }, 300);
+}
+
+let pdCurrentId = null;
+let pdSlideIdx = 0;
+
+function openProductPaneFrom(id, el) {
+  // على الهاتف فقط: sub-list يكون سلايدر أفقي — نمرره نحو البطاقة أولاً
+  const card = el ? el.closest('.product-card, .pd-rel-card') : null;
+  if (card) {
+    const slider = card.closest('.sub-list');
+    if (slider) {
+      const sliderStyle = getComputedStyle(slider);
+      if (sliderStyle.overflowX === 'auto' || sliderStyle.overflowX === 'scroll') {
+        const sliderRect = slider.getBoundingClientRect();
+        const cardRect = card.getBoundingClientRect();
+        const cardCenter = cardRect.left + cardRect.width / 2;
+        const sliderCenter = sliderRect.left + sliderRect.width / 2;
+        const offset = cardCenter - sliderCenter;
+        slider.scrollBy({ left: offset, behavior: 'smooth' });
+        setTimeout(() => openProductPane(id), 350);
+        return;
+      }
+    }
+  }
+  openProductPane(id);
+}
+
+function openProductPane(id) {
+  const p = products.find(x => x.id === id);
+  if(!p) return;
+  pdCurrentId = id;
+  pdSlideIdx = 0;
+  document.getElementById('pdTitle').textContent = p.cat;
+  document.getElementById('pdCat').textContent = p.cat;
+  document.getElementById('pdName').textContent = p.name;
+  const pdDisc = p.oldPrice ? Math.round((1 - p.price/p.oldPrice)*100) : 0;
+  document.getElementById('pdPrice').innerHTML = `
+    <span class="pd-now"><span class="cur">MAD</span> ${p.price.toLocaleString()}</span>
+    ${p.oldPrice ? `<span class="pd-old">${p.oldPrice.toLocaleString()} MAD</span><span class="pd-off">-${pdDisc}%</span>` : ''}
+  `;
+  document.getElementById('pdStars').innerHTML =
+    `<span class="stars">${'★'.repeat(Math.floor(p.stars))}${'☆'.repeat(5-Math.floor(p.stars))}</span>
+     <span class="rating-count">${p.stars} · (${p.reviews} ${t('pd.reviews')})</span>`;
+  document.getElementById('pdSpecs').innerHTML = p.specs.map(s=>`<span class="spec-tag">${s}</span>`).join('');
+  const imgs = p.images || [p.img, p.img, p.img, p.img];
+  document.getElementById('pdSlides').innerHTML = imgs.map(src => `
+    <div class="pd-slide">
+      <img src="${src}" alt="${p.name}" loading="lazy" onerror="this.parentElement.style.background='#f0f4ff';this.style.display='none'">
+    </div>
+  `).join('');
+  document.getElementById('pdThumbs').innerHTML = imgs.map((src,i) => `
+    <div class="pd-thumb${i===0?' active':''}" onclick="pdGoTo(${i})">
+      <img src="${src}" alt="" loading="lazy" onerror="this.parentElement.style.background='#f0f4ff';this.style.display='none'">
+    </div>
+  `).join('');
+  document.getElementById('pdDots').innerHTML = imgs.map((_,i) => `<button class="pd-dot${i===0?' active':''}" onclick="pdGoTo(${i})"></button>`).join('');
+  pdUpdateSlider();
+  const related = products.filter(x => x.id !== id);
+  document.getElementById('pdRelated').innerHTML = related.map(r => `
+    <div class="pd-rel-card" onclick="openProductPaneFrom(${r.id}, this)">
+      <div class="pd-rel-img">
+        <img src="${r.images?.[0] || r.img}" alt="${r.name}" loading="lazy" onerror="this.parentElement.style.background='#f0f4ff';this.style.display='none'">
+      </div>
+      <div class="pd-rel-info">
+        <div class="pd-rel-name">${r.name}</div>
+        <div class="pd-rel-price">MAD ${r.price.toLocaleString()}${r.oldPrice ? ` <s>${r.oldPrice.toLocaleString()}</s>` : ''}</div>
+      </div>
+    </div>
+  `).join('');
+  const btn = document.getElementById('pdAddBtn');
+  btn.innerHTML = t('pd.add');
+  btn.style.background = '';
+  document.getElementById('productPane').classList.add('active');
+  document.getElementById('overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  document.querySelector('.product-detail-pane .pane-body').scrollTop = 0;
+}
+
+function pdUpdateSlider() {
+  const slidesContainer = document.getElementById('pdSlides');
+  if (!slidesContainer) return;
+  slidesContainer.style.transform = `translateX(${-pdSlideIdx * 100}%)`;
+  document.querySelectorAll('.pd-dot').forEach((d, i) => d.classList.toggle('active', i === pdSlideIdx));
+  document.querySelectorAll('.pd-thumb').forEach((t, i) => t.classList.toggle('active', i === pdSlideIdx));
+  const thumbsStrip = document.getElementById('pdThumbs');
+  if (thumbsStrip) thumbsStrip.scrollTo({ left: 0, behavior: 'smooth' });
+}
+
+function pdSlide(dir) {
+  const p = products.find(x => x.id === pdCurrentId);
+  const total = p ? (p.images || [p.img]).length : 1;
+  pdSlideIdx = (pdSlideIdx + dir + total) % total;
+  pdUpdateSlider();
+}
+
+function pdGoTo(i) {
+  pdSlideIdx = i;
+  pdUpdateSlider();
+}
+
+function pdAddToCart() {
+  if(!pdCurrentId) return;
+  addToCart(pdCurrentId, null);
+  const btn = document.getElementById('pdAddBtn');
+  btn.innerHTML = t('pd.added');
+  btn.style.background = 'linear-gradient(135deg,#16a34a,#22c55e)';
+  setTimeout(()=>{ btn.innerHTML = t('pd.add'); btn.style.background = ''; }, 1800);
+}
+
+function closeProductPane() {
+  document.getElementById('productPane').classList.remove('active');
+  document.getElementById('overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function addToCart(id, event) {
+  const p = products.find(x=>x.id===id);
+  const existing = cart.find(x=>x.id===id);
+  if(existing) existing.qty++;
+  else cart.push({...p, qty:1});
+  updateCartCount();
+  const btn = document.getElementById('btn'+id);
+  if(event && btn) {
+    const btnRect = btn.getBoundingClientRect();
+    const cartBtn = document.querySelector('.nav-icon-btn.cart-ic');
+    const cartRect = cartBtn.getBoundingClientRect();
+    const startX = btnRect.left + btnRect.width / 2 - 32;
+    const startY = btnRect.top + btnRect.height / 2 - 32;
+    const endX = cartRect.left + cartRect.width / 2 - 32;
+    const endY = cartRect.top + cartRect.height / 2 - 32;
+    const midX = (startX + endX) / 2;
+    const midY = Math.min(startY, endY) - 120;
+    const fly = document.createElement('div');
+    fly.className = 'fly-item';
+    fly.innerHTML = '<i class="fas fa-shopping-bag"></i>';
+    fly.style.left = startX + 'px';
+    fly.style.top = startY + 'px';
+    fly.style.transition = 'none';
+    document.body.appendChild(fly);
+    const duration = 750;
+    let start = null;
+    let trailCount = 0;
+    function bezier(t, p0, p1, p2) { return (1-t)*(1-t)*p0 + 2*(1-t)*t*p1 + t*t*p2; }
+    function step(ts) {
+      if(!start) start = ts;
+      const elapsed = ts - start;
+      const t = Math.min(elapsed / duration, 1);
+      const ease = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+      const curX = bezier(ease, startX, midX, endX);
+      const curY = bezier(ease, startY, midY, endY);
+      fly.style.left = curX + 'px';
+      fly.style.top = curY + 'px';
+      const sc = t < 0.8 ? 1 - t*0.3 : (1-t)*1.5;
+      fly.style.transform = `scale(${Math.max(sc, 0.15)})`;
+      fly.style.opacity = t > 0.8 ? (1-t)*5 : 1;
+      trailCount++;
+      if(trailCount % 5 === 0 && t < 0.85) {
+        const dot = document.createElement('div');
+        dot.className = 'fly-trail';
+        const dotSize = 10 + (1-t)*10;
+        dot.style.cssText = `width:${dotSize}px;height:${dotSize}px;left:${curX+32-dotSize/2}px;top:${curY+32-dotSize/2}px;`;
+        document.body.appendChild(dot);
+        setTimeout(()=>dot.remove(), 500);
+      }
+      if(t < 1) { requestAnimationFrame(step); } else {
+        fly.remove();
+        cartBtn.classList.remove('arrive');
+        void cartBtn.offsetWidth;
+        cartBtn.classList.add('arrive');
+        const badge = document.getElementById('cartCount');
+        badge.classList.remove('bounce');
+        void badge.offsetWidth;
+        badge.classList.add('bounce');
+        setTimeout(()=>{ cartBtn.classList.remove('arrive'); badge.classList.remove('bounce'); }, 600);
+      }
+    }
+    requestAnimationFrame(step);
+  }
+  if(btn) {
+    btn.classList.add('added');
+    btn.innerHTML = '<i class="fas fa-check btn-cart-icon"></i><span class="btn-text">'+t('card.added')+'</span>';
+    setTimeout(()=>{ btn.classList.remove('added'); btn.innerHTML = '<i class="fas fa-cart-plus btn-cart-icon"></i><span class="btn-text">'+t('card.addLong')+'</span>'; }, 1800);
+  }
+  showToast(`🛒 ${p.name.substring(0,28)}... ${t('toast.added')}`);
+}
+
+function updateCartCount() {
+  const total = cart.reduce((s,x)=>s+x.qty,0);
+  document.getElementById('cartCount').textContent = total;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+function openSearchPane(prefill) {
+  closeAll();
+  document.getElementById('searchPane').classList.add('active');
+  document.getElementById('overlay').classList.add('active');
+  const input = document.getElementById('searchPaneInput');
+  input.value = prefill || '';
+  runSearch(input.value);
+  setTimeout(() => input.focus(), 250);
+}
+
+function clearSearch() {
+  const input = document.getElementById('searchPaneInput');
+  input.value = '';
+  runSearch('');
+  input.focus();
+}
+
+function runSearch(query) {
+  const q = (query || '').trim().toLowerCase();
+  document.getElementById('searchClearBtn').classList.toggle('show', q.length > 0);
+  const results = document.getElementById('searchResults');
+
+  if (!q) {
+    results.innerHTML = `<div class="search-empty"><i class="fas fa-search"></i><span>${t('search.hint') || 'اكتب اسم المنتج أو الفئة التي تبحث عنها'}</span></div>`;
+    return;
+  }
+
+  const matches = products.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    p.cat.toLowerCase().includes(q) ||
+    (p.specs || []).some(s => s.toLowerCase().includes(q))
+  );
+
+  if (!matches.length) {
+    results.innerHTML = `<div class="search-no-results"><i class="fas fa-box-open" style="font-size:32px;color:var(--orange-mid);display:block;margin-bottom:10px"></i>${t('search.none') || 'لا توجد نتائج مطابقة'}</div>`;
+    return;
+  }
+
+  results.innerHTML = `<div class="search-results">${matches.map(p => `
+    <div class="search-result-item" onclick="closeAll();openProductPane(${p.id})">
+      <div class="search-result-img"><img src="${(p.images && p.images[0]) || p.img}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'"></div>
+      <div class="search-result-info">
+        <div class="search-result-name">${p.name}</div>
+        <div class="search-result-cat">${p.cat}</div>
+      </div>
+      <div class="search-result-price">MAD ${p.price.toLocaleString()}</div>
+    </div>
+  `).join('')}</div>`;
+}
+
+function openCart() {
+  closeAll();
+  renderCart();
+  document.getElementById('cartPane').classList.add('active');
+  document.getElementById('overlay').classList.add('active');
+}
+
+function renderCart() {
+  const body = document.getElementById('cartBody');
+  const footer = document.getElementById('cartFooter');
+  if(cart.length === 0) {
+    body.innerHTML=`<div class="empty-state"><div class="empty-icon"><i class="fas fa-shopping-cart"></i></div><h3>${t('cart.empty')}</h3><p>${t('cart.emptySub')}</p></div>`;
+    footer.style.display='none';
+  } else {
+    const total = cart.reduce((s,x)=>s+x.price*x.qty,0);
+    body.innerHTML = cart.map(x=>`
+      <div class="cart-item">
+        <img class="ci-img" src="${x.images?.[0] || x.img}" alt="${x.name}" onerror="this.src='https://via.placeholder.com/68?text=P'">
+        <div style="flex:1">
+          <div class="ci-name">${x.name}</div>
+          <div class="ci-price">MAD ${(x.price*x.qty).toLocaleString()} × ${x.qty}</div>
+          <button class="ci-remove" onclick="removeFromCart(${x.id})"><i class="fas fa-trash-alt"></i> ${t('cart.removeTxt')}</button>
+        </div>
+      </div>
+    `).join('');
+    document.getElementById('cartTotal').textContent = total.toLocaleString();
+    footer.style.display='block';
+  }
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(x=>x.id!==id);
+  updateCartCount();
+  renderCart();
+}
+
+function openCheckout() {
+  document.getElementById('cartPane').classList.remove('active');
+  const total = cart.reduce((s,x)=>s+x.price*x.qty,0);
+  document.getElementById('checkTotal').textContent = total.toLocaleString();
+  document.getElementById('checkoutPane').classList.add('active');
+}
+
+function confirmOrder() {
+  const nameEl = document.querySelector('#checkoutPane input[type="text"]');
+  const phoneEl = document.querySelector('#checkoutPane input[type="tel"]');
+  const cityEl = document.querySelector('#checkoutPane select');
+  const addrEl = document.querySelector('#checkoutPane input[placeholder*="الحي"]');
+  const payEl = document.querySelector('#checkoutPane .radio-opt.selected');
+  const custName = nameEl ? nameEl.value.trim() : '';
+  const custPhone = phoneEl ? phoneEl.value.trim() : '';
+  const custCity = cityEl ? cityEl.value : '';
+  const custAddr = addrEl ? addrEl.value.trim() : '';
+  const payMethod = payEl ? payEl.textContent.trim() : 'كاش عند الاستلام';
+  if(!custName || !custPhone) { showToast(t('msg.fillNamePhone')); return; }
+  const total = cart.reduce((s,x)=>s+x.price*x.qty, 0);
+  let msg = `🛒 *طلب جديد — NAIM MARKET*\n━━━━━━━━━━━━━━━━━━━━━━━\n👤 *الاسم:* ${custName}\n📞 *الهاتف:* ${custPhone}\n🏙️ *المدينة:* ${custCity}\n`;
+  if(custAddr) msg += `📍 *العنوان:* ${custAddr}\n`;
+  msg += `💳 *الدفع:* ${payMethod}\n━━━━━━━━━━━━━━━━━━━━━━━\n📦 *المنتجات:*\n`;
+  cart.forEach((x, i) => { const num = i + 1; const totalFormatted = (x.price * x.qty).toLocaleString(); msg += `${num}. ${x.name} × ${x.qty} — MAD ${totalFormatted}\n`; });
+  msg += `━━━━━━━━━━━━━━━━━━━━━━━\n💰 *المجموع الكلي: MAD ${total.toLocaleString()}*\n━━━━━━━━━━━━━━━━━━━━━━━\n✅ *شكراً لتسوقك مع NAIM MARKET*\n📱 *تابعنا على Instagram:* @ab.delhamid18`;
+  const waUrl = `https://wa.me/212687155245?text=${encodeURIComponent(msg)}`;
+  cart = []; updateCartCount(); closeAll(); showToast(t('msg.redirect'));
+  setTimeout(()=>{ window.open(waUrl, '_blank'); }, 900);
+}
+
+function selectPay(el) {
+  document.querySelectorAll('.radio-opt').forEach(x=>x.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function closeAll() {
+  closeProductPane();
+  document.querySelectorAll('.side-pane').forEach(p=>p.classList.remove('active'));
+  document.getElementById('overlay').classList.remove('active');
+}
+
+const USERS_KEY = 'naim_users';
+const SESSION_KEY = 'naim_session';
+function getUsers() { return JSON.parse(localStorage.getItem(USERS_KEY) || '[]'); }
+function saveUsers(u) { localStorage.setItem(USERS_KEY, JSON.stringify(u)); }
+function getSession() { return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); }
+function saveSession(u) { localStorage.setItem(SESSION_KEY, JSON.stringify(u)); }
+function clearSession() { localStorage.removeItem(SESSION_KEY); }
+
+function updateAccountBtn() {
+  const s = getSession();
+  const btn = document.getElementById('accountBtn');
+  if(s) {
+    const initials = s.name ? s.name.charAt(0).toUpperCase() : '؟';
+    btn.className = 'nav-icon-btn user-ic logged';
+    btn.onclick = openProfile;
+    btn.title = s.name;
+    btn.innerHTML = `<span style="font-size:15px;font-weight:900">${initials}</span><span class="cart-badge" style="background:#f59e0b;border-color:#f59e0b;top:-3px;left:-3px"><i class="fas fa-check" style="font-size:8px"></i></span>`;
+  } else {
+    btn.className = 'nav-icon-btn user-ic';
+    btn.onclick = openAuth;
+    btn.title = t('nav.login');
+    btn.innerHTML = `<i class="fas fa-user" id="accountIcon"></i>`;
+  }
+}
+
+function openAuth() { closeAll(); switchTab('login'); document.getElementById('authPane').classList.add('active'); document.getElementById('overlay').classList.add('active'); }
+function openProfile() { closeAll(); const s = getSession(); if(!s) { openAuth(); return; } document.getElementById('profileAvatar').textContent = s.name ? s.name.charAt(0).toUpperCase() : 'N'; document.getElementById('profileName').textContent = s.name || '—'; document.getElementById('profileEmail').textContent = s.email || '—'; document.getElementById('profileOrders').textContent = s.orders || 0; document.getElementById('profileCart').textContent = cart.length; document.getElementById('editName').value = s.name || ''; document.getElementById('editPhone').value = s.phone || ''; const cityEl = document.getElementById('editCity'); if(s.city) cityEl.value = s.city; document.getElementById('profilePane').classList.add('active'); document.getElementById('overlay').classList.add('active'); }
+function saveProfile() { const s = getSession(); if(!s) return; s.name = document.getElementById('editName').value.trim() || s.name; s.phone = document.getElementById('editPhone').value.trim(); s.city = document.getElementById('editCity').value; saveSession(s); const users = getUsers(); const idx = users.findIndex(u=>u.email===s.email); if(idx>-1) { users[idx] = {...users[idx], ...s}; saveUsers(users); } updateAccountBtn(); showToast(t('msg.saved')); document.getElementById('profileName').textContent = s.name; }
+function switchTab(tab) { document.querySelectorAll('.auth-tab').forEach((t,i)=>t.classList.toggle('active', (tab==='login'&&i===0)||(tab==='register'&&i===1))); document.getElementById('loginPanel').classList.toggle('active', tab==='login'); document.getElementById('registerPanel').classList.toggle('active', tab==='register'); ['loginErr','regEmailErr','regErr','regSuccess'].forEach(id=>document.getElementById(id).classList.remove('show')); }
+function togglePass(id, btn) { const inp = document.getElementById(id); const isPass = inp.type === 'password'; inp.type = isPass ? 'text' : 'password'; btn.innerHTML = isPass ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>'; }
+function doLogin() { const email = document.getElementById('loginEmail').value.trim().toLowerCase(); const pass = document.getElementById('loginPass').value; const users = getUsers(); const user = users.find(u => u.email === email && u.password === pass); const errEl = document.getElementById('loginErr'); if(!user) { errEl.classList.add('show'); return; } errEl.classList.remove('show'); saveSession(user); updateAccountBtn(); closeAll(); showToast(`🎉 ${t('msg.welcome')} ${user.name}! ${t('msg.loginOk')}`); }
+function doRegister() { const name = document.getElementById('regName').value.trim(); const email = document.getElementById('regEmail').value.trim().toLowerCase(); const phone = document.getElementById('regPhone').value.trim(); const pass = document.getElementById('regPass').value; const pass2 = document.getElementById('regPass2').value; const emailErrEl = document.getElementById('regEmailErr'); const errEl = document.getElementById('regErr'); const sucEl = document.getElementById('regSuccess'); [emailErrEl,errEl,sucEl].forEach(e=>e.classList.remove('show')); if(!name||!email||!pass) { errEl.textContent='يرجى ملء جميع الحقول'; errEl.classList.add('show'); return; } if(pass !== pass2) { errEl.textContent='كلمتا المرور غير متطابقتين'; errEl.classList.add('show'); return; } if(pass.length < 6) { errEl.textContent='كلمة المرور قصيرة جداً (6 أحرف على الأقل)'; errEl.classList.add('show'); return; } const users = getUsers(); if(users.find(u=>u.email===email)) { emailErrEl.classList.add('show'); return; } const newUser = {name, email, phone, password: pass, orders:0, city:'', joined: new Date().toLocaleDateString('ar-MA')}; users.push(newUser); saveUsers(users); saveSession(newUser); sucEl.classList.add('show'); setTimeout(()=>{ updateAccountBtn(); closeAll(); showToast(`🎉 ${t('msg.welcome')} ${name}! ${t('msg.accountCreated')}`); }, 1000); }
+function doLogout() { const s = getSession(); const name = s ? s.name : ''; clearSession(); updateAccountBtn(); closeAll(); showToast(`👋 ${t('msg.bye')} ${name}!`); }
+
+const I18N = {
+  ar:{
+    'topbar':`🚚 <b>توصيل مجاني</b> لجميع الطلبات في كل أرجاء المغرب &nbsp;|&nbsp; الدفع عند الاستلام ✓`,
+    'logo.sub':`تقنية بلا حدود`,
+    'search.ph':`ابحث عن منتج، ماركة أو فئة...`,
+    'search.hint':`اكتب اسم المنتج أو الفئة التي تبحث عنها`,
+    'search.none':`لا توجد نتائج مطابقة`,
+    'nav.login':`تسجيل الدخول`,
+    'nav.cart':`السلة`,
+    'hero.cta':`تسوق الآن`,
+    'trust.1t':`ضمان الجودة`,
+    'trust.1d':`منتجات أصلية 100%`,
+    'trust.2t':`توصيل مجاني`,
+    'trust.2d':`لجميع الطلبات في المغرب`,
+    'trust.3t':`كاش عند الاستلام`,
+    'trust.3d':`ادفع عند استلام طلبك`,
+    'trust.4t':`دعم 7/7`,
+    'trust.4d':`نحن هنا دائماً لمساعدتك`,
+    'sec.title':`🛒 منتجاتنا المميزة`,
+    'sec.sub':`أحدث التقنيات بأفضل الأسعار في المغرب`,
+    'sec.pill':`🔥 عروض حصرية`,
+    'foot.about':`متجرك الإلكتروني الأول للأجهزة والإكسسوارات التقنية في المغرب. منتجات أصلية بأسعار لا تُنافَس، توصيل سريع لكل أرجاء المملكة.`,
+    'foot.col1':`الرئيسية`,
+    'foot.home':`الصفحة الرئيسية`,
+    'foot.products':`المنتجات`,
+    'foot.offers':`العروض`,
+    'foot.blog':`المدونة`,
+    'foot.col2':`سياسات المتجر`,
+    'foot.return':`سياسة الإرجاع`,
+    'foot.terms':`شروط الاستخدام`,
+    'foot.privacy':`سياسة الخصوصية`,
+    'foot.warranty':`الضمان`,
+    'foot.col3':`تواصل معنا`,
+    'foot.wa':`<i class="fab fa-whatsapp"></i> واتساب`,
+    'foot.email':`<i class="fas fa-envelope"></i> البريد الإلكتروني`,
+    'foot.location':`<i class="fas fa-map-marker-alt"></i> الموقع`,
+    'foot.phone':`<i class="fas fa-phone"></i> الهاتف`,
+    'foot.copy':`© NAIM MARKET 2025 · جميع الحقوق محفوظة · تقنية بلا حدود - المغرب`,
+    'foot.b1':`<i class="fas fa-truck"></i> توصيل لكل المغرب`,
+    'foot.b2':`<i class="fas fa-money-bill-wave"></i> كاش عند الاستلام`,
+    'cart.title':`<i class="fas fa-shopping-cart" style="color:var(--orange);margin-inline-end:8px"></i> سلة التسوق`,
+    'cart.total':`المجموع الكلي`,
+    'cart.checkout':`<i class="fas fa-lock"></i> إتمام الطلب`,
+    'cart.continue':`متابعة التسوق`,
+    'cart.empty':`السلة فارغة`,
+    'cart.emptySub':`أضف منتجات لتظهر هنا`,
+    'cart.removeTxt':`حذف`,
+    'co.title':`<i class="fas fa-clipboard-list" style="color:var(--orange);margin-inline-end:8px"></i> إتمام الطلب`,
+    'co.delivery':`<i class="fas fa-user"></i> معلومات التوصيل`,
+    'co.name':`الاسم الكامل`,
+    'co.namePh':`محمد علي`,
+    'co.phone':`رقم الهاتف`,
+    'co.city':`المدينة`,
+    'co.address':`العنوان التفصيلي`,
+    'co.addressPh':`الحي، الشارع، رقم المنزل...`,
+    'co.payment':`<i class="fas fa-credit-card"></i> طريقة الدفع`,
+    'co.cod':`<i class="fas fa-money-bill-wave"></i> كاش عند الاستلام`,
+    'co.card':`<i class="fas fa-credit-card"></i> بطاقة بنكية`,
+    'co.total':`المجموع`,
+    'co.confirm':`<i class="fas fa-check-circle"></i> تأكيد الطلب`,
+    'co.back':`<i class="fas fa-arrow-right"></i> العودة للسلة`,
+    'city.choose':`اختر مدينتك`,
+    'city.casa':`الدار البيضاء`,
+    'city.rabat':`الرباط`,
+    'city.marrakech':`مراكش`,
+    'city.fes':`فاس`,
+    'city.tanger':`طنجة`,
+    'city.agadir':`أكادير`,
+    'city.meknes':`مكناس`,
+    'city.oujda':`وجدة`,
+    'city.mohammedia':`المحمدية`,
+    'city.other':`أخرى`,
+    'auth.title':`<i class="fas fa-user-circle" style="color:#1a56db;margin-inline-end:8px"></i> تسجيل الدخول`,
+    'auth.tabLogin':`دخول`,
+    'auth.tabReg':`حساب جديد`,
+    'auth.email':`البريد الإلكتروني`,
+    'auth.pass':`كلمة المرور`,
+    'auth.loginErr':`البريد أو كلمة المرور غير صحيحة`,
+    'auth.loginBtn':`<i class="fas fa-sign-in-alt"></i> دخول`,
+    'auth.or':`أو`,
+    'auth.ig':`<i class="fab fa-instagram"></i> تابعنا على Instagram @ab.delhamid18`,
+    'auth.name':`الاسم الكامل`,
+    'auth.namePh':`محمد علي`,
+    'auth.regEmailErr':`هذا البريد مسجل مسبقاً`,
+    'auth.phone':`رقم الهاتف`,
+    'auth.passPh':`8 أحرف على الأقل`,
+    'auth.confirmPass':`تأكيد كلمة المرور`,
+    'auth.regErr':`كلمتا المرور غير متطابقتين`,
+    'auth.regSuccess':`✓ تم إنشاء حسابك بنجاح!`,
+    'auth.createBtn':`<i class="fas fa-user-plus"></i> إنشاء الحساب`,
+    'prof.title':`<i class="fas fa-id-card" style="color:#1a56db;margin-inline-end:8px"></i> حسابي`,
+    'prof.orders':`طلباتي`,
+    'prof.cart':`في السلة`,
+    'prof.info':`<i class="fas fa-info-circle"></i> معلومات الحساب`,
+    'prof.name':`الاسم الكامل`,
+    'prof.namePh':`الاسم`,
+    'prof.phone':`رقم الهاتف`,
+    'prof.city':`المدينة`,
+    'prof.save':`<i class="fas fa-save"></i> حفظ التغييرات`,
+    'prof.logout':`<i class="fas fa-sign-out-alt"></i> تسجيل الخروج`,
+    'pd.title':`تفاصيل المنتج`,
+    'pd.delivery':`<i class="fas fa-truck"></i> توصيل سريع · كاش عند الاستلام`,
+    'pd.related':`منتجات مشابهة`,
+    'pd.add':`<i class="fas fa-cart-plus"></i> أضف إلى السلة`,
+    'pd.added':`<i class="fas fa-check"></i> تمت الإضافة ✓`,
+    'pd.reviews':`تقييم`,
+    'card.add':`أضف للسلة`,
+    'card.addLong':`أضف إلى السلة`,
+    'card.added':`تمت الإضافة ✓`,
+    'card.cod':`✓ كاش عند الاستلام`,
+    'toast.added':`أُضيف للسلة`,
+    'msg.fillNamePhone':`⚠️ يرجى ملء الاسم ورقم الهاتف`,
+    'msg.redirect':`🎉 يتم تحويلك لواتساب لإتمام الطلب...`,
+    'msg.welcome':`مرحباً`,
+    'msg.loginOk':`تم تسجيل دخولك`,
+    'msg.accountCreated':`تم إنشاء حسابك`,
+    'msg.bye':`إلى اللقاء`,
+    'msg.saved':`✓ تم حفظ معلوماتك بنجاح`,
+    'promo.tag':`⚡ عرض لفترة محدودة`,
+    'promo.title':`خصومات حصرية على منتجات مختارة`,
+    'promo.sub':`توصيل مجاني وكاش عند الاستلام في كل أنحاء المغرب`,
+    'promo.cta':`اكتشف العروض`,
+    'split.title':`مجموعة مختارة بعناية لك`,
+    'split.sub':`أحدث المنتجات التقنية بأفضل الأسعار وجودة مضمونة`,
+  },
+  fr:{
+    'topbar':`🚚 <b>Livraison gratuite</b> pour toutes les commandes au Maroc &nbsp;|&nbsp; Paiement à la livraison ✓`,
+    'logo.sub':`La technologie sans limites`,
+    'search.ph':`Rechercher un produit, une marque...`,
+    'search.hint':`Tapez le nom du produit ou de la catégorie`,
+    'search.none':`Aucun résultat trouvé`,
+    'nav.login':`Se connecter`,
+    'nav.cart':`Panier`,
+    'hero.cta':`Acheter maintenant`,
+    'trust.1t':`Garantie qualité`,
+    'trust.1d':`Produits 100% authentiques`,
+    'trust.2t':`Livraison gratuite`,
+    'trust.2d':`Pour toutes les commandes au Maroc`,
+    'trust.3t':`Paiement à la livraison`,
+    'trust.3d':`Payez à la réception`,
+    'trust.4t':`Support 7j/7`,
+    'trust.4d':`Toujours là pour vous aider`,
+    'sec.title':`🛒 Nos produits vedettes`,
+    'sec.sub':`Les dernières technologies aux meilleurs prix au Maroc`,
+    'sec.pill':`🔥 Offres exclusives`,
+    'foot.about':`Votre première boutique en ligne d'appareils et d'accessoires technologiques au Maroc. Produits authentiques à des prix imbattables, livraison rapide partout dans le Royaume.`,
+    'foot.col1':`Accueil`,
+    'foot.home':`Page d'accueil`,
+    'foot.products':`Produits`,
+    'foot.offers':`Offres`,
+    'foot.blog':`Blog`,
+    'foot.col2':`Politiques du magasin`,
+    'foot.return':`Politique de retour`,
+    'foot.terms':`Conditions d'utilisation`,
+    'foot.privacy':`Politique de confidentialité`,
+    'foot.warranty':`Garantie`,
+    'foot.col3':`Contactez-nous`,
+    'foot.wa':`<i class="fab fa-whatsapp"></i> WhatsApp`,
+    'foot.email':`<i class="fas fa-envelope"></i> E-mail`,
+    'foot.location':`<i class="fas fa-map-marker-alt"></i> Localisation`,
+    'foot.phone':`<i class="fas fa-phone"></i> Téléphone`,
+    'foot.copy':`© NAIM MARKET 2025 · Tous droits réservés · La technologie sans limites - Maroc`,
+    'foot.b1':`<i class="fas fa-truck"></i> Livraison partout au Maroc`,
+    'foot.b2':`<i class="fas fa-money-bill-wave"></i> Paiement à la livraison`,
+    'cart.title':`<i class="fas fa-shopping-cart" style="color:var(--orange);margin-inline-end:8px"></i> Panier`,
+    'cart.total':`Total`,
+    'cart.checkout':`<i class="fas fa-lock"></i> Passer la commande`,
+    'cart.continue':`Continuer mes achats`,
+    'cart.empty':`Votre panier est vide`,
+    'cart.emptySub':`Ajoutez des produits ici`,
+    'cart.removeTxt':`Supprimer`,
+    'co.title':`<i class="fas fa-clipboard-list" style="color:var(--orange);margin-inline-end:8px"></i> Finaliser la commande`,
+    'co.delivery':`<i class="fas fa-user"></i> Informations de livraison`,
+    'co.name':`Nom complet`,
+    'co.namePh':`Mohamed Ali`,
+    'co.phone':`Numéro de téléphone`,
+    'co.city':`Ville`,
+    'co.address':`Adresse détaillée`,
+    'co.addressPh':`Quartier, rue, numéro de maison...`,
+    'co.payment':`<i class="fas fa-credit-card"></i> Mode de paiement`,
+    'co.cod':`<i class="fas fa-money-bill-wave"></i> Paiement à la livraison`,
+    'co.card':`<i class="fas fa-credit-card"></i> Carte bancaire`,
+    'co.total':`Total`,
+    'co.confirm':`<i class="fas fa-check-circle"></i> Confirmer la commande`,
+    'co.back':`<i class="fas fa-arrow-left"></i> Retour au panier`,
+    'city.choose':`Choisissez votre ville`,
+    'city.casa':`Casablanca`,
+    'city.rabat':`Rabat`,
+    'city.marrakech':`Marrakech`,
+    'city.fes':`Fès`,
+    'city.tanger':`Tanger`,
+    'city.agadir':`Agadir`,
+    'city.meknes':`Meknès`,
+    'city.oujda':`Oujda`,
+    'city.mohammedia':`Mohammedia`,
+    'city.other':`Autre`,
+    'auth.title':`<i class="fas fa-user-circle" style="color:#1a56db;margin-inline-end:8px"></i> Se connecter`,
+    'auth.tabLogin':`Connexion`,
+    'auth.tabReg':`Nouveau compte`,
+    'auth.email':`E-mail`,
+    'auth.pass':`Mot de passe`,
+    'auth.loginErr':`E-mail ou mot de passe incorrect`,
+    'auth.loginBtn':`<i class="fas fa-sign-in-alt"></i> Connexion`,
+    'auth.or':`ou`,
+    'auth.ig':`<i class="fab fa-instagram"></i> Suivez-nous sur Instagram @ab.delhamid18`,
+    'auth.name':`Nom complet`,
+    'auth.namePh':`Mohamed Ali`,
+    'auth.regEmailErr':`Cet e-mail est déjà enregistré`,
+    'auth.phone':`Numéro de téléphone`,
+    'auth.passPh':`8 caractères minimum`,
+    'auth.confirmPass':`Confirmer le mot de passe`,
+    'auth.regErr':`Les mots de passe ne correspondent pas`,
+    'auth.regSuccess':`✓ Compte créé avec succès !`,
+    'auth.createBtn':`<i class="fas fa-user-plus"></i> Créer le compte`,
+    'prof.title':`<i class="fas fa-id-card" style="color:#1a56db;margin-inline-end:8px"></i> Mon compte`,
+    'prof.orders':`Mes commandes`,
+    'prof.cart':`Dans le panier`,
+    'prof.info':`<i class="fas fa-info-circle"></i> Informations du compte`,
+    'prof.name':`Nom complet`,
+    'prof.namePh':`Nom`,
+    'prof.phone':`Numéro de téléphone`,
+    'prof.city':`Ville`,
+    'prof.save':`<i class="fas fa-save"></i> Enregistrer les modifications`,
+    'prof.logout':`<i class="fas fa-sign-out-alt"></i> Se déconnecter`,
+    'pd.title':`Détails du produit`,
+    'pd.delivery':`<i class="fas fa-truck"></i> Livraison rapide · Paiement à la livraison`,
+    'pd.related':`Produits similaires`,
+    'pd.add':`<i class="fas fa-cart-plus"></i> Ajouter au panier`,
+    'pd.added':`<i class="fas fa-check"></i> Ajouté ✓`,
+    'pd.reviews':`avis`,
+    'card.add':`Ajouter`,
+    'card.addLong':`Ajouter au panier`,
+    'card.added':`Ajouté ✓`,
+    'card.cod':`✓ Paiement à la livraison`,
+    'toast.added':`ajouté au panier`,
+    'msg.fillNamePhone':`⚠️ Veuillez remplir le nom et le téléphone`,
+    'msg.redirect':`🎉 Redirection vers WhatsApp pour finaliser la commande...`,
+    'msg.welcome':`Bienvenue`,
+    'msg.loginOk':`vous êtes connecté`,
+    'msg.accountCreated':`votre compte a été créé`,
+    'msg.bye':`À bientôt`,
+    'msg.saved':`✓ Vos informations ont été enregistrées`,
+    'promo.tag':`⚡ Offre à durée limitée`,
+    'promo.title':`Réductions exclusives sur une sélection`,
+    'promo.sub':`Livraison gratuite et paiement à la livraison partout au Maroc`,
+    'promo.cta':`Voir les offres`,
+    'split.title':`Une sélection pensée pour vous`,
+    'split.sub':`Les derniers produits tech aux meilleurs prix, qualité garantie`,
+  },
+  en:{
+    'topbar':`🚚 <b>Free delivery</b> on all orders across Morocco &nbsp;|&nbsp; Cash on delivery ✓`,
+    'logo.sub':`Technology without limits`,
+    'search.ph':`Search for a product, brand or category...`,
+    'search.hint':`Type the product name or category you're looking for`,
+    'search.none':`No matching results`,
+    'nav.login':`Sign in`,
+    'nav.cart':`Cart`,
+    'hero.cta':`Shop now`,
+    'trust.1t':`Quality guarantee`,
+    'trust.1d':`100% authentic products`,
+    'trust.2t':`Free delivery`,
+    'trust.2d':`On all orders in Morocco`,
+    'trust.3t':`Cash on delivery`,
+    'trust.3d':`Pay when you receive`,
+    'trust.4t':`24/7 support`,
+    'trust.4d':`Always here to help you`,
+    'sec.title':`🛒 Our featured products`,
+    'sec.sub':`The latest tech at the best prices in Morocco`,
+    'sec.pill':`🔥 Exclusive deals`,
+    'foot.about':`Your number one online store for tech devices and accessories in Morocco. Authentic products at unbeatable prices, fast delivery across the Kingdom.`,
+    'foot.col1':`Home`,
+    'foot.home':`Home page`,
+    'foot.products':`Products`,
+    'foot.offers':`Offers`,
+    'foot.blog':`Blog`,
+    'foot.col2':`Store policies`,
+    'foot.return':`Return policy`,
+    'foot.terms':`Terms of use`,
+    'foot.privacy':`Privacy policy`,
+    'foot.warranty':`Warranty`,
+    'foot.col3':`Contact us`,
+    'foot.wa':`<i class="fab fa-whatsapp"></i> WhatsApp`,
+    'foot.email':`<i class="fas fa-envelope"></i> Email`,
+    'foot.location':`<i class="fas fa-map-marker-alt"></i> Location`,
+    'foot.phone':`<i class="fas fa-phone"></i> Phone`,
+    'foot.copy':`© NAIM MARKET 2025 · All rights reserved · Technology without limits - Morocco`,
+    'foot.b1':`<i class="fas fa-truck"></i> Delivery across Morocco`,
+    'foot.b2':`<i class="fas fa-money-bill-wave"></i> Cash on delivery`,
+    'cart.title':`<i class="fas fa-shopping-cart" style="color:var(--orange);margin-inline-end:8px"></i> Shopping cart`,
+    'cart.total':`Total`,
+    'cart.checkout':`<i class="fas fa-lock"></i> Checkout`,
+    'cart.continue':`Continue shopping`,
+    'cart.empty':`Your cart is empty`,
+    'cart.emptySub':`Add products to see them here`,
+    'cart.removeTxt':`Remove`,
+    'co.title':`<i class="fas fa-clipboard-list" style="color:var(--orange);margin-inline-end:8px"></i> Checkout`,
+    'co.delivery':`<i class="fas fa-user"></i> Delivery information`,
+    'co.name':`Full name`,
+    'co.namePh':`Mohamed Ali`,
+    'co.phone':`Phone number`,
+    'co.city':`City`,
+    'co.address':`Detailed address`,
+    'co.addressPh':`Neighborhood, street, house no...`,
+    'co.payment':`<i class="fas fa-credit-card"></i> Payment method`,
+    'co.cod':`<i class="fas fa-money-bill-wave"></i> Cash on delivery`,
+    'co.card':`<i class="fas fa-credit-card"></i> Bank card`,
+    'co.total':`Total`,
+    'co.confirm':`<i class="fas fa-check-circle"></i> Confirm order`,
+    'co.back':`<i class="fas fa-arrow-left"></i> Back to cart`,
+    'city.choose':`Choose your city`,
+    'city.casa':`Casablanca`,
+    'city.rabat':`Rabat`,
+    'city.marrakech':`Marrakech`,
+    'city.fes':`Fez`,
+    'city.tanger':`Tangier`,
+    'city.agadir':`Agadir`,
+    'city.meknes':`Meknes`,
+    'city.oujda':`Oujda`,
+    'city.mohammedia':`Mohammedia`,
+    'city.other':`Other`,
+    'auth.title':`<i class="fas fa-user-circle" style="color:#1a56db;margin-inline-end:8px"></i> Sign in`,
+    'auth.tabLogin':`Login`,
+    'auth.tabReg':`New account`,
+    'auth.email':`Email`,
+    'auth.pass':`Password`,
+    'auth.loginErr':`Incorrect email or password`,
+    'auth.loginBtn':`<i class="fas fa-sign-in-alt"></i> Login`,
+    'auth.or':`or`,
+    'auth.ig':`<i class="fab fa-instagram"></i> Follow us on Instagram @ab.delhamid18`,
+    'auth.name':`Full name`,
+    'auth.namePh':`Mohamed Ali`,
+    'auth.regEmailErr':`This email is already registered`,
+    'auth.phone':`Phone number`,
+    'auth.passPh':`At least 8 characters`,
+    'auth.confirmPass':`Confirm password`,
+    'auth.regErr':`Passwords do not match`,
+    'auth.regSuccess':`✓ Account created successfully!`,
+    'auth.createBtn':`<i class="fas fa-user-plus"></i> Create account`,
+    'prof.title':`<i class="fas fa-id-card" style="color:#1a56db;margin-inline-end:8px"></i> My account`,
+    'prof.orders':`My orders`,
+    'prof.cart':`In cart`,
+    'prof.info':`<i class="fas fa-info-circle"></i> Account information`,
+    'prof.name':`Full name`,
+    'prof.namePh':`Name`,
+    'prof.phone':`Phone number`,
+    'prof.city':`City`,
+    'prof.save':`<i class="fas fa-save"></i> Save changes`,
+    'prof.logout':`<i class="fas fa-sign-out-alt"></i> Log out`,
+    'pd.title':`Product details`,
+    'pd.delivery':`<i class="fas fa-truck"></i> Fast delivery · Cash on delivery`,
+    'pd.related':`Similar products`,
+    'pd.add':`<i class="fas fa-cart-plus"></i> Add to cart`,
+    'pd.added':`<i class="fas fa-check"></i> Added ✓`,
+    'pd.reviews':`reviews`,
+    'card.add':`Add`,
+    'card.addLong':`Add to cart`,
+    'card.added':`Added ✓`,
+    'card.cod':`✓ Cash on delivery`,
+    'toast.added':`added to cart`,
+    'msg.fillNamePhone':`⚠️ Please fill in name and phone`,
+    'msg.redirect':`🎉 Redirecting you to WhatsApp to complete your order...`,
+    'msg.welcome':`Welcome`,
+    'msg.loginOk':`you are logged in`,
+    'msg.accountCreated':`your account has been created`,
+    'msg.bye':`See you`,
+    'msg.saved':`✓ Your information has been saved`,
+    'promo.tag':`⚡ Limited-time offer`,
+    'promo.title':`Exclusive discounts on selected products`,
+    'promo.sub':`Free delivery and cash on delivery across Morocco`,
+    'promo.cta':`Shop the deals`,
+    'split.title':`A selection curated for you`,
+    'split.sub':`The latest tech products at the best prices, guaranteed quality`,
+  }
+};
+
+const FLAGS = {
+  ma:`<svg class="flag-svg" viewBox="0 0 900 600"><rect width="900" height="600" fill="#c1272d"/><path d="M450,130 L549.9,437.5 L288.4,247.5 L611.6,247.5 L350.1,437.5 Z" fill="none" stroke="#006233" stroke-width="38"/></svg>`,
+  fr:`<svg class="flag-svg" viewBox="0 0 3 2"><rect width="3" height="2" fill="#fff"/><rect width="1" height="2" fill="#0055A4"/><rect x="2" width="1" height="2" fill="#EF4135"/></svg>`,
+  gb:`<svg class="flag-svg" viewBox="0 0 60 30"><rect width="60" height="30" fill="#012169"/><g stroke="#fff" stroke-width="6"><path d="M0,0 L60,30"/><path d="M60,0 L0,30"/></g><g stroke="#C8102E" stroke-width="2.5"><path d="M0,0 L60,30"/><path d="M60,0 L0,30"/></g><rect x="25" width="10" height="30" fill="#fff"/><rect y="10" width="60" height="10" fill="#fff"/><rect x="27" width="6" height="30" fill="#C8102E"/><rect y="12" width="60" height="6" fill="#C8102E"/></svg>`
+};
+const LANGS = [
+  { code:'ar', label:'العربية',  flag:FLAGS.ma, short:'AR', dir:'rtl' },
+  { code:'fr', label:'Français', flag:FLAGS.fr, short:'FR', dir:'ltr' },
+  { code:'en', label:'English',  flag:FLAGS.gb, short:'EN', dir:'ltr' }
+];
+let currentLang = localStorage.getItem('naim_lang') || 'ar';
+
+function t(k){ return (I18N[currentLang] && I18N[currentLang][k]) || I18N.ar[k] || k; }
+
+function buildLangMenu(){
+  const menu = document.getElementById('langMenu');
+  if(!menu) return;
+  menu.innerHTML = LANGS.map(l =>
+    `<button class="lang-opt ${l.code===currentLang?'active':''}" onclick="setLang('${l.code}')">
+       <span class="lang-flag">${l.flag}</span><span>${l.label}</span>
+       <i class="fas fa-check opt-check"></i>
+     </button>`).join('');
+}
+
+function toggleLangMenu(e){ e.stopPropagation(); document.getElementById('langSwitch').classList.toggle('open'); }
+document.addEventListener('click', () => { const s=document.getElementById('langSwitch'); if(s) s.classList.remove('open'); });
+
+function setLang(code){
+  currentLang = code;
+  localStorage.setItem('naim_lang', code);
+  document.getElementById('langSwitch').classList.remove('open');
+  applyLang(code);
+}
+
+function applyLang(code){
+  const l = LANGS.find(x => x.code === code) || LANGS[0];
+  document.documentElement.lang = code;
+  document.documentElement.dir = l.dir;
+  document.getElementById('langFlag').innerHTML = l.flag;
+  document.getElementById('langCode').textContent = l.short;
+  // static text + placeholders
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+  const cartIc = document.querySelector('.nav-icon-btn.cart-ic'); if(cartIc) cartIc.title = t('nav.cart');
+  // dynamic data
+  products.forEach(p => { const d = p.i18n && p.i18n[code]; if(d){ p.cat=d.cat; p.name=d.name; p.badge.txt=d.badge; } });
+  heroSlides.forEach(s => { const d = s.i18n && s.i18n[code]; if(d){ s.badge=d.badge; s.title=d.title; s.sub=d.sub; } });
+  cart.forEach(c => { const p = products.find(x => x.id === c.id); if(p){ c.name=p.name; c.cat=p.cat; } });
+  // re-render dynamic UI
+  buildHeroCarousel();
+  renderProducts();
+  if(document.getElementById('cartPane').classList.contains('active')) renderCart();
+  buildLangMenu();
+  updateAccountBtn();
+}
+
+buildLangMenu();
+applyLang(currentLang);
+
+/* ════════════════════════════════════════════════════════════
+   CATEGORY BAR JS — منطق التنقل (مستقل تماماً عن products[])
+   ════════════════════════════════════════════════════════════ */
+(function(){
+  const catButtons = document.querySelectorAll('#catBar .cat-btn');
+  const allCatSections = document.querySelectorAll('.cat-section');
+
+  catButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-cat-target');
+      const targetSection = document.getElementById(targetId);
+      if(!targetSection) return;
+
+      // إخفاء جميع أقسام التصنيفات أولاً
+      allCatSections.forEach(sec => sec.classList.remove('cat-section-visible'));
+
+      // إظهار القسم المطلوب فقط
+      targetSection.classList.add('cat-section-visible');
+
+      // تمييز الزر النشط
+      catButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      // الانتقال السلس إلى القسم المطلوب
+      targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // السحب اليدوي للشريط على الهاتف (سهولة إضافية في التمرير)
+  const catBar = document.getElementById('catBar');
+  if(catBar){
+    let isDown = false, startX, scrollLeft;
+    catBar.addEventListener('mousedown', e => {
+      isDown = true;
+      startX = e.pageX - catBar.offsetLeft;
+      scrollLeft = catBar.scrollLeft;
+    });
+    catBar.addEventListener('mouseleave', () => { isDown = false; });
+    catBar.addEventListener('mouseup', () => { isDown = false; });
+    catBar.addEventListener('mousemove', e => {
+      if(!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - catBar.offsetLeft;
+      catBar.scrollLeft = scrollLeft - (x - startX) * 1.2;
+    });
+  }
+})();
+</script>
+
+<!-- ═══════════════════════════════════════════════
+     🔧 نظام التحكم عن بعد — ON / OFF
+     غيّر SITE_KEY إلى "site2" في النسخة الثانية
+     ═══════════════════════════════════════════════ -->
+<script>
+(function() {
+  // ⬇️ ضع هنا رابط الـ raw لملف config.json على GitHub
+  const CONFIG_URL = "https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/config.json";
+  const SITE_KEY   = "site2"; // ← "site2" في النسخة الثانية
+
+  const overlay = document.getElementById('site-closed-overlay');
+
+  fetch(CONFIG_URL + "?t=" + Date.now())
+    .then(r => r.json())
+    .then(data => {
+      if (data[SITE_KEY]?.active === false) {
+        // أوقف الموقع: أظهر صفحة المغلق + امنع التمرير
+        overlay.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+      // إذا active = true لا يحدث شيء، الموقع يعمل طبيعياً
+    })
+    .catch(() => {
+      // فشل الفحص → الموقع يعمل افتراضياً (لا نعاقب الزائر بالخطأ)
+    });
+})();
+</script>
+</body>
+</html>
