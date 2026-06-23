@@ -1,4 +1,4 @@
 {
-  "site1": { "active": false },
+  "site1": { "active": true },
   "site2": { "active": true }
 }
